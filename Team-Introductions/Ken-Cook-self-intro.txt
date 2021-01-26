@@ -1,0 +1,30 @@
+
+CPS298 Professional Team Programming Section 01 Widnter 2021
+
+Kenneth (Ken) Cook - A-Team Lead
+
+My name is Ken Cook
+I live in Ann Arbor with my wife an dour son.
+I'm working on my associates degree in computer science in Java here at WCC and plan to graduate this May.
+I hope to transfer to Eastern and earn a bachelors degree in computer science.
+
+I enjoy cooking, playing games on my Nintendo switch, listening to music, and building electronic projects.
+
+I work full time as a computer systems engineer for an automotive supplier with head quarters in the down river area.
+The company has seven locations in the midwest
+
+I have worked on many different programming projects, mostly as a single programmer. 
+At work there are three of us that update and develop code for our main inventory control systems.
+
+I was hired as a developer to write EDI translation software.
+Currently I am responsible for all networking, email, and phone systems in the plants.
+I am the lead linux admin, and co-admin for our VMware high availability cluster.
+I still help with our EDI translator code and backup the main developer.
+
+I have worked on one team project - five people writing a robot simulation and offline programming system for a custom Unix workstation.
+We spent months designing the overall program and data structure, writing small prototype portions to verify our assumptions.
+It was a multi-year effort.
+
+I look forward to working with everyone on our team and hope we have a successful semester.
+
+

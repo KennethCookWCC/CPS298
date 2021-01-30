@@ -1,0 +1,6 @@
+git in windows 10 cmd
+
+cd into repository directoy on my local machine
+
+git branch KennethCook
+

@@ -1,1 +1,3 @@
-Hello everyone! My name is George Henning. I am currently working toward an Associate’s Degree in Java programming. I have experience with Java, Javascript, HTML, CSS, PHP and SQL. Aside from programming, my hobbies include watching sports, playing guitar and listening to music. I’m looking forward to a productive semester and delivering an exciting and polished group project!
+Hello everyone! My name is George Henning. I am currently working toward an Associate’s Degree in Java programming. I have experience with Java, Javascript, HTML, CSS, PHP and SQL. 
+
+Aside from programming, my hobbies include watching sports, playing guitar and listening to music. I’m looking forward to a productive semester and delivering an exciting and polished group project!

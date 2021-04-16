@@ -1,6 +1,9 @@
 # CPS298
 Team project - The "A Team"
 
+Our application is "TicketBooker"
+a web based movie ticket selling application for a single theater with multiple screens.
+
 With Ken Cook, Nicole Williams, Aidan Smith, Brian Touvila, George Henning
 
 We have a team zoom meeting every Sunday at 5 PM.

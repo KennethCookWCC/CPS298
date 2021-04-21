@@ -77,6 +77,7 @@ public class MovieServlet extends HttpServlet {
 //			request.setAttribute("message", "this is my message. u have received it.");
 			request.setAttribute("msg", "this is my message. u have received it.");
 			
+			
 			HttpSession session = request.getSession(false);
 			if (session == null) {
 				CartBean cartBean = new CartBean();

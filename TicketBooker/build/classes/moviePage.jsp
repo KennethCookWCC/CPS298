@@ -30,6 +30,7 @@
          -->
 
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+        <link href="bootstrap4-glyphicons/css/bootstrap-glyphicons.css" rel="stylesheet">
         <link rel="stylesheet" href="/TicketBooker/css/style.css">
         <style>
              
@@ -65,21 +66,49 @@
 
 
             <!--NAVBAR-->
-
-            <nav class="navbar navbar-custom navbar-expand-lg navbar-light bg-light">
+<!--             <nav class="navbar navbar-expand-lg navbar-light bg-light">
+  				<a class="navbar-brand" href="#">Navbar w/ text</a>
+ 					 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+    					<span class="navbar-toggler-icon"></span>
+  					</button>
+				  <div class="collapse navbar-collapse" id="navbarText">
+				    <ul class="navbar-nav mr-auto">
+				      <li class="nav-item active">
+				        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+				      </li>
+				      <li class="nav-item">
+				        <a class="nav-link" href="#">Features</a>
+				      </li>
+				      <li class="nav-item">
+				        <a class="nav-link" href="#">Pricing</a>
+				      </li>
+				    </ul>
+				    <span class="navbar-text">
+				      Navbar text with an inline element
+				    </span>
+  					</div>
+			</nav>
+ -->
+           <nav class="navbar navbar-custom navbar-expand-lg navbar-light bg-light">
 				<div class="container-fluid">
    					<a class="navbar-brand" href="#">Ticket Booker</a>
     				<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
       					<span class="navbar-toggler-icon"></span>
     				</button>
+    				
+    				
     				<div class="collapse navbar-collapse" id="navbarNavAltMarkup">
       					<div class="navbar-nav">
         					<a class="nav-link" href="/TicketBooker/MovieServlet">Movies</a>
        						<a class="nav-link" href="#">Prices</a>
      					</div>
-    				</div>
+					     <div class="ms-auto">
+					     	<a href="/TicketBooker/ShowCartServlet" >${cart.count()}</a>
+					     	<img src="/TicketBooker/img/cartIcon1.png" height="25px" width="25px"/>
+						</div>
+    				</div>     
   				</div>
-			</nav>
+			</nav> 
 
 			
 <%-- 			<div>
@@ -94,18 +123,18 @@
             <div class="container text-center">    
                 <br><br><h1><strong>Now Playing</strong></h1>
                 <p><strong>Click on a show time to buy tickets:</strong></p><br>
-                <h2>Test: ${cart.test}</h2>
                 <div class="row row-no-gutters" id="movieRow">
                 
                     <!--MOVIE 1-->
                     
                     <c:forEach items="${ml}" var="movie">
                     
-	                    <div class="col-md-2 col-half-offset">
+	                    <div class="col-md-3 col-lg-4 col-xl-3">
 	                        <img src="img/${movie.imageLink}" class="img-responsive" style="width:100%" alt="Image">
-	                            <h4>${movie.getTitle()}</h4>
-	                            <div class="card card-body bg-light">
-	                                <p>Times:</p>
+<!-- 	                            <div class="titleDiv"> -->
+	                            	<h4>${movie.getTitle()}</h4>
+	                           <!--  </div> -->	                            <div class="card card-body bg-light">
+<!-- 	                                <p>Times:</p> -->
 	                                        <c:forEach items="${showings}" var="showing">
 	                                        	<c:if test = "${movie.id == showing.movieId}">
 							                    	<a class="card-link" href="/TicketBooker/ShowingServlet?showingId=${showing.showingId}" role="button"><fmt:formatDate value="${showing.time}" pattern="hh:mm a" /></a> 
@@ -128,7 +157,7 @@
                         <div class="col-sm-3">
                         </div>
                         <div class="col-sm-6">
-                            <div class="well well-lg text-center">
+                            <div class="card card-body text-center">
                                 <p style="padding-top: 8px"><strong>Matinee (11am-3pm) </strong> $5.00 | <strong>Standard </strong> $10.00 </p>
                             </div>
                         </div>

@@ -26,8 +26,14 @@ public class MovieListBean implements Serializable {
 	public List<ShowingBean> loadFromDBAfterTime(Connection conn, Date date) throws SQLException {
 //		PreparedStatement moviesStmt = conn.prepareStatement("SELECT movie.title, movie.id, movie.image_link, movie.rated FROM movie JOIN showing ON movie.id = showing.movie_id;");
 		PreparedStatement moviesStmt = conn.prepareStatement("SELECT movie.title, movie.id, movie.image_link, movie.rated FROM movie;");
-		PreparedStatement showingsStmt = conn.prepareStatement("SELECT time, showing.id, showing.movie_id FROM showing WHERE movie_id = ? ORDER BY time");
-				
+		PreparedStatement showingsStmt = conn.prepareStatement("SELECT time, showing.id, showing.movie_id FROM showing WHERE movie_id = ? AND date=? ORDER BY time");
+		
+		java.sql.Date sqlDate = new java.sql.Date(121,0,15);
+		
+		System.out.println("Date: "+ sqlDate.toString());
+		
+		showingsStmt.setDate(2,sqlDate);
+		
 //		moviesStmt.setDate(1, date);
 //		moviesStmt.setTime(2, time);
 		ResultSet results = moviesStmt.executeQuery();

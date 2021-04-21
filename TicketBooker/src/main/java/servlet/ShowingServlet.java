@@ -58,20 +58,20 @@ public class ShowingServlet extends HttpServlet {
 			request.setAttribute("seatList", seatList);
 			
 			
-			HttpSession session = request.getSession(false);
-			if (session == null) {
-				CartBean cartBean = new CartBean();
-				
-			    // Not created yet. Now do so yourself.
-			    session = request.getSession();
-			    session.setAttribute("cart", cartBean);
-			} else {
-			    // Already created.
-				CartBean cart = (CartBean) session.getAttribute("cart");
-				String test = cart.getTest();
-				cart.setTest(test+" added");
-				session.setAttribute("cart", cart);
-			}
+//			HttpSession session = request.getSession(false);
+//			if (session == null) {
+//				CartBean cartBean = new CartBean();
+//				
+//			    // Not created yet. Now do so yourself.
+//			    session = request.getSession();
+//			    session.setAttribute("cart", cartBean);
+//			} else {
+//			    // Already created.
+//				CartBean cart = (CartBean) session.getAttribute("cart");
+//				String test = cart.getTest();
+//				cart.setTest(test+" added");
+//				session.setAttribute("cart", cart);
+//			}
 			
 		} catch (SQLException e) {
 			e.printStackTrace();

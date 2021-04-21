@@ -46,6 +46,14 @@ public class CartBean implements Serializable {
 		}
 		return contained;
 	}
+	public int count() {
+		if(cart != null) {
+			return cart.size();
+		}
+		else {
+			return 0;
+		}
+	}
 //	test function to load all tickets for user 1 into cart
 	public void loadTicketsForCust(Connection conn) throws SQLException {
 //		PreparedStatement stmt = conn.prepareStatement("SELECT showing.id, showing.date, showing.time, movie.title, movie.rated, movie.release_date, movie.image_link, screen.name, screen.max_rows, screen.max_cols FROM showing JOIN movie ON showing.movie_id = movie.id JOIN screen ON showing.screen_id = screen.id");

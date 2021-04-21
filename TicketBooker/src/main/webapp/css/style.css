@@ -5,7 +5,7 @@
 .seat-container{
 /* 	padding-left:10%;
 	padding-right: 10%; */
-	padding-top: 2rem;
+/* 	padding-top: 2rem; */
 	min-width: 480px;
 /* 	background-color: #e8ebed; */
 	margin-bottom: 1rem;
@@ -108,10 +108,19 @@ a:hover {
 margin-right: 1rem; */
 margin-top: 1rem;
 }
+.cartLink{
+	background: url(/TicketBooker/img/cartIcon1.png) 3px 1px no-repeat;
+}
 .movieInfo{
 	margin-top:1rem;
 	margin-bottom: 1rem;
 }
+.card{
+	margin-bottom: 2rem;
+}
+/* .titleDiv{
+	height: 8rem;
+} */
 ul{
 	list-style: none;
 	padding-left: 0;
@@ -122,6 +131,12 @@ ul button{
 h5{
 	text-align:center;
 }
+h4{
+	margin-top: 1rem;
+}
 .card-link+.card-link {
     margin-left: 0rem! important;
+}
+a{
+	text-decoration: none;
 }

@@ -27,49 +27,58 @@
 	<link rel="stylesheet" href="/TicketBooker/css/style.css">
 </head>
 <body id="body">
-	<nav class="navbar navbar-custom navbar-expand-lg navbar-light bg-light">
+	<nav
+		class="navbar navbar-custom navbar-expand-lg navbar-light bg-light">
 		<div class="container-fluid">
-   			<a class="navbar-brand" href="/TicketBooker/MovieServlet">Ticket Booker</a>
-    		<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    		</button>
-    		<div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-      		<div class="navbar-nav">
-        		<a class="nav-link" href="/TicketBooker/MovieServlet">Movies</a>
-       			<a class="nav-link" href="#">Prices</a>
-     		</div>
-    	</div>
-  		</div>
+			<a class="navbar-brand" href="#">Ticket Booker</a>
+			<button class="navbar-toggler" type="button"
+				data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
+				aria-controls="navbarNavAltMarkup" aria-expanded="false"
+				aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+
+			<div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+				<div class="navbar-nav">
+					<a class="nav-link" href="/TicketBooker/MovieServlet">Movies</a> 
+					<a class="nav-link" href="#">Prices</a>
+				</div>
+				<div class="ms-auto">
+					<a href="/TicketBooker/ShowCartServlet">${cart.count()}</a> <img
+						src="/TicketBooker/img/cartIcon1.png" height="25px" width="25px" />
+				</div>
+			</div>
+		</div>
 	</nav>
+	
 <div class="container-fluid text-center movieInfo d-block ">
 	<h2 id="showing" data-showingId="${showing.showingId }">${showing.getMovie().getTitle()}</h2>
 	<h3><%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %> <fmt:formatDate value="${showing.time}" pattern="hh:mm a" /></h3>
-	<h3>Test: ${cart.test}</h3>
 </div>
 <div class="container-fluid ">
 	<div class="row contentContainer">
 		<div class="col d-none d-lg-block ">
 	  		<div class="row posterInfo">
-				<img class="poster" alt="" src="img/${showing.getMovie().getImageLink()}">
+				<img class="img-responsive mx-auto" alt="" src="img/${showing.getMovie().getImageLink()}">
 				<div class="posterDetails">
 					<h5>${showing.getMovie().getTitle()}</h5>
 					<p><fmt:formatDate value="${showing.time}" pattern="hh:mm a" /></p>
 				</div>
 			</div>
 		</div> 
-		<div class="col">
+		<div class="col-md-8 col-lg-6">
 			<div class="seat-container ">
 				<t:showingSeats seatList="${seatList}" showing="${showing}"/>
 			</div> <!--close seat container  -->
 		</div> <!-- close col-8  -->
-		<div class="col-md-3 cartModule card ">
+		<div class="col-md-3 col-lg-3 col-xl-2 cartModule card ">
 					<p>Selected Seats: </p>
 					<ul id="cartList">
 						<li>&nbsp;</li>	
 					</ul>
 					<form action="ShowCartServlet" id="cartForm" method="post">
 						<input type="hidden" name="testAttr" value="setting testAttr">
-						<input type="submit" value="submitBtn">
+<!-- 						<input type="submit" value="submitBtn"> -->
 					</form>
 		</div>
 	</div> <!-- close row -->

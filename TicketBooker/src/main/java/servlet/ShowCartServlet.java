@@ -79,7 +79,10 @@ public class ShowCartServlet extends HttpServlet {
 					TicketBean ticket = new TicketBean();
 					ticket.setId(Integer.parseInt(seatIds[i]));
 					ticket.setShowing_id(Integer.parseInt(showingId));
-					cb.addTicket(ticket);
+					if (!cb.containsTicket(Integer.parseInt(showingId), Integer.parseInt(seatIds[i]))) {
+						cb.addTicket(ticket);
+					}
+
 				}
 
 				session.setAttribute("cart", cb);

@@ -22,14 +22,16 @@ function addSeat(target){
 				formStr += hiddenSeat;
 				
 			})
-			var btnStr = '<button class="btn btn-primary">Add to Cart</button>';
-			if (cartArr.length>= 1){
-				cartStr += btnStr;
-			}
-			
+
 			showingId = document.getElementById("showing").getAttribute("data-showingId");
 			formStr += '<input type="hidden" name="showingId" value='+showingId+'>';
-			formStr += '<input type="submit" name="submit" value="submit">';
+			
+			if (cartArr.length>= 1){
+				formStr += '<input type="submit" class="btn btn-primary" name="submit" value="Add to Cart">';	
+			}
+			
+			
+			
 			
 			document.getElementById("cartList").innerHTML = cartStr;
 			document.getElementById("cartForm").innerHTML = formStr;
@@ -51,18 +53,33 @@ function removeSeat(seatId){
 
 	console.log("found for removal: "+forRemoval);
 	cartArr.splice(forRemoval,1);
+	console.log("cartArr after removal: "+cartArr);
 	
 	cartStr="";
-			cartArr.forEach(function(seat){
+	formStr="";
+	var showingId="";
+			
+	cartArr.forEach(function(seat){
 				let seatStr = "<li>Row "+seat.dataset.row+", Seat "+seat.dataset.number+"</li>";
 				cartStr += seatStr;
-			})
-			var btnStr = '<button class="btn btn-primary">Add to Cart</button>';
-			if (cartArr.length>= 1){
-				cartStr += btnStr;
-			}
-			document.getElementById("cartList").innerHTML = cartStr;
+				
+				let hiddenSeat= '<input type="hidden" name="id" value="'+seat.getAttribute('id')+'">';
+				formStr += hiddenSeat;
+	})
 	
+	
+
+	showingId = document.getElementById("showing").getAttribute("data-showingId");
+	formStr += '<input type="hidden" name="showingId" value='+showingId+'>';
+	if (cartArr.length>= 1){
+	
+		formStr += '<input type="submit" class="btn btn-primary" name="submit" value="Add to Cart">';
+	}
+	
+	
+	
+	document.getElementById("cartList").innerHTML = cartStr;
+	document.getElementById("cartForm").innerHTML = formStr;
 }
 function clickSeat(){	
 	var target = event.target;
@@ -100,21 +117,3 @@ for(i=0; i<5; i++){
 	}
 	
 }
-
-
-function printMsg(){
-	var target = event.target;
-	var targetId= target.getAttribute('id');
-	var targetClasses = target.classList;
-	console.log("you clicked: "+ targetId);
-	console.log("classes: "+ targetClasses);
-}
-
-/*
-var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
-var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
-    this.addEventListener('hide.bs.tooltip', function () {
-        new bootstrap.Tooltip(tooltipTriggerEl)
-    })
-    return new bootstrap.Tooltip(tooltipTriggerEl)
-}); */

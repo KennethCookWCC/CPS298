@@ -24,7 +24,7 @@
                 <label for="YES">YES</label>
                 <input type="radio" id="YES" name="confirm" value="YES"/>
                 <label for="NO">NO</label>
-                <input type="radio" id="NO" name="confirm" value="NO" checked="x"/>
+                <input type="radio" id="NO" name="confirm" value="NO" checked/>
                 <br><br>
                 <input type="submit" name="action" value="DROP TABLE"/>
                 <input type="submit" name="action" value="CREATE TABLE"/>

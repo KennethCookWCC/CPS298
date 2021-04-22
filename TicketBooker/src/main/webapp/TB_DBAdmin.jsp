@@ -41,7 +41,9 @@
                 <option value="seat">seat</option> 
                 <option value="showing">showing</option> 
                 <option value="ticket">ticket</option> 
-                <option value="ticket_seat">ticket_seat</option> 
+                <option value="purchase">ticket_seat</option> 
+                <option value="refund">ticket_seat</option>
+                <option value="admin">ticket_seat</option>
             </select>
             &nbsp;
             <input type="submit" name="action" value="DESCRIBE TABLE"/>

@@ -119,37 +119,71 @@
                 </c:forEach>
             </div> --%>
             <!--NOW PLAYING, IMAGES, SHOWTIMES-->
+			<div id="dateSelectDiv">
+				<form action="/TicketBooker/MovieServlet" method="POST">
+					<select name="date">
+						<c:forEach items="${showingDates}" var="date">
+							<option value="${date}">${date}</option>
+						</c:forEach>
+					</select>
+					<input type="submit" name="submit" value="Go"/>
+				</form>
+			</div>
+	<div class="container text-center">
+		<br>
+		<br>
+		<h1>
+			<strong>Now Playing</strong>
+		</h1>
+		<p>
+			<strong>Click on a show time to buy tickets:</strong>
+		</p>
+		<br>
+		<div class="row row-no-gutters" id="movieRow">
 
-            <div class="container text-center">    
-                <br><br><h1><strong>Now Playing</strong></h1>
-                <p><strong>Click on a show time to buy tickets:</strong></p><br>
-                <div class="row row-no-gutters" id="movieRow">
-                
-                    <!--MOVIE 1-->
-                    
-                    <c:forEach items="${ml}" var="movie">
-                    
-	                    <div class="col-md-3 col-lg-4 col-xl-3">
-	                        <img src="img/${movie.imageLink}" class="img-responsive" style="width:100%" alt="Image">
-<!-- 	                            <div class="titleDiv"> -->
-	                            	<h4>${movie.getTitle()}</h4>
-	                           <!--  </div> -->	                            <div class="card card-body bg-light">
-<!-- 	                                <p>Times:</p> -->
-	                                        <c:forEach items="${showings}" var="showing">
-	                                        	<c:if test = "${movie.id == showing.movieId}">
-							                    	<a class="card-link" href="/TicketBooker/ShowingServlet?showingId=${showing.showingId}" role="button"><fmt:formatDate value="${showing.time}" pattern="hh:mm a" /></a> 
-        										</c:if>
-                							</c:forEach>
-	                            </div>
-	                    </div>
-                    </c:forEach>
-                    
-                      
-            	</div>
-         	</div>
+			<!--MOVIE 1-->
+
+			<c:forEach items="${ml}" var="movie">
+				<div class="col-md-3 col-lg-4 col-xl-3">
+					<img src="img/${movie.imageLink}" class="img-responsive"
+						style="width: 100%" alt="Image">
+					<h4>${movie.getTitle()}</h4>
+					<div class="card card-body bg-light">
+						<c:forEach items="${showings}" var="showing">
+							<c:if test="${movie.id == showing.movieId}">
+								<a class="card-link"
+									href="/TicketBooker/ShowingServlet?showingId=${showing.showingId}"
+									role="button"><fmt:formatDate value="${showing.time}"
+										pattern="hh:mm a" /></a>
+							</c:if>
+						</c:forEach>
+					</div>
+				</div>
+			</c:forEach>
+<%-- 			<c:forEach items="${showings}" var="movie">
+				<div class="col-md-3 col-lg-4 col-xl-3">
+					<img src="img/${movie.imageLink}" class="img-responsive"
+						style="width: 100%" alt="Image">
+					<h4>${movie.getTitle()}</h4>
+					<div class="card card-body bg-light">
+						<c:forEach items="${showings}" var="showing">
+							<c:if test="${movie.id == showing.movieId}">
+								<a class="card-link"
+									href="/TicketBooker/ShowingServlet?showingId=${showing.showingId}"
+									role="button"><fmt:formatDate value="${showing.time}"
+										pattern="hh:mm a" /></a>
+							</c:if>
+						</c:forEach>
+					</div>
+				</div>
+			</c:forEach> --%>
 
 
-                <!--PRICES-->
+		</div>
+	</div>
+
+
+	<!--PRICES-->
 
                 <div class="container text-center" id="prices">
                     <h4>Prices:</h4>

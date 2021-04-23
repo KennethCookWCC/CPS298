@@ -57,10 +57,10 @@ public class ShowCartServlet extends HttpServlet {
 			String showingId = request.getParameter("showingId");
 			
 			if (session == null) {
-				CartBean cartBean = new CartBean();
-				
 			    // Not created yet. Now do so yourself.
+				
 			    session = request.getSession();
+			    CartBean cartBean = new CartBean();
 			    
 			    for(int i=0; i< seatIds.length; i++) {
 					TicketBean ticket = new TicketBean();
@@ -73,23 +73,22 @@ public class ShowCartServlet extends HttpServlet {
 			    // Already created.
 				CartBean cb = (CartBean) session.getAttribute("cart");
 				
-				for(int i=0; i< seatIds.length; i++) {
-					System.out.println("SeatID: "+seatIds[i]);
-					System.out.println("ShowingId: "+showingId);
-					TicketBean ticket = new TicketBean();
-					ticket.setId(Integer.parseInt(seatIds[i]));
-					ticket.setShowing_id(Integer.parseInt(showingId));
-					if (!cb.containsTicket(Integer.parseInt(showingId), Integer.parseInt(seatIds[i]))) {
-						cb.addTicket(ticket);
+				if(showingId != null && seatIds != null) { // if we have tickets to add, add them
+					for(int i=0; i< seatIds.length; i++) {
+						System.out.println("SeatID: "+seatIds[i]);
+						System.out.println("ShowingId: "+showingId);
+						TicketBean ticket = new TicketBean();
+						ticket.setId(Integer.parseInt(seatIds[i]));
+						ticket.setShowing_id(Integer.parseInt(showingId));
+						if (!cb.containsTicket(Integer.parseInt(showingId), Integer.parseInt(seatIds[i]))) {
+							cb.addTicket(ticket);
+						}
 					}
-
 				}
 
 				session.setAttribute("cart", cb);
 			}
 			
-
-
 		} catch (SQLException e) {
 			e.printStackTrace();
 			throw new ServletException(e);
@@ -101,15 +100,7 @@ public class ShowCartServlet extends HttpServlet {
 		
 		String testAttr = request.getParameter("testAttr");
 		request.setAttribute("testAttr", testAttr);
-		
-		
-		
-		
-		
-		
-//		String showingId = request.getParameter("showingId");
-//		session.setAttribute("cart", cart);
-		
+
 		RequestDispatcher dispatcher = servletContext.getRequestDispatcher("/ShowCart.jsp");
 		dispatcher.forward(request, response);		
 	}

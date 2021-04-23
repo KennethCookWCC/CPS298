@@ -28,11 +28,11 @@ public class MovieListBean implements Serializable {
 		PreparedStatement moviesStmt = conn.prepareStatement("SELECT movie.title, movie.id, movie.image_link, movie.rated FROM movie;");
 		PreparedStatement showingsStmt = conn.prepareStatement("SELECT time, showing.id, showing.movie_id FROM showing WHERE movie_id = ? AND date=? ORDER BY time");
 		
-		java.sql.Date sqlDate = new java.sql.Date(121,0,15);
+//		java.sql.Date sqlDate = new java.sql.Date(121,0,15);
 		
-		System.out.println("Date: "+ sqlDate.toString());
+//		System.out.println("Date: "+ sqlDate.toString());
 		
-		showingsStmt.setDate(2,sqlDate);
+		showingsStmt.setDate(2,date);
 		
 //		moviesStmt.setDate(1, date);
 //		moviesStmt.setTime(2, time);
@@ -70,9 +70,10 @@ public class MovieListBean implements Serializable {
 		System.out.println("sblist.toString(): "+ sblist.toString());
 		return sblist;
 	}
-	public List<MovieBean> loadMovies(Connection conn) throws SQLException{
-		PreparedStatement selectStmt = conn.prepareStatement("Select movie.title, movie.image_link, movie.id, movie.rated from movie");
+	public List<MovieBean> loadMovies(Connection conn, Date date) throws SQLException{
+		PreparedStatement selectStmt = conn.prepareStatement("Select movie.title, movie.image_link, movie.id, movie.rated from movie join showing on movie.id = showing.movie_id where showing.date=? group by movie.id");
 		PreparedStatement showingsStmt = conn.prepareStatement("SELECT time FROM showing WHERE movie_id = ? ORDER BY time");
+		selectStmt.setDate(1, date);
 		ResultSet results = selectStmt.executeQuery();
 		
 		List<MovieBean> list = new ArrayList<>();
@@ -89,7 +90,7 @@ public class MovieListBean implements Serializable {
 //				showingTimes.add(showingResults.getTime("time"));
 //			}
 			list.add(bean);
-			System.out.println(bean.toString());
+			System.out.println("load movies: "+bean.toString());
 		}
 		
 		setMovies(list);

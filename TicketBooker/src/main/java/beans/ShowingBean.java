@@ -151,17 +151,16 @@ public class ShowingBean implements Serializable {
 			return false;
 		}
 	}
-	public ArrayList<String> getShowingDates(Connection conn)throws SQLException{
-		ArrayList<String> dateStrArr = new ArrayList<String>();
+	public ArrayList<Date> getShowingDates(Connection conn)throws SQLException{
+		ArrayList<Date> dateArr = new ArrayList<Date>();
 		PreparedStatement stmt=conn.prepareStatement("SELECT date FROM showing GROUP BY date");
 		ResultSet results = stmt.executeQuery();
 		while(results.next()) {
-			
-			String date = results.getDate("date").toString();
-			System.out.println("date: "+date);
-			dateStrArr.add(date);
+			Date date = results.getDate("date");
+			System.out.println("date: "+date.toString());
+			dateArr.add(date);
 		}
-		return dateStrArr;
+		return dateArr;
 	}
 	private static Date getCurrentDay() {
 		return Date.from(LocalDate.now().atTime(0, 0, 0, 0).atZone(ZoneId.systemDefault()).toInstant());

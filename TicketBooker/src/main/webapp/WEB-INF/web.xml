@@ -26,6 +26,25 @@
         <url-pattern>/TB_DBAdmin_Servlet</url-pattern>
     </servlet-mapping>
  
+ 	<servlet>
+        <servlet-name>LoginCustServlet</servlet-name>
+        <servlet-class>servlet.LoginCustServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>LoginCustServlet</servlet-name>
+        <url-pattern>/LoginCustServlet</url-pattern>
+    </servlet-mapping>
+ 
+ 	<servlet>
+ 		<servlet-name>LoginCustomer.jsp</servlet-name>
+		<jsp-file>/loginCustomer.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>LoginCustomer.jsp</servlet-name>
+        <url-pattern>/LoginCustomerJSP</url-pattern>
+    </servlet-mapping>
+ 
+ 
     <session-config>
         <session-timeout>
             30

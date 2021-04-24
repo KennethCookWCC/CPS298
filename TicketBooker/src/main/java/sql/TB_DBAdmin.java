@@ -34,6 +34,7 @@ public class TB_DBAdmin {
         return stsMsg;
     }
 
+    @SuppressWarnings("unused")
     private static String doDescribeConsole(Statement stmt, HttpServletRequest req) {
         String func = "TB_DBAdmin:doDescribe";
 
@@ -102,6 +103,7 @@ public class TB_DBAdmin {
 
         ResultSet rs;
         ResultSetMetaData rsmd;
+        @SuppressWarnings("unused")
         int ncol;
 
         // validate sqltable
@@ -169,7 +171,8 @@ public class TB_DBAdmin {
     private static String doCreate(Statement stmt, HttpServletRequest req) {
         String func = "TB_DBAdmin:doCreate";
 
-        int ncol;
+        @SuppressWarnings("unused")
+        //int ncol;
         int rows;
 
         String sql = "CREATE TABLE people ( "
@@ -202,7 +205,7 @@ public class TB_DBAdmin {
     private static String doDrop(Statement stmt, HttpServletRequest req) {
         String func = "TB_DBAdmin:doDrop";
 
-        int ncol;
+        @SuppressWarnings("unused")
         int rows;
 
         String sql = "DROP TABLE people;";
@@ -224,12 +227,13 @@ public class TB_DBAdmin {
         return ("TABLE people DROPPED");
     }
 
+    @SuppressWarnings("unused")
     private static String doStatus(Statement stmt, HttpServletRequest req) {
         String func = "TB_DBAdmin:doStatus";
 
         ResultSet rs;
-        ResultSetMetaData rsmd;
-        int ncol;
+        //ResultSetMetaData rsmd;
+        //int ncol;
         String strRows = "0" ;
 
         req.setAttribute("stsMsg", "" );
@@ -241,7 +245,7 @@ public class TB_DBAdmin {
             System.out.println(sql);
 
             rs = stmt.executeQuery(sql);
-            rsmd = rs.getMetaData();
+            //rsmd = rs.getMetaData();
             
             System.out.println("SELECT COUNT executed");
 
@@ -265,8 +269,8 @@ public class TB_DBAdmin {
         String func = "TB_DBAdmin:doCount";
 
         ResultSet rs;
-        ResultSetMetaData rsmd;
-        int ncol;
+        //ResultSetMetaData rsmd;
+        //int ncol;
         String strRows = "0" ;
 
         req.setAttribute("stsMsg", "" );
@@ -278,7 +282,7 @@ public class TB_DBAdmin {
             System.out.println(sql);
 
             rs = stmt.executeQuery(sql);
-            rsmd = rs.getMetaData();
+            //rsmd = rs.getMetaData();
             
             System.out.println("SELECT COUNT executed");
 
@@ -301,8 +305,8 @@ public class TB_DBAdmin {
     public static String update(Statement stmt, HttpServletRequest req) {
         //HttpSession session = pgCtx.getSession();
         // String errMesg = "";
-        int idx;
-        String strIdx;
+        //int idx;
+        //String strIdx;
         String sqltbl;
 
         errMsg = "No errors";

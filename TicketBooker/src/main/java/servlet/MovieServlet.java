@@ -80,7 +80,7 @@ public class MovieServlet extends HttpServlet {
 			
 //			String showingDate = (String) request.getAttribute("showingDate");
 			//get movie dates
-			ArrayList<String> showingDates = showingBean.getShowingDates(conn);
+			ArrayList<java.util.Date> showingDates = showingBean.getShowingDates(conn);
 			
 			//query db for showings on that day
 			sl = movieListBean.loadFromDBAfterTime(conn, date);
@@ -96,6 +96,7 @@ public class MovieServlet extends HttpServlet {
 //			request.setAttribute("movieList", movieListBean);
 			request.setAttribute("showings", sl);
 			request.setAttribute("ml",ml);
+			request.setAttribute("dateParam",dateParam);
 			
 			request.setAttribute("showingDates",showingDates);
 			System.out.println("showingDates: "+showingDates.toString());

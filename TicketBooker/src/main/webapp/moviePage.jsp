@@ -64,31 +64,7 @@
         </head>
         <body>
 
-
             <!--NAVBAR-->
-<!--             <nav class="navbar navbar-expand-lg navbar-light bg-light">
-  				<a class="navbar-brand" href="#">Navbar w/ text</a>
- 					 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
-    					<span class="navbar-toggler-icon"></span>
-  					</button>
-				  <div class="collapse navbar-collapse" id="navbarText">
-				    <ul class="navbar-nav mr-auto">
-				      <li class="nav-item active">
-				        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-				      </li>
-				      <li class="nav-item">
-				        <a class="nav-link" href="#">Features</a>
-				      </li>
-				      <li class="nav-item">
-				        <a class="nav-link" href="#">Pricing</a>
-				      </li>
-				    </ul>
-				    <span class="navbar-text">
-				      Navbar text with an inline element
-				    </span>
-  					</div>
-			</nav>
- -->
            <nav class="navbar navbar-custom navbar-expand-lg navbar-light bg-light">
 				<div class="container-fluid">
    					<a class="navbar-brand" href="#">Ticket Booker</a>
@@ -100,7 +76,7 @@
     				<div class="collapse navbar-collapse" id="navbarNavAltMarkup">
       					<div class="navbar-nav">
         					<a class="nav-link" href="/TicketBooker/MovieServlet">Movies</a>
-       						<a class="nav-link" href="#">Prices</a>
+       						<a class="nav-link" href="#prices">Prices</a>
      					</div>
 					     <div class="ms-auto">
 					     	<a href="/TicketBooker/ShowCartServlet" >${cart.count()}</a>
@@ -110,7 +86,6 @@
   				</div>
 			</nav> 
 
-			
 <%-- 			<div>
                 <c:forEach items="${showings}" var="showing">
                 	<p>found</p>
@@ -119,28 +94,37 @@
                 </c:forEach>
             </div> --%>
             <!--NOW PLAYING, IMAGES, SHOWTIMES-->
-			<div id="dateSelectDiv">
+			
+	<div class="container text-center">
+		<div class="row row-no-gutters" id="movieRow">
+            <div id="nowPlaying">
+            	<br>
+				<br>
+				<h1>
+					<strong>Now Playing</strong>
+				</h1>
+				<p>
+					<strong>Click on a show time to buy tickets:</strong>
+				</p>
+				<br>
+            </div>
+			<div id="dateSelectDiv mx-auto">
 				<form action="/TicketBooker/MovieServlet" method="POST">
 					<select name="date">
 						<c:forEach items="${showingDates}" var="date">
-							<option value="${date}">${date}</option>
+							<c:choose>
+							<c:when test="${dateParam == date.toString()}">
+								<option value="${date}" selected>${date.toGMTString()}</option>
+							</c:when>
+							<c:otherwise>
+								<option value="${date}">${date.toGMTString()}</option>
+							</c:otherwise>
+							</c:choose>
 						</c:forEach>
 					</select>
 					<input type="submit" name="submit" value="Go"/>
 				</form>
 			</div>
-	<div class="container text-center">
-		<br>
-		<br>
-		<h1>
-			<strong>Now Playing</strong>
-		</h1>
-		<p>
-			<strong>Click on a show time to buy tickets:</strong>
-		</p>
-		<br>
-		<div class="row row-no-gutters" id="movieRow">
-
 			<!--MOVIE 1-->
 
 			<c:forEach items="${ml}" var="movie">
@@ -160,25 +144,6 @@
 					</div>
 				</div>
 			</c:forEach>
-<%-- 			<c:forEach items="${showings}" var="movie">
-				<div class="col-md-3 col-lg-4 col-xl-3">
-					<img src="img/${movie.imageLink}" class="img-responsive"
-						style="width: 100%" alt="Image">
-					<h4>${movie.getTitle()}</h4>
-					<div class="card card-body bg-light">
-						<c:forEach items="${showings}" var="showing">
-							<c:if test="${movie.id == showing.movieId}">
-								<a class="card-link"
-									href="/TicketBooker/ShowingServlet?showingId=${showing.showingId}"
-									role="button"><fmt:formatDate value="${showing.time}"
-										pattern="hh:mm a" /></a>
-							</c:if>
-						</c:forEach>
-					</div>
-				</div>
-			</c:forEach> --%>
-
-
 		</div>
 	</div>
 

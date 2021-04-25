@@ -53,7 +53,7 @@
 	
 <div class="container-fluid text-center movieInfo d-block ">
 	<h2 id="showing" data-showingId="${showing.showingId }">${showing.getMovie().getTitle()}</h2>
-	<h3><%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %> <fmt:formatDate value="${showing.time}" pattern="hh:mm a" /></h3>
+	<h3><%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %> <fmt:formatDate type="date" value="${showing.date}" /> &nbsp; <fmt:formatDate value="${showing.time}" pattern="hh:mm a" /></h3>
 </div>
 <div class="container-fluid ">
 	<div class="row contentContainer">

@@ -31,14 +31,14 @@ import sql.UserDAO;
  *
  * setup session
  */
-//@WebServlet("/AdminLoginServlet")
-public class AdminLoginServlet extends HttpServlet {
+@WebServlet("/AdminServlet")
+public class AdminServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public AdminLoginServlet() {
+	public AdminServlet() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
@@ -51,7 +51,7 @@ public class AdminLoginServlet extends HttpServlet {
 		}
 	}
 
-		/**
+	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
 	 *      response)
 	 */

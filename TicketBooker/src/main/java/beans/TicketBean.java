@@ -12,6 +12,7 @@ public class TicketBean implements Serializable {
 	private int ticketId;
 	private int customer_id;
 	private int showing_id;
+	private int price;
 	public int getId() {
 		return this.ticketId;
 	}
@@ -29,6 +30,12 @@ public class TicketBean implements Serializable {
 	}
 	public void setShowing_id(int showing_id) {
 		this.showing_id = showing_id;
+	}
+	public int getPrice() {
+		return price;
+	}
+	public void setPrice(int price) {
+		this.price = price;
 	}
 	
 }

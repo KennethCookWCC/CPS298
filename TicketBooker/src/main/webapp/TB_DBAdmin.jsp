@@ -24,7 +24,7 @@
                 <label for="YES">YES</label>
                 <input type="radio" id="YES" name="confirm" value="YES"/>
                 <label for="NO">NO</label>
-                <input type="radio" id="NO" name="confirm" value="NO" checked="x"/>
+                <input type="radio" id="NO" name="confirm" value="NO" checked/>
                 <br><br>
                 <input type="submit" name="action" value="DROP TABLE"/>
                 <input type="submit" name="action" value="CREATE TABLE"/>
@@ -41,7 +41,9 @@
                 <option value="seat">seat</option> 
                 <option value="showing">showing</option> 
                 <option value="ticket">ticket</option> 
-                <option value="ticket_seat">ticket_seat</option> 
+                <option value="purchase">purchase</option> 
+                <option value="refund">refund</option>
+                <option value="admin">admin</option>
             </select>
             &nbsp;
             <input type="submit" name="action" value="DESCRIBE TABLE"/>

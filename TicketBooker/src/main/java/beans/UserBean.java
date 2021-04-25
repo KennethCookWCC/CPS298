@@ -6,17 +6,21 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class AdminBean implements Serializable {
+public class UserBean implements Serializable {
+	private static final long serialVersionUID = 1L;
 	private int id;
+	private boolean isAdmin;
+	private boolean loginOK;
 	private String name;
 	private String login;
-	private String passwd;
+	// private String passwd;
 	private String email;
 	
 
 	/**
 	 * Loads from the database. Returns false if no ID match is found.
 	 */
+	/*
 	public boolean loadFromDatabase(Connection conn, int id) throws SQLException {
 		this.id = id;
 		PreparedStatement stmt = conn.prepareStatement("SELECT name, login, passwd, email FROM admin WHERE id = ?");
@@ -30,6 +34,7 @@ public class AdminBean implements Serializable {
 		}
 		return false;
 	}
+	*/
 	
 	public int getId() {
 		return id;
@@ -37,6 +42,7 @@ public class AdminBean implements Serializable {
 	public void setId(int id) {
 		this.id = id;
 	}
+
 	public String getName() {
 		return name;
 	}
@@ -49,18 +55,36 @@ public class AdminBean implements Serializable {
 	public void setLogin(String login) {
 		this.login = login;
 	}
+	/*
 	public String getPasswd() {
 		return passwd;
 	}
 	public void setPasswd(String passwd) {
 		this.passwd = passwd;
 	}
+	*/
 	public String getEmail() {
 		return email;
 	}
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	public boolean isAdmin() {
+		return isAdmin;
+	}
+
+	public void setAdmin(boolean isAdmin) {
+		this.isAdmin = isAdmin;
+	}
+
+	public boolean isLoginOK() {
+		return loginOK;
+	}
+
+	public void setLoginOK(boolean loginOK) {
+		this.loginOK = loginOK;
 	}
 
 }

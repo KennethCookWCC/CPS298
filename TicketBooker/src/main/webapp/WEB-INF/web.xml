@@ -27,12 +27,12 @@
     </servlet-mapping>
  
  	<servlet>
-        <servlet-name>LoginCustServlet</servlet-name>
-        <servlet-class>servlet.LoginCustServlet</servlet-class>
+        <servlet-name>CustLoginServlet</servlet-name>
+        <servlet-class>servlet.CustLoginServlet</servlet-class>
     </servlet>
     <servlet-mapping>
-        <servlet-name>LoginCustServlet</servlet-name>
-        <url-pattern>/LoginCustServlet</url-pattern>
+        <servlet-name>CustLoginServlet</servlet-name>
+        <url-pattern>/CustLoginServlet</url-pattern>
     </servlet-mapping>
  
  	<servlet>
@@ -42,6 +42,24 @@
     <servlet-mapping>
         <servlet-name>LoginCustomer.jsp</servlet-name>
         <url-pattern>/LoginCustomerJSP</url-pattern>
+    </servlet-mapping>
+ 
+	<servlet>
+        <servlet-name>AdminLoginServlet</servlet-name>
+        <servlet-class>servlet.AdminLoginServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AdminLoginServlet</servlet-name>
+        <url-pattern>/AdminLoginServlet</url-pattern>
+    </servlet-mapping>
+ 
+ 	<servlet>
+ 		<servlet-name>LoginAdmin.jsp</servlet-name>
+		<jsp-file>/loginAdmin.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>LoginAdmin.jsp</servlet-name>
+        <url-pattern>/LoginAdminJSP</url-pattern>
     </servlet-mapping>
  
  

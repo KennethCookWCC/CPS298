@@ -48,7 +48,15 @@ public class SeatBean implements Serializable {
 	// gets all sets for showing id
 	public List<SeatBean> getAllSeats(Connection conn, int showingId) throws SQLException{
 		List<SeatBean> seatList = new ArrayList<>();
-		PreparedStatement selectStmt = conn.prepareStatement(" Select seat.id, seat.row, seat.seat_number from seat join screen on seat.screen_id= screen.id join showing on screen.id = showing.screen_id where showing.id=?");
+		String sql = "";
+		sql += "SELECT seat.id, seat.row, seat.seat_number " ;
+		sql += "FROM seat " ;
+		sql += "JOIN screen ON seat.screen_id = screen.id " ;
+		sql += "JOIN showing ON screen.id = showing.screen_id ";
+		sql += "WHERE showing.id=?";
+		
+		// PreparedStatement selectStmt = conn.prepareStatement(" Select seat.id, seat.row, seat.seat_number from seat join screen on seat.screen_id= screen.id join showing on screen.id = showing.screen_id where showing.id=?");
+		PreparedStatement selectStmt = conn.prepareStatement( sql );
 		selectStmt.setInt(1, showingId);
 		ResultSet results = selectStmt.executeQuery();
 		while(results.next()) {

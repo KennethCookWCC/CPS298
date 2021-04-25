@@ -42,6 +42,7 @@ public class MovieServlet extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
+	@SuppressWarnings("deprecation")
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		ServletContext servletContext = getServletContext();
@@ -50,17 +51,17 @@ public class MovieServlet extends HttpServlet {
 		
 		MovieListBean movieListBean = new MovieListBean();
 		ShowingBean showingBean = new ShowingBean();
-		ShowingListBean sblist = new ShowingListBean();
-		java.sql.Date date = new java.sql.Date(121,0,16);
+		// ShowingListBean sblist = new ShowingListBean();
+		java.sql.Date date = new java.sql.Date(2021-1900,1-1,15);
 		String dateParam;
 		dateParam = request.getParameter("date");
 
 		if(dateParam != null) {
 			// set sql date = to dateParam
-//			System.out.println("dateParam: "+dateParam);
-			String testDate ="2021-01-15";
+			// System.out.println("dateParam: "+dateParam);
+			// String testDate ="2021-01-15";
 			String[] dateExplode = dateParam.split("-");
-//			System.out.println("date explode: "+Arrays.asList(dateExplode));
+			// System.out.println("date explode: "+Arrays.asList(dateExplode));
 			Integer year = Integer.parseInt(dateExplode[0])-1900;
 			Integer month = Integer.parseInt(dateExplode[1])-1;
 			Integer day = Integer.parseInt(dateExplode[2]);
@@ -114,6 +115,9 @@ public class MovieServlet extends HttpServlet {
 			} else {
 				
 				CartBean cart = (CartBean) session.getAttribute("cart");
+				if( cart == null ) {
+					cart = new CartBean();
+				}
 				String test = cart.getTest();
 				cart.setTest(test);
 				session.setAttribute("cart", cart);

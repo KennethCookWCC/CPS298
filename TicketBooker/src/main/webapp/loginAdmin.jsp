@@ -1,5 +1,5 @@
 <%-- 
-    Document   : loginCustomer - with EL & JSTL & SQL
+    Document   : loginAdmin - with EL & JSTL & SQL
     Created on : 4/23/2021
     Author     : kcook
 --%>
@@ -61,7 +61,7 @@ String hw = "hello world";
 
 
 
-<title>Customer Login</title>
+<title>Administrator Login</title>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <!--         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
@@ -138,8 +138,8 @@ String hw = "hello world";
 <!--  onsubmit="return validatecustlogin()"	 -->
 
 	<div style="text-align: center">
-		<h1>Customer Login</h1>
-		<form name="custLogin" action="CustLoginServlet"
+		<h1>TicketBooker Login</h1>
+		<form name="adminLogin" action="AdminLoginServlet"
 			method="post">
 			<label for="login">Login:</label> 
 			<input name="login" size="30" /> 

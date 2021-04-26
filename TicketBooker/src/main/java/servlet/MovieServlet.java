@@ -27,6 +27,8 @@ import jdbc.ConnectionPool;
 
 /**
  * Servlet implementation class MovieServlet
+ *
+ * change showing list to string instead of Date
  */
 @WebServlet("/MovieServlet")
 public class MovieServlet extends HttpServlet {

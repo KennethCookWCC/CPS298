@@ -46,6 +46,14 @@ public class CartBean implements Serializable {
 		}
 		return contained;
 	}
+	public int getCount() {
+		/*
+		String out = "";
+		out = "" + this.count();
+		return( out );
+		*/
+		return( this.count() );
+	}
 	public int count() {
 		if(cart != null) {
 			return cart.size();

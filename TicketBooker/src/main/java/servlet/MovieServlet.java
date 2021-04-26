@@ -205,12 +205,15 @@ public class MovieServlet extends HttpServlet {
 			// get date from request attribute and parse to make javaSql date,
 
 //			String showingDate = (String) request.getAttribute("showingDate");
+
 			// get movie dates
 			ArrayList<String> showingDates = showingBean.getShowingDates(conn);
 
 			// query db for showings on that day
 			sl = movieListBean.loadFromDBAfterTime(conn, viewdate);
 
+
+		
 //			for(int i=0; i<ml.size(); i++) {
 //				System.out.println(ml.get(i).toString());
 //			}
@@ -221,10 +224,12 @@ public class MovieServlet extends HttpServlet {
 //			}
 //			request.setAttribute("movieList", movieListBean);
 			request.setAttribute("showings", sl);
+
 			request.setAttribute("ml", ml);
 
 			request.setAttribute("showingDates", showingDates);
 			System.out.println("showingDates: " + showingDates.toString());
+
 
 //			request.setAttribute("message", "this is my message. u have received it.");
 			request.setAttribute("msg", "this is my message. u have received it.");

@@ -1,5 +1,9 @@
 package beans;
 
+/*
+ *  ShowingBean - change showing dates to list of String
+ */
+
 import java.io.Serializable;
 import java.sql.Connection;
 import java.sql.PreparedStatement;

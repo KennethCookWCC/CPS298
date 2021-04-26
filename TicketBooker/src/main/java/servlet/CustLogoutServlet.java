@@ -41,8 +41,13 @@ public class CustLogoutServlet extends HttpServlet {
         if (session != null) {
             session.removeAttribute("user");
             session.removeAttribute("cart");
+        	
+        	// empty the cart
+        	// switch to guest user
+            
+            String dest = "/MovieServlet";
              
-            RequestDispatcher dispatcher = request.getRequestDispatcher("/login.jsp");
+            RequestDispatcher dispatcher = request.getRequestDispatcher( dest );
             dispatcher.forward(request, response);
         }
     }

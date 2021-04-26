@@ -51,7 +51,7 @@ public class SeatBean implements Serializable {
 		String sql = "";
 		sql += "SELECT seat.id, seat.row, seat.seat_number " ;
 		sql += "FROM seat " ;
-		sql += "JOIN screen ON seat.screen_id = screen.id " ;
+		sql += "JOIN screen  ON seat.screen_id = screen.id " ;
 		sql += "JOIN showing ON screen.id = showing.screen_id ";
 		sql += "WHERE showing.id=?";
 		
@@ -67,7 +67,8 @@ public class SeatBean implements Serializable {
 			seatList.add(sb);
 		}
 		
-		System.out.println(seatList.toString());
+		// is this generating a ton of output?
+		// System.out.println(seatList.toString());
 		return seatList;
 	}
 	public ArrayList<Integer> getTakenSeats(Connection conn, int showingId) throws SQLException{

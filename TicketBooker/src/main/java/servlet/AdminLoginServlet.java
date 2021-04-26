@@ -128,7 +128,7 @@ public class AdminLoginServlet extends HttpServlet {
 
 			// good login
 
-			// begin session
+			// begin session?
 			HttpSession session = request.getSession(false);
 			if (session == null) {
 				System.out.println("AdminLoginServlet:Create New session");

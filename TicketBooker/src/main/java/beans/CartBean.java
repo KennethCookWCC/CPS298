@@ -46,6 +46,14 @@ public class CartBean implements Serializable {
 		}
 		return contained;
 	}
+	public int getCount() {
+		/*
+		String out = "";
+		out = "" + this.count();
+		return( out );
+		*/
+		return( this.count() );
+	}
 	public int count() {
 		if(cart != null) {
 			return cart.size();
@@ -53,6 +61,14 @@ public class CartBean implements Serializable {
 		else {
 			return 0;
 		}
+	}
+	public String toString() {
+		String out = "";
+		
+		out = "Cart has " + this.count() + " seats:[";
+		out += this.getCart();
+		out += "]";
+		return out;
 	}
 //	test function to load all tickets for user 1 into cart
 	public void loadTicketsForCust(Connection conn) throws SQLException {

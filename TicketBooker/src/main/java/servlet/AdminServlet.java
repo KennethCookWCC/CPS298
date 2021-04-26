@@ -27,18 +27,18 @@ import jdbc.ConnectionPool;
 import sql.UserDAO;
 
 /**
- * Servlet implementation class LoginCustServlet
+ * Servlet implementation class LoginAdminServlet
  *
  * setup session
  */
-//@WebServlet("/CustLoginServlet")
-public class CustLoginServlet extends HttpServlet {
+@WebServlet("/AdminServlet")
+public class AdminServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public CustLoginServlet() {
+	public AdminServlet() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
@@ -51,7 +51,7 @@ public class CustLoginServlet extends HttpServlet {
 		}
 	}
 
-		/**
+	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
 	 *      response)
 	 */
@@ -62,7 +62,7 @@ public class CustLoginServlet extends HttpServlet {
 		ConnectionPool connectionPool = (ConnectionPool) servletContext.getAttribute("connectionPool");
 
 		// assume login fails
-		String destPage = "/loginCustomer.jsp";
+		String destPage = "/loginAdmin.jsp";
 		String message = "Please enter a valid login/password";
 
 		String loginStr = request.getParameter("login");
@@ -84,7 +84,7 @@ public class CustLoginServlet extends HttpServlet {
 			return;
 		}
 
-		// validate customer login
+		// validate admin login
 		UserDAO userDao = new UserDAO();
 		UserBean userBean = new UserBean();
 
@@ -113,11 +113,10 @@ public class CustLoginServlet extends HttpServlet {
 			conn = connectionPool.getConnection();
 
 			// validate customer login
-			userBean = userDao.checkCustomerLogin(conn, loginStr, password);
+			userBean = userDao.checkAdminLogin(conn, loginStr, password);
 
 			if (userBean == null) {
 				// failed login
-				System.out.println("CustLoginServlet:LOGIN FAILED");
 				invalidateUser(request);
 				request.setAttribute("message", message);
 				
@@ -128,21 +127,22 @@ public class CustLoginServlet extends HttpServlet {
 			}
 
 			// good login
-			request.setAttribute("message", "");
 
-			// begin session
+			// begin session?
 			HttpSession session = request.getSession(false);
 			if (session == null) {
-				System.out.println("CustLoginServlet:Create New session");
-				CartBean cartBean = new CartBean();
+				System.out.println("AdminLoginServlet:Create New session");
+				//CartBean cartBean = new CartBean();
 
 				// Not created yet. Now do so yourself.
 				session = request.getSession();
-				session.setAttribute("cart", cartBean);
+				//session.setAttribute("cart", cartBean);
 				session.setAttribute("user", userBean);
 			} else {
 				// session exists
 				System.out.println("CustLoginServlet:Have existing session");
+				
+				/*
 				// check for cart
 				CartBean cart = (CartBean) session.getAttribute("cart");
 
@@ -156,10 +156,10 @@ public class CustLoginServlet extends HttpServlet {
 					System.out.println("CustLoginServlet:Existing Session, existing cart");
 					
 				}
+				*/
 
 				session.setAttribute("user", userBean);
 
-				// session.setAttribute("cart", cart);
 			}
 
 		} catch (SQLException e) {
@@ -172,13 +172,13 @@ public class CustLoginServlet extends HttpServlet {
 		}
 		
 		// successful login if we get here
-		System.out.println("CustLoginServlet:Successful Login:" + userBean.getLogin() 
+		System.out.println("AdminLoginServlet:Successful Login:" + userBean.getLogin() 
 			+ " uid:" + userBean.getId() 
 			+ " name:" + userBean.getName()
 			+ " Admin:" + userBean.isAdmin()
 			);
 
-		RequestDispatcher dispatcher = servletContext.getRequestDispatcher("/MovieServlet");
+		RequestDispatcher dispatcher = servletContext.getRequestDispatcher("/AdminMain.jsp");
 		dispatcher.forward(request, response);
 	}
 	
@@ -187,10 +187,11 @@ public class CustLoginServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 * 
 	 * do not honor a GET to login - only a POST method
+	 * route them to the customer page instead of the Admin login page
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		System.out.println("LoginCustServlet:ERROR:got at GET method!");
+		System.out.println("LoginAdminServlet:ERROR:got at GET method!");
 		ServletContext servletContext = getServletContext();
 		RequestDispatcher dispatcher = servletContext.getRequestDispatcher("/loginCustomer.jsp");
 		dispatcher.forward(request, response);

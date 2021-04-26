@@ -98,7 +98,17 @@ public class ShowingBean implements Serializable {
 	}
 	
 	public boolean loadOneFromDatabase(Connection conn, int id) throws SQLException {
-		PreparedStatement stmt = conn.prepareStatement("SELECT showing.id, showing.date, showing.time, movie.title, movie.rated, movie.release_date, movie.image_link, screen.name, screen.max_rows, screen.max_cols FROM showing JOIN movie ON showing.movie_id = movie.id JOIN screen ON showing.screen_id = screen.id WHERE showing.id = ?");
+		String sql = "";
+		sql += "SELECT showing.id, showing.date, showing.time, ";
+		sql +=   "movie.title, movie.rated, movie.release_date, movie.image_link, ";
+		sql +=   "screen.name, screen.max_rows, screen.max_cols ";
+		sql += "FROM showing ";
+		sql += "JOIN movie ON showing.movie_id = movie.id ";
+		sql += "JOIN screen ON showing.screen_id = screen.id ";
+		sql += "WHERE showing.id = ?";
+		// PreparedStatement stmt = conn.prepareStatement("SELECT showing.id, showing.date, showing.time, movie.title, movie.rated, movie.release_date, movie.image_link, screen.name, screen.max_rows, screen.max_cols FROM showing JOIN movie ON showing.movie_id = movie.id JOIN screen ON showing.screen_id = screen.id WHERE showing.id = ?");
+		PreparedStatement stmt = conn.prepareStatement( sql );
+		
 		stmt.setInt(1, id);
 		ResultSet results = stmt.executeQuery();
 		
@@ -127,8 +137,18 @@ public class ShowingBean implements Serializable {
 			return false;
 		}
 	}
+	
 	public boolean loadAllFromDatabase(Connection conn) throws SQLException {
-		PreparedStatement stmt = conn.prepareStatement("SELECT showing.id, showing.date, showing.time, movie.title, movie.rated, movie.release_date, movie.image_link, screen.name, screen.max_rows, screen.max_cols FROM showing JOIN movie ON showing.movie_id = movie.id JOIN screen ON showing.screen_id = screen.id");
+		String sql = "";
+		sql += "SELECT showing.id, showing.date, showing.time, ";
+		sql +=   "movie.title, movie.rated, movie.release_date, movie.image_link, ";
+		sql +=   "screen.name, screen.max_rows, screen.max_cols ";
+		sql += "FROM showing ";
+		sql += "JOIN movie ON showing.movie_id = movie.id ";
+		sql += "JOIN screen ON showing.screen_id = screen.id ";
+		// sql += "WHERE showing.id = ?";
+		// PreparedStatement stmt = conn.prepareStatement("SELECT showing.id, showing.date, showing.time, movie.title, movie.rated, movie.release_date, movie.image_link, screen.name, screen.max_rows, screen.max_cols FROM showing JOIN movie ON showing.movie_id = movie.id JOIN screen ON showing.screen_id = screen.id");
+		PreparedStatement stmt = conn.prepareStatement( sql );
 		ResultSet results = stmt.executeQuery();
 		
 		if(results.next()) {

@@ -33,6 +33,7 @@
 
 </head>
 <body id="body" onload="onLoadBuildSeats()">
+
 	<nav
 		class="navbar navbar-custom navbar-expand-lg navbar-light bg-light">
 		<div class="container-fluid">

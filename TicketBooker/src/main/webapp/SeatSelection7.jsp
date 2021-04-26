@@ -6,9 +6,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="t" uri="WEB-INF/tags.tld"%>
 <%@ page import="java.util.List"%>
-<%
-String myStr = "MyIdStr";
-%>
+
 <%-- <% 
 	String pattern = "HH:mm";
 	SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);

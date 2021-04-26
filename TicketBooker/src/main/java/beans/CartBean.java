@@ -15,6 +15,9 @@ public class CartBean implements Serializable {
 	public  List<TicketBean> getCart(){
 		return cart;
 	}
+	public  ArrayList<TicketBean> getCartAL(){
+		return cart;
+	}
 	public void setCart(ArrayList<TicketBean> cart) {
 		this.cart = cart;
 	}
@@ -46,6 +49,26 @@ public class CartBean implements Serializable {
 		}
 		return contained;
 	}
+	
+	public void deleteShowing(int showingId ) {
+		CartBean result = new CartBean();
+		
+		int n = 0;
+		if(cart != null) {
+			for(int i=0; i< cart.size(); i++) {
+				int cartShowId = cart.get(i).getShowing_id();
+			
+				if(cartShowId != showingId ) {
+					result.addTicket(cart.get(i));
+				}
+			}
+		}
+		
+		this.setCart(result.getCartAL());
+		
+		return;
+	}
+	
 	public int getCount() {
 		/*
 		String out = "";

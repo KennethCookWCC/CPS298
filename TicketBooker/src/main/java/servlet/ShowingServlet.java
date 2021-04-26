@@ -26,6 +26,8 @@ import jdbc.ConnectionPool;
 @WebServlet("/ShowingServlet")
 public class ShowingServlet extends HttpServlet {
 	
+	private static final String Prog = "ShowingServlet:";
+	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		ServletContext servletContext = getServletContext();
@@ -41,7 +43,7 @@ public class ShowingServlet extends HttpServlet {
 			
 			if(!bean.loadOneFromDatabase(conn, showingParamInt)) {
 				// TODO handling for non-existent showings
-				System.out.println("no showing");
+				System.out.println( Prog + "no showing");
 			}
 			
 			List<SeatBean> seatList = seatBean.getAllSeats(conn,showingParamInt);

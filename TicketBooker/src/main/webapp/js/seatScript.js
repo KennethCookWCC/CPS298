@@ -1,12 +1,24 @@
-let cartArr = [];
-let cartStr="";
+/*
+ * seatScript.js -- respond to clicks on seats
+ * add a seat to the cart, or remove a seat from the cart
+ *
+ * TODO: rebuild the cartArr[] from the cartBean on page load
+ * <body onload="seatlistbuild()" or something like that
+ */
+ 
+let cartArr = []; // holds event.target object references
+let cartStr=""; // 
 let formStr="";
+
+// what is this for?
+// not referenced anywhere that I can find
 function turnGreen(){
 	
 	this.classList.remove("unit");
 	this.classList.add("unit-clicked");
 	
 }
+
 function addSeat(target){
 			
 			cartArr.push(target);
@@ -38,6 +50,7 @@ function addSeat(target){
 			console.log("tried to add to cart list");
 		
 }
+
 function removeSeat(seatId){
 	var forRemoval;
 
@@ -77,16 +90,29 @@ function removeSeat(seatId){
 	}
 	
 	
-	
+	// update the rendered dynamic areas
 	document.getElementById("cartList").innerHTML = cartStr;
 	document.getElementById("cartForm").innerHTML = formStr;
 }
+
+// listener for body clicks
+// reacts to clicks on seats
+// seats are targets that have specific classes:
+// .unit = available seat
+// .unitTaken = sold seat not clickable
+// .clicked = seat in our cart
+// 
 function clickSeat(){	
+	// was it a seat?
 	var target = event.target;
+	
 	console.log("cartArr"+cartArr);
 	console.log("cartStr"+cartStr);
 	
+	// add a seat?
+	// only if target is of the class "unit"
 	if(target.className.match("unit")){
+		// yes
 		target.classList.add("clicked");
 		target.classList.remove("unit");
 		console.log("the class was clicked ");
@@ -105,8 +131,13 @@ function clickSeat(){
 	}
 }
 
-
+// tie the listener to the body
+// probably should tie this to the seat array div
+// not the whole body
 document.getElementById("body").addEventListener("click", clickSeat);
+
+// not sure what this is for
+// when does this execute?
 for(i=0; i<5; i++){
 	let rowArr = ["a","b","c","d","e"];
 	for(n=1; n<=14; n++){

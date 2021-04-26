@@ -117,6 +117,7 @@ public class CustLoginServlet extends HttpServlet {
 
 			if (userBean == null) {
 				// failed login
+				System.out.println("CustLoginServlet:LOGIN FAILED");
 				invalidateUser(request);
 				request.setAttribute("message", message);
 				
@@ -127,6 +128,7 @@ public class CustLoginServlet extends HttpServlet {
 			}
 
 			// good login
+			request.setAttribute("message", "");
 
 			// begin session
 			HttpSession session = request.getSession(false);

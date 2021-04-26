@@ -30,6 +30,7 @@
 	<nav
 		class="navbar navbar-custom navbar-expand-lg navbar-light bg-light">
 		<div class="container-fluid">
+			&nbsp;
 			<a class="navbar-brand" href="#">Ticket Booker</a>
 			<button class="navbar-toggler" type="button"
 				data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
@@ -44,8 +45,9 @@
 					<a class="nav-link" href="#">Prices</a>
 				</div>
 				<div class="ms-auto">
-					<a href="/TicketBooker/ShowCartServlet">${cart.count()}</a> <img
-						src="/TicketBooker/img/cartIcon1.png" height="25px" width="25px" />
+					<a href="/TicketBooker/ShowCartServlet">${cart.count()} 
+					<img src="/TicketBooker/img/cartIcon1.png" height="25px" width="25px" />
+					</a> &nbsp;
 				</div>
 			</div>
 		</div>

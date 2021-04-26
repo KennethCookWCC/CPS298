@@ -178,7 +178,7 @@ public class AdminServlet extends HttpServlet {
 			+ " Admin:" + userBean.isAdmin()
 			);
 
-		RequestDispatcher dispatcher = servletContext.getRequestDispatcher("/AdminServlet");
+		RequestDispatcher dispatcher = servletContext.getRequestDispatcher("/AdminMain.jsp");
 		dispatcher.forward(request, response);
 	}
 	

@@ -6,35 +6,36 @@ package beans;
 
 import java.io.Serializable;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Time;
 import java.text.DateFormat;
 import java.time.LocalDate;
-import java.time.ZoneId;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class ShowingBean implements Serializable {
 	private static final DateFormat TIME_FORMAT = DateFormat.getTimeInstance(DateFormat.SHORT);
 	private static final DateFormat DATE_FORMAT = DateFormat.getDateInstance();
 	
-	private Date time;
+	private Time time;
 	private Date date;
 	private List<SeatBean> seats = new ArrayList<>();
 	private MovieBean movie;
 	private int movieId;
+	private int screenId;
 	private String screenName;
 	private int screenRows, screenCols;
 	private int showingId;
 	
 	
 	
-	public void setTime(Date time) {
+	public void setTime(Time time) {
 		this.time = time;
 	}
-	public Date getTime() {
+	public Time getTime() {
 		return time;
 	}
 	public String getTimeString() {
@@ -189,8 +190,23 @@ public class ShowingBean implements Serializable {
 		return dateArr;
 	}
 	private static Date getCurrentDay() {
-		return Date.from(LocalDate.now().atTime(0, 0, 0, 0).atZone(ZoneId.systemDefault()).toInstant());
+		return Date.valueOf(LocalDate.now());
 	}
 	
-
+	public boolean insertIntoDatabase(Connection conn) throws SQLException {
+		String sql = "INSERT INTO showing(date, time, movie_id, screen_id) "
+				+ "VALUES(?, ?, ?, ?);";
+		PreparedStatement stmt = conn.prepareStatement(sql);
+		stmt.setDate(1, date);
+		stmt.setTime(2, time);
+		stmt.setInt(3, movieId);
+		stmt.setInt(4, screenId);
+		return stmt.executeUpdate() == 1; // if 1 row affected it worked
+	}
+	public int getScreenId() {
+		return screenId;
+	}
+	public void setScreenId(int screenId) {
+		this.screenId = screenId;
+	}
 }

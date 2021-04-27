@@ -44,6 +44,7 @@
                 <option value="purchase">purchase</option> 
                 <option value="refund">refund</option>
                 <option value="admin">admin</option>
+                <option value="SoldTickets">SoldTickets</option>
             </select>
             &nbsp;
             <input type="submit" name="action" value="DESCRIBE TABLE"/>

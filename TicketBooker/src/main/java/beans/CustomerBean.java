@@ -49,6 +49,21 @@ public class CustomerBean implements Serializable {
 		return false;
 	}
 	
+	public boolean insertIntoDatabase(Connection conn) throws SQLException {
+		String sql = "INSERT INTO customer(first_name, last_name, middle_name, birth_date, zipcode, login, passwd, email)"
+				+ "VALUES(?, ?, ?, ?, ?, ?, ?, ?);";
+		PreparedStatement stmt = conn.prepareStatement(sql);
+		stmt.setString(1, firstName);
+		stmt.setString(2, lastName);
+		stmt.setString(3, middleName);
+		stmt.setDate(4, birthDate);
+		stmt.setString(5, zipcode);
+		stmt.setString(6, login);
+		stmt.setString(7, passwd);
+		stmt.setString(8, email);
+		return stmt.executeUpdate() == 1; // if one row affected it worked
+	}
+	
 	public int getId() {
 		return id;
 	}

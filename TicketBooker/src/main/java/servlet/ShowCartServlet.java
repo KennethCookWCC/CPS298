@@ -121,6 +121,9 @@ public class ShowCartServlet extends HttpServlet {
 					userCart.addTicket(tk);
 				}
 			}
+			
+			// forgot to update 
+			session.setAttribute("cart", postCart);
 		}
 		
 		// build list of unique showing IDs from the userCart

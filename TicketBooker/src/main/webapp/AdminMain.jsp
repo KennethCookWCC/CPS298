@@ -139,6 +139,23 @@ String hw = "hello world";
 
 	<div style="text-align: center">
 		<h1>TicketBooker Admin Main Menu</h1>
+		<div>
+		<canvas id="qr"></canvas>
+
+    <script src="/TicketBooker/js/qrious.min.js"></script>
+    <script>
+      (function() {
+        var qr = new QRious({
+          element: document.getElementById('qr'),
+          value: '2021-01-15:4:00PM:The Lion King:D3'
+        });
+      })();
+    </script>
+		</div>
+		<div>
+		This QR Code is your Ticket for the 4:00 PM showing of The Lion King on January 15, 2021 seat D4
+		</div>
+		
 		<c:if test="false">
 		<form name="adminLogin" action="AdminLoginServlet"
 			method="post">

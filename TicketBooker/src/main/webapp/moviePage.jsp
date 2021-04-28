@@ -25,46 +25,14 @@
 <title>Now Playing</title>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<!--         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-         -->
 
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css"
 	rel="stylesheet"
 	integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl"
 	crossorigin="anonymous">
-<!-- 
-<link href="bootstrap4-glyphicons/css/bootstrap-glyphicons.css" rel="stylesheet">
- -->
 <link rel="stylesheet" href="/TicketBooker/css/style.css">
-<style>
 
-/*             .navbar {
-                margin-bottom: 0;
-                border-radius: 0;
-                background-color: #FFC300;
-                border: none;
-            }
- */
-.navbar-inverse .navbar-brand {
-	color: #000000;
-}
-
-.navbar-inverse .navbar-nav>li>a {
-	color: #000000;
-}
-
-.col-half-offset {
-	margin-left: 4.166666667%;
-}
-
-.no-gutters {
-	margin-right: 0;
-	margin-left: 0;
-}
-</style>
 </head>
 <body>
 
@@ -112,13 +80,6 @@
 		</div>
 	</nav>
 
-	<%-- 			<div>
-                <c:forEach items="${showings}" var="showing">
-                	<p>found</p>
-                    <p>${showing.getShowingId()}</p>
-                    <p>${showing.showingId}</p>      
-                </c:forEach>
-            </div> --%>
 	<!--NOW PLAYING, IMAGES, SHOWTIMES-->
 
 	<div class="container text-center">

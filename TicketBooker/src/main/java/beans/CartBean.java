@@ -93,6 +93,18 @@ public class CartBean implements Serializable {
 		out += "]";
 		return out;
 	}
+	
+//	public List<TicketBean> getCartUI(CartBean cart){
+//		CartBean newCart = new CartBean();
+//		
+//		List cartList = cart.getCart();
+//		
+//		cartList.forEach((t)->{
+//			
+//		});
+//	}
+	
+	
 //	test function to load all tickets for user 1 into cart
 	public void loadTicketsForCust(Connection conn) throws SQLException {
 //		PreparedStatement stmt = conn.prepareStatement("SELECT showing.id, showing.date, showing.time, movie.title, movie.rated, movie.release_date, movie.image_link, screen.name, screen.max_rows, screen.max_cols FROM showing JOIN movie ON showing.movie_id = movie.id JOIN screen ON showing.screen_id = screen.id");

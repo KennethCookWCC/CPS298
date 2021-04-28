@@ -113,6 +113,7 @@ public class showingSeats extends SimpleTagSupport {
 //			   title = rowLabel + Integer.toString(index);
 //			   output += title + "\n";
 
+
 			}
 			output += "</div>";
 		}

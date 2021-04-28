@@ -79,35 +79,9 @@ String hw = "hello world";
 	rel="stylesheet">
  -->
 <link rel="stylesheet" href="/TicketBooker/css/style.css">
-<style type="text/css">
 
-/*             .navbar {
-                margin-bottom: 0;
-                border-radius: 0;
-                background-color: #FFC300;
-                border: none;
-            }
- */
-.navbar-inverse .navbar-brand {
-	color: #000000;
-}
-
-.navbar-inverse .navbar-nav>li>a {
-	color: #000000;
-}
-
-.col-half-offset {
-	margin-left: 4.166666667%;
-}
-
-.no-gutters {
-	margin-right: 0;
-	margin-left: 0;
-}
-</style>
 </head>
 <body>
-
 
 	<!--NAVBAR-->
 	<nav
@@ -137,7 +111,7 @@ String hw = "hello world";
 	</nav>
 <!--  onsubmit="return validatecustlogin()"	 -->
 
-	<div style="text-align: center">
+<%-- 	<div style="text-align: center">
 		<h1>Customer Login</h1>
 		<form name="custLogin" action="CustLoginServlet"
 			method="post">
@@ -148,10 +122,34 @@ String hw = "hello world";
 			<input type="password" name="password" size="30" /> 
 			<br>${message} 
 			<br> <br>
-			<button type="submit">Login</button>
+			<input type="submit" value="Login" />
+<!-- 			<button type="submit">Login</button> -->
+		</form>
+	</div> --%>
+	
+<!-- Bootstrap form -->
+<div id="form_container row">
+	
+	<div class="formCol col-8 mx-auto">
+		<h1 class="text-center">Customer Login</h1>
+		<form name="custLogin" action="CustLoginServlet"
+				method="post">
+		  <div class="mb-3">
+		    <label for="login" class="form-label">Login:</label>
+		    <input type="text" class="form-control" name="login">
+		  </div>
+		  <div class="mb-3">
+		    <label for="password" class="form-label">Password:</label>
+		    <input type="password" class="form-control" name="password">
+		    <div id="passwordMsg" class="form-text text-center">${message}</div>
+		  </div>
+		  <div class="text-center pt-1">
+		  	<button type="submit" class="btn btn-primary">Login</button>
+		  </div>
 		</form>
 	</div>
-
+</div>
+<!-- bootstrap form  -->
 
 	<script
 		src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"

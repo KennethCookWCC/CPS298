@@ -35,6 +35,18 @@ public class PurchaseBean implements Serializable {
 		return false;
 	}
 	
+	public boolean insertIntoDatabase(Connection conn) throws SQLException {
+		String sql = "INSERT INTO purchase(customer_id, date, time, total, approval) " +
+				"VALUES(?, ?, ?, ?, ?)";
+		PreparedStatement stmt = conn.prepareStatement(sql);
+		stmt.setInt(1, customerId);
+		stmt.setDate(2, date);
+		stmt.setTime(3, time);
+		stmt.setInt(4, total);
+		stmt.setString(5, approval);
+		return stmt.executeUpdate() == 1; // if 1 row is updated it inserted successfully so return true
+	}
+	
 	public int getId() {
 		return id;
 	}

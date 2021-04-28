@@ -140,3 +140,13 @@ h4{
 a{
 	text-decoration: none;
 }
+.formCol{
+	margin-left: 2rem;
+	margin-top: 2rem;
+}
+#passwordMsg{
+	color: red;
+}
+.text-center .btn{
+	width: 50%;
+}

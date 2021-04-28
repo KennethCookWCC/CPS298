@@ -15,6 +15,9 @@ public class CartBean implements Serializable {
 	public  List<TicketBean> getCart(){
 		return cart;
 	}
+	public  ArrayList<TicketBean> getCartAL(){
+		return cart;
+	}
 	public void setCart(ArrayList<TicketBean> cart) {
 		this.cart = cart;
 	}
@@ -46,6 +49,26 @@ public class CartBean implements Serializable {
 		}
 		return contained;
 	}
+	
+	public void deleteShowing(int showingId ) {
+		CartBean result = new CartBean();
+		
+		int n = 0;
+		if(cart != null) {
+			for(int i=0; i< cart.size(); i++) {
+				int cartShowId = cart.get(i).getShowing_id();
+			
+				if(cartShowId != showingId ) {
+					result.addTicket(cart.get(i));
+				}
+			}
+		}
+		
+		this.setCart(result.getCartAL());
+		
+		return;
+	}
+	
 	public int getCount() {
 		/*
 		String out = "";
@@ -70,6 +93,18 @@ public class CartBean implements Serializable {
 		out += "]";
 		return out;
 	}
+	
+//	public List<TicketBean> getCartUI(CartBean cart){
+//		CartBean newCart = new CartBean();
+//		
+//		List cartList = cart.getCart();
+//		
+//		cartList.forEach((t)->{
+//			
+//		});
+//	}
+	
+	
 //	test function to load all tickets for user 1 into cart
 	public void loadTicketsForCust(Connection conn) throws SQLException {
 //		PreparedStatement stmt = conn.prepareStatement("SELECT showing.id, showing.date, showing.time, movie.title, movie.rated, movie.release_date, movie.image_link, screen.name, screen.max_rows, screen.max_cols FROM showing JOIN movie ON showing.movie_id = movie.id JOIN screen ON showing.screen_id = screen.id");

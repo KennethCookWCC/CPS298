@@ -123,7 +123,7 @@ public class ShowCartServlet extends HttpServlet {
 			}
 			
 			// forgot to update 
-			session.setAttribute("cart", postCart);
+			session.setAttribute("cart", userCart);
 		}
 		
 		// build list of unique showing IDs from the userCart

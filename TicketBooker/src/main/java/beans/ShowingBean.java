@@ -143,7 +143,7 @@ public class ShowingBean implements Serializable {
 		}
 	}
 	
-	public boolean loadAllFromDatabase(Connection conn) throws SQLException {
+	public static List<ShowingBean> loadAllFromDatabase(Connection conn) throws SQLException {
 		String sql = "";
 		sql += "SELECT showing.id, showing.date, showing.time, ";
 		sql +=   "movie.title, movie.rated, movie.release_date, movie.image_link, ";
@@ -155,26 +155,26 @@ public class ShowingBean implements Serializable {
 		// PreparedStatement stmt = conn.prepareStatement("SELECT showing.id, showing.date, showing.time, movie.title, movie.rated, movie.release_date, movie.image_link, screen.name, screen.max_rows, screen.max_cols FROM showing JOIN movie ON showing.movie_id = movie.id JOIN screen ON showing.screen_id = screen.id");
 		PreparedStatement stmt = conn.prepareStatement( sql );
 		ResultSet results = stmt.executeQuery();
-		
-		if(results.next()) {
-			date = results.getDate("showing.date");
-			if(date == null) {
-				date = getCurrentDay();
+		List<ShowingBean> beans = new ArrayList<>();
+		while(results.next()) {
+			ShowingBean bean = new ShowingBean();
+			bean.date = results.getDate("showing.date");
+			if(bean.date == null) {
+				bean.date = getCurrentDay();
 			}
-			time = results.getTime("showing.time");
+			bean.time = results.getTime("showing.time");
 			MovieBean movieBean = new MovieBean();
 			movieBean.setTitle(results.getString("movie.title"));
 			movieBean.setRating(MovieBean.Rating.fromIndex(results.getInt("movie.rated") - 1));
 			movieBean.setReleaseDate(results.getDate("movie.release_date"));
 			movieBean.setImageLink(results.getString("movie.image_link"));
-			movie = movieBean;
-			screenName = results.getString("screen.name");
-			screenRows = results.getInt("screen.max_rows");
-			screenCols = results.getInt("screen.max_cols");
-			return true;
-		} else {
-			return false;
+			bean.movie = movieBean;
+			bean.screenName = results.getString("screen.name");
+			bean.screenRows = results.getInt("screen.max_rows");
+			bean.screenCols = results.getInt("screen.max_cols");
+			beans.add(bean);
 		}
+		return beans;
 	}
 	
 	// change to arraylist of String

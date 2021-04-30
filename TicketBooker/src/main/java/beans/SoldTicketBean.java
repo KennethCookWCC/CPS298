@@ -87,4 +87,10 @@ public class SoldTicketBean implements Serializable {
 	public void setPrice(int price) {
 		this.price = price;
 	}
+	
+	public String getStringPrice() {
+		int cents = price % 100;
+		int dollars = price / 100;
+		return dollars + "." + cents;
+	}
 }

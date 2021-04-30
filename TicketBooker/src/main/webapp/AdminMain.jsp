@@ -34,33 +34,6 @@ String hw = "hello world";
  -->
 
 
-<script type="text/javascript">
-/* the validation functions don't work. */
-/* is bootstrap messing this up? */
-/*	function validatecustlogin() {
-	
-		var cklog = document.forms["custLogin"]["login"].value;
-		var ckpwd = document.forms["custLogin"]["password"].value;
-		var m = "";
-		if (cklog == "") {
-			m += "Please enter a login name. ";
-		}
-		if (ck[ckpwd == "") {
-			m += "Please enter a password.";
-		}
-		
-		if( m == "" ) {
-			return true;
-		} else {
-			alert(m);
-			return false;
-		} 
-		
-	} */
-	</script>
-
-
-
 <title>Administrator Login</title>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -139,24 +112,8 @@ String hw = "hello world";
 
 	<div style="text-align: center">
 		<h1>TicketBooker Admin Main Menu</h1>
-		<div>
-		<canvas id="qr"></canvas>
-
-    <script src="/TicketBooker/js/qrious.min.js"></script>
-    <script>
-      (function() {
-        var qr = new QRious({
-          element: document.getElementById('qr'),
-          value: '2021-01-15:4:00PM:The Lion King:D3'
-        });
-      })();
-    </script>
-		</div>
-		<div>
-		This QR Code is your Ticket for the 4:00 PM showing of The Lion King on January 15, 2021 seat D4
-		</div>
 		
-		<c:if test="false">
+		<c:if test="${notLoggedIn}">
 		<form name="adminLogin" action="AdminLoginServlet"
 			method="post">
 			<label for="login">Login:</label> 
@@ -168,6 +125,48 @@ String hw = "hello world";
 			<br> <br>
 			<button type="submit">Login</button>
 		</form>
+		</c:if>
+		<c:if test="${!notLoggedIn}">
+			<table>
+				<tr>
+					<th>Date</th>
+					<th>Time</th>
+					<th>Movie</th>
+					<th>Screen</th>
+					<th>Seat</th>
+					<th>Customer</th>
+					<th>Ticket ID</th>
+					<th>Price</th>
+				</tr>
+				<c:forEach items = "${soldTickets}" var = "ticket">
+					<tr>
+						<td>${ticket.date}</td>
+						<td>${ticket.time}</td>
+						<td>${ticket.movieTitle}</td>
+						<td>${ticket.screen}</td>
+						<td>${ticket.seat}</td>
+						<td>${ticket.customer}</td>
+						<td>${ticket.ticketId}</td>
+						<td>$${ticket.stringPrice}</td>
+					</tr>
+				</c:forEach>
+			</table>
+			<table>
+				<tr>
+					<th>Date</th>
+					<th>Time</th>
+					<th>Screen</th>
+					<th>Movie</th>
+				</tr>
+				<c:forEach items = "${showings}" var = "showing">
+					<tr>
+						<td>${showing.date}</td>
+						<td>${showing.time}</td>
+						<td>${showing.screenId}</td>
+						<td>${showing.movie.title}</td>
+					</tr>
+				</c:forEach>
+			</table>
 		</c:if>
 	</div>
 
@@ -182,33 +181,4 @@ String hw = "hello world";
 	<script type="text/javascript"
 		src="/TicketBooker/js/moviePageScript.js"></script>
 </body>
-
-<script type="text/javascript">
-/* this does not work. Bootstrap to blame? */
-/*
-    $(document).ready(function() {
-        $("#custLogin").validate({
-            rules: {
-                login: {
-                    required: true,
-                    login: true
-                },
-         
-                password: "required",
-            },
-             
-            messages: {
-                login: {
-                    required: "Please enter login name",
-                    login: "Please enter a valid login name address"
-                },
-                 
-                password: "Please enter password"
-            }
-        });
- 
-    });
-  */  
-</script>
-
 </html>

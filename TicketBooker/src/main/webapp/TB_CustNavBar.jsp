@@ -1,8 +1,8 @@
 <%--
 TB_CustNavBar.jsp - include for the ticketbooker customer navigation bar
  --%>
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+<!--  % @  page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1" % -->
 
 <!DOCTYPE html>
 
@@ -19,8 +19,11 @@ TB_CustNavBar.jsp - include for the ticketbooker customer navigation bar
 
 			<div class="collapse navbar-collapse" id="navbarNavAltMarkup">
 				<div class="navbar-nav">
-					<a class="nav-link" href="/TicketBooker/MovieServlet">Movies</a> <a
-						class="nav-link" href="#">Prices</a>
+					<a class="nav-link" href="/TicketBooker/MovieServlet">Movies</a> 
+					<a class="nav-link" href="#">Prices</a>
+					<c:if test="${user.loginOK}">
+						<a class="nav-link" href="MyTicketsServlet">MyTickets</a>
+					</c:if>
 				</div>
 				<div class="ms-auto">
 				${user.getName()}

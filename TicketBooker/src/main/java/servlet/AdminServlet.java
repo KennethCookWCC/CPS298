@@ -140,7 +140,7 @@ public class AdminServlet extends HttpServlet {
 				session.setAttribute("user", userBean);
 			} else {
 				// session exists
-				System.out.println("CustLoginServlet:Have existing session");
+				System.out.println("AdminLoginServlet:Have existing session");
 				
 				/*
 				// check for cart

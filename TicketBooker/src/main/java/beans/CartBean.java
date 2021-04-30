@@ -94,15 +94,42 @@ public class CartBean implements Serializable {
 		return out;
 	}
 	
-//	public List<TicketBean> getCartUI(CartBean cart){
-//		CartBean newCart = new CartBean();
-//		
-//		List cartList = cart.getCart();
-//		
-//		cartList.forEach((t)->{
-//			
-//		});
-//	}
+	public ArrayList<TicketBean> getCartUI(Connection conn, CartBean cart){
+		
+		CartBean newCart = new CartBean();
+		List cartList = cart.getCart();
+		
+		
+		
+		try {
+			
+			
+			String sql;
+//			sql = "SELECT seat.id, showing.id, movie.title, showing.time, showing.price, seat.seat_number, seat.row FROM showing LEFT JOIN screen ON  showing.screen_id = screen.id JOIN seat ON screen.id = seat.screen_id LEFT JOIN movie on showing.movie_id = movie.id WHERE showing.id =10 AND seat.id =1142 ";
+			sql = "select showing.id, showing.date, showing.time, showing.price, seat.seat_number, seat.row, movie.title from movie join showing on movie.id = showing.movie_id join screen on showing.screen_id = screen.id join seat on screen.id = seat.screen_id where showing.id = ? AND seat.id =?";
+			PreparedStatement stmt = conn.prepareStatement(sql);
+
+		
+			cartList.forEach((<TicketBean> t)->{
+				String showId = t.getShowingId();
+				String seatId = t.
+				stmt.setInt(1, showId);
+				stmt.setInt(2, seatId);
+				ResultSet results = stmt.executeQuery();
+				System.out.println(results.toString());
+				
+			
+			});
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		return  newCart.getCartAL();
+	}
 	
 	
 //	test function to load all tickets for user 1 into cart

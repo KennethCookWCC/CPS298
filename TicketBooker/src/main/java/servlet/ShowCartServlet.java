@@ -114,6 +114,8 @@ public class ShowCartServlet extends HttpServlet {
 			// eliminate any tickets for this showing
 			userCart.deleteShowing(postshowid);
 			
+			System.out.println("userCart after deleting matches: "+userCart.toString());
+			
 			// add the ones from this post
 			ArrayList<TicketBean> pclist = postCart.getCartAL() ;
 			if( pclist != null ) {

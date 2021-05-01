@@ -10,6 +10,7 @@ import java.util.List;
 
 public class CartBean implements Serializable {
 	private ArrayList<TicketBean> cart;
+	private boolean	validated = false;	// have the tickets in the cart been completed?
 	private String test = "This is a test string.";
 	
 	public  List<TicketBean> getCart(){
@@ -27,6 +28,7 @@ public class CartBean implements Serializable {
 	public void setTest(String test) {
 		this.test = test;
 	}
+	
 	public void addTicket(TicketBean ticket) {
 		ArrayList<TicketBean> tix = new ArrayList<TicketBean>();
 		if(cart != null) {
@@ -36,12 +38,18 @@ public class CartBean implements Serializable {
 		this.setCart(tix);
 	}
 	
+	public boolean isValidated() {
+		return validated;
+	}
+	public void setValidated(boolean validated) {
+		this.validated = validated;
+	}
 	public boolean containsTicket(int showingId, int seatId ) {
 		boolean contained= false;
 		if(cart !=null) {
 			for(int i=0; i< cart.size(); i++) {
 				int cartShowId = cart.get(i).getShowing_id();
-				int cartSeatId = cart.get(i).getId();
+				int cartSeatId = cart.get(i).getSeatId();		// KC - was getID which returns ticketID not seatID
 				if(cartShowId == showingId && cartSeatId == seatId ) {
 					contained = true;
 					break;
@@ -95,6 +103,35 @@ public class CartBean implements Serializable {
 		return out;
 	}
 	
+/*
+	public ArrayList<TicketBean> getCartUI(Connection conn, CartBean cart){
+		
+		CartBean newCart = new CartBean();
+		List cartList = cart.getCart();
+		
+		
+		
+		try {
+			
+			
+			String sql;
+//			sql = "SELECT seat.id, showing.id, movie.title, showing.time, showing.price, seat.seat_number, seat.row FROM showing LEFT JOIN screen ON  showing.screen_id = screen.id JOIN seat ON screen.id = seat.screen_id LEFT JOIN movie on showing.movie_id = movie.id WHERE showing.id =10 AND seat.id =1142 ";
+			sql = "select showing.id, showing.date, showing.time, showing.price, seat.seat_number, seat.row, movie.title from movie join showing on movie.id = showing.movie_id join screen on showing.screen_id = screen.id join seat on screen.id = seat.screen_id where showing.id = ? AND seat.id =?";
+			PreparedStatement stmt = conn.prepareStatement(sql);
+/*
+		
+			cartList.forEach((<TicketBean> t)->{
+				String showId = t.getShowingId();
+				String seatId = t.
+				stmt.setInt(1, showId);
+				stmt.setInt(2, seatId);
+				ResultSet results = stmt.executeQuery();
+				System.out.println(results.toString());
+				
+			
+			});
+	*/
+	
 	public ArrayList<TicketBean> getCartUI(Connection conn){
 		CartBean newCart = new CartBean();
 		ArrayList cartList = this.getCartAL();
@@ -131,9 +168,9 @@ public class CartBean implements Serializable {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		
-		return newCart.getCartAL();
+
+		return  newCart.getCartAL();
+
 	}
 	
 	

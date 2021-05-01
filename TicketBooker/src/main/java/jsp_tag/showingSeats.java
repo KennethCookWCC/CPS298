@@ -45,6 +45,8 @@ public class showingSeats extends SimpleTagSupport {
 			System.out.println("ShowingSeats:doTag:ERROR:NO CART?");
 		}
 
+		System.out.println("ShowingSeats:doTag:cart has:" + cartBean.count() + " seats");
+		
 //	   seatList.forEach((s)-> {
 ////		   String row = s.getRow();
 ////		   int number = s.getNumber();
@@ -70,7 +72,7 @@ public class showingSeats extends SimpleTagSupport {
 				int seatId = seatList.get(index).getSeatId();
 				String title = row + number;
 
-				int id = seatList.get(index).getSeatId();
+				// int id = seatList.get(index).getSeatId();
 
 				// already reserved by someone else?
 				Boolean reserved = seatList.get(index).getTaken();
@@ -92,19 +94,19 @@ public class showingSeats extends SimpleTagSupport {
 				// someone else's seat?
 				if ( reserved ) {
 					// yes - format as not click-able
-					output += "<div class=\"takenUnit col-1\" id=\"" + id + "\" ";
+					output += "<div class=\"takenUnit col-1\" id=\"" + seatId + "\" ";
 					output += "data-bs-toggle=\"tooltip\" data-bs-placement=\"top\" ";
 					output += "title=\"" + title + "\" >&nbsp;</div>";
 				} else if ( incart ) {
 					// in our cart?
 					// yes, click-able but ours
-					output += "<div class=\"clicked col-1\" id=\"" + id + "\" ";
+					output += "<div class=\"clicked col-1\" id=\"" + seatId + "\" ";
 					output += "data-row=\"" + row + "\" data-number=\"" + number + "\" ";
 					output += "data-bs-toggle=\"tooltip\" data-bs-placement=\"top\" ";
 					output += "title=\"" + title + "\" >&nbsp;</div>";
 				} else {
 					// open available seat
-					output += "<div class=\"unit col-1\" id=\"" + id + "\" ";
+					output += "<div class=\"unit col-1\" id=\"" + seatId + "\" ";
 					output += "data-row=\"" + row + "\" data-number=\"" + number + "\" ";
 					output += "data-bs-toggle=\"tooltip\" data-bs-placement=\"top\" ";
 					output += "title=\"" + title + "\" >&nbsp;</div>";

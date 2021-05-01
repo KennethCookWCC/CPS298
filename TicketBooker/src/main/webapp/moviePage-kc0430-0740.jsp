@@ -25,46 +25,14 @@
 <title>Now Playing</title>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<!--         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-         -->
 
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css"
 	rel="stylesheet"
 	integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl"
 	crossorigin="anonymous">
-<!-- 
-<link href="bootstrap4-glyphicons/css/bootstrap-glyphicons.css" rel="stylesheet">
- -->
 <link rel="stylesheet" href="/TicketBooker/css/style.css">
-<style>
 
-/*             .navbar {
-                margin-bottom: 0;
-                border-radius: 0;
-                background-color: #FFC300;
-                border: none;
-            }
- */
-.navbar-inverse .navbar-brand {
-	color: #000000;
-}
-
-.navbar-inverse .navbar-nav>li>a {
-	color: #000000;
-}
-
-.col-half-offset {
-	margin-left: 4.166666667%;
-}
-
-.no-gutters {
-	margin-right: 0;
-	margin-left: 0;
-}
-</style>
 </head>
 <body>
 
@@ -72,8 +40,7 @@
 	<nav
 		class="navbar navbar-custom navbar-expand-lg navbar-light bg-light">
 		<div class="container-fluid">
-			&nbsp;
-			<a class="navbar-brand" href="#">Ticket Booker</a>
+			&nbsp; <a class="navbar-brand" href="#">Ticket Booker</a>
 			<button class="navbar-toggler" type="button"
 				data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
 				aria-controls="navbarNavAltMarkup" aria-expanded="false"
@@ -84,25 +51,39 @@
 
 			<div class="collapse navbar-collapse" id="navbarNavAltMarkup">
 				<div class="navbar-nav">
-					<a class="nav-link" href="/TicketBooker/MovieServlet">Movies</a> <a
-						class="nav-link" href="#prices">Prices</a>
+					<a class="nav-link" href="/TicketBooker/MovieServlet">Movies</a> 
+					
+					<a class="nav-link" href="#prices">Prices</a>
+					<c:if test="${user.loginOK}">
+						<a class="nav-link" href="MyTicketsServlet">MyTickets</a>
+					</c:if>
+					<!--  a class="nav-link" href="MovieServlet">Movies -->
 				</div>
 				<div class="ms-auto">
-					<a href="/TicketBooker/ShowCartServlet">${cart.count()}</a> 
+					${user.getName()}
+					<!--  ${user.isLoginOK()} returns true or false -->
+					<c:choose>
+						<c:when test="${user.loginOK}">
+							<a href="Logout">Logout</a>
+						</c:when>
+				    	<c:otherwise>
+				    	 	<a href="LoginCustomerJSP">Login</a>
+				    	 	
+				    	 	<!--  http://localhost:8080/TicketBooker/LoginCustomerJSP -->
+				    	</c:otherwise>
+				    </c:choose>
+				    &nbsp;
+				    
+					<a href="/TicketBooker/ShowCartServlet">
+					${cart.count()} 
 					<img src="/TicketBooker/img/cartIcon1.png" height="25px" width="25px" />
+					</a>
 					&nbsp;
 				</div>
 			</div>
 		</div>
 	</nav>
 
-	<%-- 			<div>
-                <c:forEach items="${showings}" var="showing">
-                	<p>found</p>
-                    <p>${showing.getShowingId()}</p>
-                    <p>${showing.showingId}</p>      
-                </c:forEach>
-            </div> --%>
 	<!--NOW PLAYING, IMAGES, SHOWTIMES-->
 
 	<div class="container text-center">
@@ -112,6 +93,8 @@
 				<h1>
 					<strong>Now Playing</strong>
 				</h1>
+				<!-- <p>Date:${viewDate} Nice:${viewDateStr}<fmt:formatDate type="date" value="${dateParam}" /></p> -->
+				<p><strong>${viewDateStr}</strong></p>
 				<p>
 					<strong>Click on a show time to buy tickets:</strong>
 				</p>
@@ -121,8 +104,8 @@
 				<form action="/TicketBooker/MovieServlet" method="POST">
 					<select name="date">
 						<c:forEach items="${showingDates}" var="date">
-							<c:choose>
-								<c:when test="${dateParam == date.toString()}">
+							<c:choose>								
+								<c:when test="${viewDate == date.toString()}">
 									<option value="${date}" selected>${date.toString()}</option>
 								</c:when>
 								<c:otherwise>

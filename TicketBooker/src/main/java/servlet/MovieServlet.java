@@ -124,6 +124,7 @@ public class MovieServlet extends HttpServlet {
 				// no
 				System.out.println(Prog + "Existing Session:No Cart?");
 				cartBean = new CartBean();
+				cartBean.setValidated(false);
 				session.setAttribute("cart", cartBean);
 				isnewCart = true;
 			} else {

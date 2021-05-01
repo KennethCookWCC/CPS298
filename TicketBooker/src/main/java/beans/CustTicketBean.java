@@ -11,19 +11,24 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CustTicketBean implements Serializable {
-	private int customerId;
-	private int showingId;
-	private Date date;
-	private Time time;
-	private int movieId;
-	private String title;
-	private String seat;
-	private int purchaseId;
-	private int price;
+	private int customerId;	// SQL
+	private int showingId;	// SQL
+	private Date date;		// SQL
+	private Time time;		// SQL
+	private int movieId;	// SQL
+	private String title;	// SQL
+	private String seat;	// SQL
+	private int purchaseId;	// SQL
+	private int ticketId;	// SQL
+	private int price;		// SQL
+	
+	private String qrURL;	// UI
 	
 	public static List<CustTicketBean> loadForCustomer(Connection conn, int customerId) throws SQLException {
-		PreparedStatement stmt = conn.prepareStatement("SELECT showing_id, date, time, movie_id, title, seat, purchase_id, price"
-				+ "FROM CustTicket WHERE customer_id = ?");
+		PreparedStatement stmt = conn.prepareStatement(
+				"SELECT showing_id, date, time, movie_id, title, "
+				+ "seat, purchase_id, price, ticket_id "
+				+ "FROM CustTickets WHERE customer_id = ?");
 		stmt.setInt(1, customerId);
 		ResultSet results = stmt.executeQuery();
 		List<CustTicketBean> beans = new ArrayList<>();
@@ -37,6 +42,7 @@ public class CustTicketBean implements Serializable {
 			bean.title = results.getString("title");
 			bean.seat = results.getString("seat");
 			bean.purchaseId = results.getInt("purchase_id");
+			bean.ticketId = results.getInt("ticket_id");
 			bean.price = results.getInt("price");
 			beans.add(bean);
 		}
@@ -97,4 +103,34 @@ public class CustTicketBean implements Serializable {
 	public void setPrice(int price) {
 		this.price = price;
 	}
+
+	public String getQrURL() {
+		return qrURL;
+	}
+
+	public void setQrURL(String qrURL) {
+		this.qrURL = qrURL;
+	}
+
+	public int getTicketId() {
+		return ticketId;
+	}
+
+	public void setTicketId(int ticketId) {
+		this.ticketId = ticketId;
+	}
+	
+	public String getStringPrice() {
+		String retv = "";
+		int cents = price % 100;
+		int dollars = price / 100;
+		retv += dollars + ".";
+		if( cents < 10 ) {
+			retv += "0";
+		}
+		retv += cents;
+		return retv ;
+				
+	}
+
 }

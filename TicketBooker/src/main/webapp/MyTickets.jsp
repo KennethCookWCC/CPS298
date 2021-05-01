@@ -63,6 +63,27 @@ String hw = "hello world";
 			 * Show iterate through list of customers tickets with a link or submit action for a specific ticket to show the QR code
 			 */
 			%>
+			
+			<table>
+				<tr>
+					<th>Date</th>
+					<th>Time</th>
+					<th>Movie</th>
+					<th>Seat</th>
+					<th>Price</th>
+					<th>Your Ticket</th>
+				</tr>
+				<c:forEach items = "${Tickets}" var = "ticket">
+					<tr>
+						<td>${ticket.date }</td>
+						<td><fmt:formatDate value="${ticket.time}" pattern="hh:mm a" /></td>
+						<td>${ticket.title}</td>
+						<td>${ticket.seat}</td>
+						<td>$${ticket.stringPrice}</td>
+						<td><a href="${ticket.qrURL }" />Click to show</a></td>
+					</tr>
+				</c:forEach>
+			</table>
 			<form name="custLogin" action="CustLoginServlet" method="post">
 				<div class="mb-3">
 					Tickets should go here
@@ -91,8 +112,6 @@ String hw = "hello world";
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"
 		integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0"
 		crossorigin="anonymous" type="text/javascript"></script>
-	<script type="text/javascript"
-		src="/TicketBooker/js/moviePageScript.js"></script>
 </body>
 
 

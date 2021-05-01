@@ -8,7 +8,7 @@
 	pageEncoding="ISO-8859-1"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<%@ page import="java.util.List"%>
+<%@ page import="java.util.List,java.sql.Date"%>
 <%-- <jsp:useBean id = "movieList" class = "beans.MovieListBean" scope = "request" />
 <jsp:useBean id = "movieBean" class = "beans.MovieBean" scope = "request" />
 <jsp:useBean id = "showingBean" class = "beans.ShowingBean" scope = "request" />
@@ -101,9 +101,13 @@ String hw = "hello world";
 						class="nav-link" href="#">Prices</a>
 				</div>
 				<div class="ms-auto">
+					Welcome	${user.getName()} &nbsp;
+					<a href="Logout">Logout</a>
+					<!--
 					<a href="/TicketBooker/ShowCartServlet">${cart.count()}</a> 
 					<img src="/TicketBooker/img/cartIcon1.png" 
 						height="25px" width="25px" alt="" />
+						-->
 				</div>
 			</div>
 		</div>
@@ -113,7 +117,7 @@ String hw = "hello world";
 	<div style="text-align: center">
 		<h1>TicketBooker Admin Main Menu</h1>
 		
-		<c:if test="${notLoggedIn}">
+		<c:if test="${!user.loginOK}">
 		<form name="adminLogin" action="AdminLoginServlet"
 			method="post">
 			<label for="login">Login:</label> 
@@ -126,7 +130,9 @@ String hw = "hello world";
 			<button type="submit">Login</button>
 		</form>
 		</c:if>
-		<c:if test="${!notLoggedIn}">
+		<c:if test="${user.loginOK}">
+		<div><h1>Sold Tickets</h1></div>
+			<div style="table-align: center"> 
 			<table>
 				<tr>
 					<th>Date</th>
@@ -140,10 +146,20 @@ String hw = "hello world";
 				</tr>
 				<c:forEach items = "${soldTickets}" var = "ticket">
 					<tr>
-						<td>${ticket.date}</td>
+						<td>
+							<c:choose>
+							<c:when test="${ticket.screen == '0'}">&nbsp;</c:when>
+							<c:otherwise>${ticket.date }</c:otherwise>
+							</c:choose>
+						</td>
 						<td>${ticket.time}</td>
 						<td>${ticket.movieTitle}</td>
-						<td>${ticket.screen}</td>
+						<td>
+							<c:choose>
+							<c:when test="${ticket.screen == '0'}">&nbsp;</c:when>
+							<c:otherwise>${ticket.screen }</c:otherwise>
+							</c:choose>
+						</td>
 						<td>${ticket.seat}</td>
 						<td>${ticket.customer}</td>
 						<td>${ticket.ticketId}</td>
@@ -151,6 +167,9 @@ String hw = "hello world";
 					</tr>
 				</c:forEach>
 			</table>
+			</div>
+			<div><h1>Scheduled Showings</h1></div>
+			<div>
 			<table>
 				<tr>
 					<th>Date</th>
@@ -161,12 +180,13 @@ String hw = "hello world";
 				<c:forEach items = "${showings}" var = "showing">
 					<tr>
 						<td>${showing.date}</td>
-						<td>${showing.time}</td>
+						<td><fmt:formatDate value="${showing.time}" pattern="hh:mm a" /></td>
 						<td>${showing.screenId}</td>
 						<td>${showing.movie.title}</td>
 					</tr>
 				</c:forEach>
 			</table>
+			</div>
 		</c:if>
 	</div>
 
@@ -178,7 +198,6 @@ String hw = "hello world";
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"
 		integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0"
 		crossorigin="anonymous" type="text/javascript"></script>
-	<script type="text/javascript"
-		src="/TicketBooker/js/moviePageScript.js"></script>
+	
 </body>
 </html>

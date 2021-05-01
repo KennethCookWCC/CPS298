@@ -108,7 +108,7 @@ public class ShowingBean implements Serializable {
 		String sql = "";
 		sql += "SELECT showing.id, showing.date, showing.time, ";
 		sql +=   "movie.title, movie.rated, movie.release_date, movie.image_link, ";
-		sql +=   "screen.name, screen.max_rows, screen.max_cols ";
+		sql +=   "screen.id, screen.name, screen.max_rows, screen.max_cols ";
 		sql += "FROM showing ";
 		sql += "JOIN movie ON showing.movie_id = movie.id ";
 		sql += "JOIN screen ON showing.screen_id = screen.id ";
@@ -127,6 +127,7 @@ public class ShowingBean implements Serializable {
 			time = results.getTime("showing.time");
 			showingId=results.getInt("showing.id");
 			
+			screenId=results.getInt("screen.id");
 			screenRows=results.getInt("screen.max_rows");
 			screenCols=results.getInt("screen.max_cols");
 			
@@ -149,10 +150,11 @@ public class ShowingBean implements Serializable {
 		String sql = "";
 		sql += "SELECT showing.id, showing.date, showing.time, ";
 		sql +=   "movie.title, movie.rated, movie.release_date, movie.image_link, ";
-		sql +=   "screen.name, screen.max_rows, screen.max_cols ";
+		sql +=   "screen.id, screen.name, screen.max_rows, screen.max_cols ";
 		sql += "FROM showing ";
 		sql += "JOIN movie ON showing.movie_id = movie.id ";
 		sql += "JOIN screen ON showing.screen_id = screen.id ";
+		sql += "ORDER BY showing.date, showing.time, movie.title"; // KC - sort this for the admin
 		// sql += "WHERE showing.id = ?";
 		// PreparedStatement stmt = conn.prepareStatement("SELECT showing.id, showing.date, showing.time, movie.title, movie.rated, movie.release_date, movie.image_link, screen.name, screen.max_rows, screen.max_cols FROM showing JOIN movie ON showing.movie_id = movie.id JOIN screen ON showing.screen_id = screen.id");
 		PreparedStatement stmt = conn.prepareStatement( sql );
@@ -171,6 +173,7 @@ public class ShowingBean implements Serializable {
 			movieBean.setReleaseDate(results.getDate("movie.release_date"));
 			movieBean.setImageLink(results.getString("movie.image_link"));
 			bean.movie = movieBean;
+			bean.screenId=results.getInt("screen.id");
 			bean.screenName = results.getString("screen.name");
 			bean.screenRows = results.getInt("screen.max_rows");
 			bean.screenCols = results.getInt("screen.max_cols");

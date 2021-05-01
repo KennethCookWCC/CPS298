@@ -19,10 +19,12 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import beans.CartBean;
+import beans.CustTicketBean;
 import beans.MovieBean;
 import beans.MovieListBean;
 import beans.ShowingBean;
 import beans.ShowingListBean;
+import beans.SoldTicketBean;
 import beans.TicketBean;
 import beans.UserBean;
 import jdbc.ConnectionPool;
@@ -90,7 +92,28 @@ public class MyTicketsServlet extends HttpServlet {
 			return;
 		}
 		
-		// get all tickets for a user
+		if( !userBean.isLoginOK() ) {
+			// not logged in
+			RequestDispatcher dispatcher = servletContext.getRequestDispatcher("/MovieServlet");
+			dispatcher.forward(request, response);		
+			
+			return;
+		}
+
+		// logged in
+		if( userBean.isAdmin() ) {
+			// admin cant buy tickets
+			// what are they doing here?
+			
+			// send them to admin main
+			RequestDispatcher dispatcher = servletContext.getRequestDispatcher("/AdminServlet");
+			dispatcher.forward(request, response);		
+			
+			return;
+		}
+		
+		
+		
 /*
 		// process request parameters
 		String[] seatIds = request.getParameterValues("id");
@@ -160,6 +183,27 @@ public class MyTicketsServlet extends HttpServlet {
 		Connection conn = null;
 		try {
 			conn = connectionPool.getConnection();
+			
+			// get all tickets for a user
+			CustTicketBean custTickets = new CustTicketBean();
+			List<CustTicketBean> custTicketList = custTickets.loadForCustomer(conn, userBean.getId() );
+			
+			int nTickets = 0;
+			int totalBought = 0;
+			if( custTicketList != null ) {
+				nTickets = custTicketList.size();
+				for( CustTicketBean stb : custTicketList ) {
+					totalBought += stb.getPrice();
+					
+					// setup qrURL
+					stb.setQrURL("/TicketBooker/qrURL?TktId=" + stb.getTicketId() );
+				}
+			}
+			
+			
+			request.setAttribute("nTickts", nTickets);
+			request.setAttribute("Tickets", custTicketList);
+			request.setAttribute("totalBought", totalBought);
 			
 /*			
 			if (session == null) {

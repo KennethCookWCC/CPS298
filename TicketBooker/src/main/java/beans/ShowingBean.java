@@ -20,15 +20,17 @@ public class ShowingBean implements Serializable {
 	private static final DateFormat TIME_FORMAT = DateFormat.getTimeInstance(DateFormat.SHORT);
 	private static final DateFormat DATE_FORMAT = DateFormat.getDateInstance();
 	
-	private Time time;
-	private Date date;
+	private int showingId;	// SQL auto incr
+	private Time time;	// SQL
+	private Date date;	// SQL
+	private int movieId;	// SQL
+	private int screenId;	// SQL
+	
+	// UI junk
 	private List<SeatBean> seats = new ArrayList<>();
 	private MovieBean movie;
-	private int movieId;
-	private int screenId;
 	private String screenName;
 	private int screenRows, screenCols;
-	private int showingId;
 	
 	
 	

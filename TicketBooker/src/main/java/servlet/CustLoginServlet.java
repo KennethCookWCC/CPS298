@@ -135,6 +135,7 @@ public class CustLoginServlet extends HttpServlet {
 			if (session == null) {
 				System.out.println("CustLoginServlet:Create New session");
 				CartBean cartBean = new CartBean();
+				cartBean.setValidated(false);
 
 				// Not created yet. Now do so yourself.
 				session = request.getSession();
@@ -151,6 +152,7 @@ public class CustLoginServlet extends HttpServlet {
 					
 					// nope, make a new one
 					cart = new CartBean();
+					cart.setValidated(false);
 					session.setAttribute("cart", cart);
 				} else {
 					System.out.println("CustLoginServlet:Existing Session, existing cart");

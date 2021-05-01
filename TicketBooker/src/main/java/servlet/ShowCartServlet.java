@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.SQLException;
+import java.sql.Time;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -21,9 +22,11 @@ import javax.servlet.http.HttpSession;
 import beans.CartBean;
 import beans.MovieBean;
 import beans.MovieListBean;
+import beans.SeatBean;
 import beans.ShowingBean;
 import beans.ShowingListBean;
 import beans.TicketBean;
+import beans.UserBean;
 import jdbc.ConnectionPool;
 
 /**
@@ -67,6 +70,17 @@ public class ShowCartServlet extends HttpServlet {
 			return;
 		}
 		
+		UserBean userBean = (UserBean) session.getAttribute("user");	
+		if( userBean == null ) {
+			// then we shouldn't be here.
+			System.out.println(Prog+"have session, but no user!");
+						
+			RequestDispatcher dispatcher = servletContext.getRequestDispatcher("/MovieServlet");
+			dispatcher.forward(request, response);		
+					
+			return;
+		}
+		
 		CartBean userCart = (CartBean) session.getAttribute("cart");
 		if( userCart == null ) {
 			// then we shouldn't be here.
@@ -84,14 +98,22 @@ public class ShowCartServlet extends HttpServlet {
 		
 		// build temp cart of posted seats
 		CartBean postCart = new CartBean();
+		
 		int postshowid = 0;
 		
+		if( showingId != null ) {
+			postshowid = Integer.parseInt(showingId);
+			System.out.println(Prog+"ShowingId: "+showingId);
+			
+		} else {
+			System.out.println(Prog+"No ShowingId");
+		}
+		
 		// if we have posted tickets 
+		// build temp list of them
 		if(showingId != null && seatIds != null) { 
 			
 			// all these seats are for one showing
-			postshowid = Integer.parseInt(showingId);
-			System.out.println("ShowingId: "+showingId);
 			
 			// run the list of seats
 			for(int i=0; i< seatIds.length; i++) {
@@ -124,9 +146,7 @@ public class ShowCartServlet extends HttpServlet {
 				}
 			}
 			
-			
-			
-			// forgot to update 
+			// update the session user cart 
 			session.setAttribute("cart", userCart);
 		}
 		
@@ -152,6 +172,61 @@ public class ShowCartServlet extends HttpServlet {
 			conn = connectionPool.getConnection();
 			
 			
+			// look up stuff for showing the cart
+			// need showingID -> MovieTitle Date Time
+			// need seatID -> seatstring (RowCol)
+			ShowingBean showBean = new ShowingBean();
+			SeatBean seatBean = new SeatBean();
+			
+			for( int idx=0; idx < userCart.count(); idx++ ) {
+				TicketBean tb = userCart.getCartAL().get(idx);
+				// popuate UI fields for each Ticket
+				int showid = tb.getShowing_id();
+				// ShowingBean showBean = new ShowingBean();
+				// try to get the showing
+				if( ! showBean.loadOneFromDatabase(conn, showid ) ) {
+					// no showing
+					System.out.println(Prog+"ERROR no showing for cart ticket:showid:" + showid );
+				}
+				
+				int seatid = tb.getSeatId();
+				// get the seat
+				if( ! seatBean.loadOneFromDatabase(conn, seatid ) ) {
+					// no seat
+					System.out.println(Prog+"ERROR no seat for cart ticket:seatid:" + seatid );
+				}
+				
+				// determine price based on time
+				Time movieTime = showBean.getTime();
+				int hour = movieTime.getHours();
+				int price = 0;	// free if we screw up calculation
+				// after 3 PM?
+				if( hour > 15 ) {
+					// regular price
+					price = 1000;
+				} else {
+					// matinee
+					price = 500;
+				}
+				
+				// fill in cart ticket
+				tb.setCustomerId(userBean.getId());
+				tb.setDate(showBean.getDate());
+				tb.setTime(movieTime);
+				tb.setTitle(showBean.getMovie().getTitle());
+				
+				tb.setRow(seatBean.getRow());
+				tb.setNumber(seatBean.getNumber());
+				tb.setPrice(price);
+			}
+			
+			// cart is validated
+			userCart.setValidated(true);
+			
+			// update the session user cart 
+			session.setAttribute("cart", userCart);
+			
+			/*
 			if (session == null) {
 			    // Not created yet. Now do so yourself.
 				
@@ -184,6 +259,7 @@ public class ShowCartServlet extends HttpServlet {
 
 				session.setAttribute("cart", cb);
 			}
+			*/
 			
 		} catch (SQLException e) {
 			e.printStackTrace();

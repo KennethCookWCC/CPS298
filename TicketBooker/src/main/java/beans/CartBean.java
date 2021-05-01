@@ -10,6 +10,7 @@ import java.util.List;
 
 public class CartBean implements Serializable {
 	private ArrayList<TicketBean> cart;
+	private boolean	validated = false;	// have the tickets in the cart been completed?
 	private String test = "This is a test string.";
 	
 	public  List<TicketBean> getCart(){
@@ -27,6 +28,7 @@ public class CartBean implements Serializable {
 	public void setTest(String test) {
 		this.test = test;
 	}
+	
 	public void addTicket(TicketBean ticket) {
 		ArrayList<TicketBean> tix = new ArrayList<TicketBean>();
 		if(cart != null) {
@@ -36,6 +38,12 @@ public class CartBean implements Serializable {
 		this.setCart(tix);
 	}
 	
+	public boolean isValidated() {
+		return validated;
+	}
+	public void setValidated(boolean validated) {
+		this.validated = validated;
+	}
 	public boolean containsTicket(int showingId, int seatId ) {
 		boolean contained= false;
 		if(cart !=null) {

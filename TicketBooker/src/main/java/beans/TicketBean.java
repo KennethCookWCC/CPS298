@@ -10,26 +10,30 @@ import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;
 
+// A ticketBean holds one seat in one showing of a movie for a customer
 public class TicketBean implements Serializable {
-	private int ticketId;
-	private int customer_id;
-	private int showing_id;
-	private int price;
-	private int seatId;
-	private String title;
-	private String row;
-	private int number;
-	private java.sql.Date date;
-	private Time time;
+	private int ticketId;	// SQL - auto incr
+	private int customer_id; //SQL
+	private int showing_id;	// SQL
+	private int price;		// SQL
+	private int seatId;		// SQL
+	
+	private String title;	// added for UI - Movie title
+	private String row;		// added for UI - seat Row 
+	private int number;		// is this column number?
+	private java.sql.Date date;	// Showing Date?
+	private Time time;		// ShowingTime?
 	
 
+	// EDIT KC - needed to write seatId too
 	public boolean insertIntoDatabase(Connection conn) throws SQLException {
-		String sql = "INSERT INTO ticket (customer_id, showing_id, price) " + 
-				"VALUES(?, ?, ?);";
+		String sql = "INSERT INTO ticket (customer_id, showing_id, seat_id, price) " + 
+				"VALUES(?, ?, ?,?);";
 		PreparedStatement stmt = conn.prepareStatement(sql);
 		stmt.setInt(1, customer_id);
 		stmt.setInt(2, showing_id);
-		stmt.setInt(3, price);
+		stmt.setInt(3, seatId);
+		stmt.setInt(4, price);
 		return stmt.executeUpdate() == 1; // if one row affected, it worked -- return true
 	}
 	

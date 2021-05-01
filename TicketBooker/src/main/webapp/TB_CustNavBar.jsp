@@ -9,7 +9,7 @@ TB_CustNavBar.jsp - include for the ticketbooker customer navigation bar
 	<nav
 		class="navbar navbar-custom navbar-expand-lg navbar-light bg-light">
 		<div class="container-fluid">
-			&nbsp; <a class="navbar-brand" href="#">Ticket Booker</a>
+			<a class="navbar-brand" href="#">Ticket Booker</a>
 			<button class="navbar-toggler" type="button"
 				data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
 				aria-controls="navbarNavAltMarkup" aria-expanded="false"
@@ -20,7 +20,7 @@ TB_CustNavBar.jsp - include for the ticketbooker customer navigation bar
 			<div class="collapse navbar-collapse" id="navbarNavAltMarkup">
 				<div class="navbar-nav">
 					<a class="nav-link" href="/TicketBooker/MovieServlet">Movies</a> 
-					<a class="nav-link" href="#">Prices</a>
+					<a class="nav-link" href="/TicketBooker/MovieServlet#prices">Prices</a>
 					<c:if test="${user.loginOK}">
 						<a class="nav-link" href="MyTicketsServlet">MyTickets</a>
 					</c:if>

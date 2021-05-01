@@ -20,7 +20,7 @@ public class TicketBean implements Serializable {
 	
 	private String title;	// added for UI - Movie title
 	private String row;		// added for UI - seat Row 
-	private int number;		// is this column number?
+	private int number;		// is this column number? yes
 	private java.sql.Date date;	// Showing Date?
 	private Time time;		// ShowingTime?
 	

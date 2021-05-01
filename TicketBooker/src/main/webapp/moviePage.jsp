@@ -50,27 +50,28 @@
 				</h1>
 				<!-- <p>Date:${viewDate} Nice:${viewDateStr}<fmt:formatDate type="date" value="${dateParam}" /></p> -->
 				<p><strong>${viewDateStr}</strong></p>
+				<div id="dateSelectDiv mx-auto">
+					<form id="dateForm" action="/TicketBooker/MovieServlet" method="POST">
+						<select name="date">
+							<c:forEach items="${showingDates}" var="date">
+								<c:choose>								
+									<c:when test="${viewDate == date.toString()}">
+										<option value="${date}" selected>${date.toString()}</option>
+									</c:when>
+									<c:otherwise>
+										<option value="${date}">${date.toString()}</option>
+									</c:otherwise>
+								</c:choose>
+							</c:forEach>
+						</select> <input type="submit" name="submit" value="Go" />
+					</form>
+				</div>
 				<p>
 					<strong>Click on a show time to buy tickets:</strong>
 				</p>
 				<br>
 			</div>
-			<div id="dateSelectDiv mx-auto">
-				<form action="/TicketBooker/MovieServlet" method="POST">
-					<select name="date">
-						<c:forEach items="${showingDates}" var="date">
-							<c:choose>								
-								<c:when test="${viewDate == date.toString()}">
-									<option value="${date}" selected>${date.toString()}</option>
-								</c:when>
-								<c:otherwise>
-									<option value="${date}">${date.toString()}</option>
-								</c:otherwise>
-							</c:choose>
-						</c:forEach>
-					</select> <input type="submit" name="submit" value="Go" />
-				</form>
-			</div>
+			
 			<!--MOVIE 1-->
 
 			<c:forEach items="${ml}" var="movie">

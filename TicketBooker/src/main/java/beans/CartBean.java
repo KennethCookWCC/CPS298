@@ -35,6 +35,7 @@ public class CartBean implements Serializable {
 		tix.add(ticket);
 		this.setCart(tix);
 	}
+	
 	public boolean containsTicket(int showingId, int seatId ) {
 		boolean contained= false;
 		if(cart !=null) {
@@ -94,15 +95,46 @@ public class CartBean implements Serializable {
 		return out;
 	}
 	
-//	public List<TicketBean> getCartUI(CartBean cart){
-//		CartBean newCart = new CartBean();
-//		
-//		List cartList = cart.getCart();
-//		
-//		cartList.forEach((t)->{
-//			
-//		});
-//	}
+	public ArrayList<TicketBean> getCartUI(Connection conn){
+		CartBean newCart = new CartBean();
+		ArrayList cartList = this.getCartAL();
+		String sql = "select showing.id, showing.date, showing.time, showing.price, seat.seat_number, seat.row, movie.title from movie join showing on movie.id = showing.movie_id join screen on showing.screen_id = screen.id join seat on screen.id = seat.screen_id where showing.id = ? AND seat.id =?";
+		try {
+			int showId;
+			int seatId;
+			PreparedStatement stmt = conn.prepareStatement(sql);
+			
+			for(int i=0; i<cartList.size(); i++) {
+				TicketBean ticket = (TicketBean) cartList.get(i);
+				showId = ticket.getShowing_id();
+				seatId = ticket.getSeatId();
+				stmt.setInt(1, showId);
+				stmt.setInt(2, seatId);
+				ResultSet results = stmt.executeQuery();
+				
+				if(results.next()) {
+					TicketBean newTicket = new TicketBean();
+					newTicket.setTitle(results.getString("movie.title"));
+					newTicket.setSeatId(seatId);
+					newTicket.setRow(results.getString("seat.row"));
+					newTicket.setNumber(Integer.parseInt(results.getString("seat.seat_number")));
+//					newTicket.setTime(results.getString("showing.time"));
+//					newTicket.setDate(Integer.parseInt(results.getString("showing.time")));
+					newTicket.setPrice(Integer.parseInt(results.getString("showing.price")));
+					System.out.println("ticket added: "+ newTicket.toString());
+					newCart.addTicket(newTicket);
+				}
+				
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		return newCart.getCartAL();
+	}
 	
 	
 //	test function to load all tickets for user 1 into cart

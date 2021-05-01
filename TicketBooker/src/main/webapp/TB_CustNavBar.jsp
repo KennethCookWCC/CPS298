@@ -20,7 +20,11 @@ TB_CustNavBar.jsp - include for the ticketbooker customer navigation bar
 			<div class="collapse navbar-collapse" id="navbarNavAltMarkup">
 				<div class="navbar-nav">
 					<a class="nav-link" href="/TicketBooker/MovieServlet">Movies</a> 
+<<<<<<< HEAD
 					<a class="nav-link" href="/TicketBooker/MovieServlet#prices">Prices</a>
+=======
+					<a class="nav-link" href="#">Prices</a>
+>>>>>>> refs/remotes/origin/main
 					<c:if test="${user.loginOK}">
 						<a class="nav-link" href="MyTicketsServlet">MyTickets</a>
 					</c:if>

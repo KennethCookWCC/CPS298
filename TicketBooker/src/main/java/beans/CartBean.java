@@ -103,7 +103,7 @@ public class CartBean implements Serializable {
 		return out;
 	}
 	
-
+/*
 	public ArrayList<TicketBean> getCartUI(Connection conn, CartBean cart){
 		
 		CartBean newCart = new CartBean();
@@ -118,7 +118,7 @@ public class CartBean implements Serializable {
 //			sql = "SELECT seat.id, showing.id, movie.title, showing.time, showing.price, seat.seat_number, seat.row FROM showing LEFT JOIN screen ON  showing.screen_id = screen.id JOIN seat ON screen.id = seat.screen_id LEFT JOIN movie on showing.movie_id = movie.id WHERE showing.id =10 AND seat.id =1142 ";
 			sql = "select showing.id, showing.date, showing.time, showing.price, seat.seat_number, seat.row, movie.title from movie join showing on movie.id = showing.movie_id join screen on showing.screen_id = screen.id join seat on screen.id = seat.screen_id where showing.id = ? AND seat.id =?";
 			PreparedStatement stmt = conn.prepareStatement(sql);
-
+/*
 		
 			cartList.forEach((<TicketBean> t)->{
 				String showId = t.getShowingId();
@@ -130,7 +130,8 @@ public class CartBean implements Serializable {
 				
 			
 			});
-			
+	*/
+	
 	public ArrayList<TicketBean> getCartUI(Connection conn){
 		CartBean newCart = new CartBean();
 		ArrayList cartList = this.getCartAL();

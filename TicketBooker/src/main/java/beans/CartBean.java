@@ -41,7 +41,7 @@ public class CartBean implements Serializable {
 		if(cart !=null) {
 			for(int i=0; i< cart.size(); i++) {
 				int cartShowId = cart.get(i).getShowing_id();
-				int cartSeatId = cart.get(i).getId();
+				int cartSeatId = cart.get(i).getSeatId();		// KC - was getID which returns ticketID not seatID
 				if(cartShowId == showingId && cartSeatId == seatId ) {
 					contained = true;
 					break;

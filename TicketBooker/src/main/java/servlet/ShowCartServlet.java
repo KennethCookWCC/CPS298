@@ -99,7 +99,7 @@ public class ShowCartServlet extends HttpServlet {
 				System.out.println("SeatID: "+seatIds[i]);
 				
 				TicketBean ticket = new TicketBean();
-				ticket.setId(seatid);
+				ticket.setSeatId(seatid);
 				ticket.setShowing_id(postshowid);
 				if (!postCart.containsTicket(postshowid,seatid)) {
 					postCart.addTicket(ticket);
@@ -123,6 +123,8 @@ public class ShowCartServlet extends HttpServlet {
 					userCart.addTicket(tk);
 				}
 			}
+			
+			
 			
 			// forgot to update 
 			session.setAttribute("cart", userCart);
@@ -172,7 +174,7 @@ public class ShowCartServlet extends HttpServlet {
 						System.out.println("SeatID: "+seatIds[i]);
 						System.out.println("ShowingId: "+showingId);
 						TicketBean ticket = new TicketBean();
-						ticket.setId(Integer.parseInt(seatIds[i]));
+						ticket.setSeatId(Integer.parseInt(seatIds[i]));
 						ticket.setShowing_id(Integer.parseInt(showingId));
 						if (!cb.containsTicket(Integer.parseInt(showingId), Integer.parseInt(seatIds[i]))) {
 							cb.addTicket(ticket);
@@ -192,8 +194,20 @@ public class ShowCartServlet extends HttpServlet {
 			}
 		}
 		
-		String testAttr = request.getParameter("testAttr");
-		request.setAttribute("testAttr", testAttr);
+		
+		
+// THIS IS NEW CODE TO GET/SET THE UI ELEMENTS FOR TICKETS IN THE CART
+		
+//		try {
+//			Connection conn = connectionPool.getConnection();
+//			ArrayList<TicketBean> cartListUI = postCart.getCartUI(conn);
+//			userCart.setCart(cartListUI);
+//			// TODO Auto-generated catch block
+//			
+//		}catch(Exception e) {
+//			e.printStackTrace();
+//		}
+
 
 		RequestDispatcher dispatcher = servletContext.getRequestDispatcher("/ShowCart.jsp");
 		dispatcher.forward(request, response);		

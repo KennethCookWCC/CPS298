@@ -35,8 +35,8 @@ String test = (String) session.getAttribute("testAttr");
 
 		<c:when test="${cart.count != 0}">
 			<c:forEach items="${cart.cart}" var="ticket">
-				<p>showingId:${ticket.showing_id} &nbsp; seatId:${ticket.getId()}</p>
-				
+				<p>showingId:${ticket.showing_id} &nbsp; seatId:${ticket.getSeatId()}</p>
+				<p>title: ${ticket.getTitle()}</p>
 			</c:forEach>
 		</c:when>
 		<c:otherwise>

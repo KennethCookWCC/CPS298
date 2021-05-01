@@ -178,6 +178,7 @@ public class AdminLoginServlet extends HttpServlet {
 			+ " Admin:" + userBean.isAdmin()
 			);
 
+		
 		RequestDispatcher dispatcher = servletContext.getRequestDispatcher("/AdminServlet");
 		dispatcher.forward(request, response);
 	}

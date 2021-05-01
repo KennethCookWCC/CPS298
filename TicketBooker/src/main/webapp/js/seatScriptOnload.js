@@ -53,7 +53,7 @@ function cartArr2Str() {
 		if( newCart ) {
 			formStr += '<input type="submit" class="btn btn-primary" name="submit" value="Add to Cart">';
 		} else {
-		formStr += '<input type="submit" class="btn btn-primary" name="submit" value="Update Cart">';
+			formStr += '<input type="submit" class="btn btn-primary" name="submit" value="Update Cart">';
 		}
 	}
 }

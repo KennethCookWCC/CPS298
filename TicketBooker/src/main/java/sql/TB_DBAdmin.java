@@ -117,6 +117,7 @@ public class TB_DBAdmin {
                 || sqltbl.equals("refund")
                 || sqltbl.equals("admin")
                 || sqltbl.equals("SoldTickets")
+                || sqltbl.equals("CustTickets")
                         )
                 )
             sqltbl = "customer";

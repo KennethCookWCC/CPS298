@@ -70,6 +70,33 @@ public class CheckoutServlet extends HttpServlet {
 			return;
 		}
 		
+		
+		UserBean userBean = (UserBean) session.getAttribute("user");	
+		CartBean userCart = (CartBean) session.getAttribute("cart");
+		if( userBean == null || userCart == null ) {
+			// then we shouldn't be here.
+			System.out.println(Prog+"have session, but no user or cart!");
+						
+			RequestDispatcher dispatcher = servletContext.getRequestDispatcher("/MovieServlet");
+			dispatcher.forward(request, response);		
+					
+			return;
+		}
+		
+		if( !userBean.isLoginOK() )	{
+			// need to login first
+			RequestDispatcher dispatcher = servletContext.getRequestDispatcher("/LoginCustomerJSP");
+			dispatcher.forward(request, response);		
+		}
+		
+		if( userBean.isAdmin() ) {
+			// can't be here
+			RequestDispatcher dispatcher = servletContext.getRequestDispatcher("/AdminServlet");
+			dispatcher.forward(request, response);
+		}
+		
+		
+		
 		RequestDispatcher dispatcher = servletContext.getRequestDispatcher("/Checkout.jsp");
 		dispatcher.forward(request, response);		
 	}

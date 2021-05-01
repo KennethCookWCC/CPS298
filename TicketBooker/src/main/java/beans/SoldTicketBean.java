@@ -21,7 +21,13 @@ public class SoldTicketBean implements Serializable {
 	
 	public static List<SoldTicketBean> getSoldTickets(Connection conn) throws SQLException {
 		Statement stmt = conn.createStatement();
-		ResultSet results = stmt.executeQuery("SELECT Date, MovieTitle, Time, Screen, Customer, TkID, Seat, Price FROM SoldTickets");
+		String sql = "";
+		sql += "SELECT Date, MovieTitle, ";
+		sql += "Time, ";
+		sql += "Screen, Customer, TkID, Seat, Price ";
+		sql += "FROM SoldTickets";
+		
+		ResultSet results = stmt.executeQuery( sql );
 		List<SoldTicketBean> beans = new ArrayList<>();
 		while(results.next()) {
 			// create a bean for each ticket result and add them to the list
@@ -89,8 +95,15 @@ public class SoldTicketBean implements Serializable {
 	}
 	
 	public String getStringPrice() {
+		String retv = "";
 		int cents = price % 100;
 		int dollars = price / 100;
-		return dollars + "." + cents;
+		retv += dollars + ".";
+		if( cents < 10 ) {
+			retv += "0";
+		}
+		retv += cents;
+		return retv ;
+				
 	}
 }

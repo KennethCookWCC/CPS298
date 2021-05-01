@@ -73,6 +73,7 @@ public class AdminServlet extends HttpServlet {
 		
 		String error = "Not logged in";
 		HttpSession session = request.getSession(false);
+		
 		// if we have no session or it lacks the user property we know we aren't logged in
 		if(session != null && session.getAttribute("user") != null) {
 			UserBean user = (UserBean) session.getAttribute("user");
@@ -80,13 +81,44 @@ public class AdminServlet extends HttpServlet {
 				Connection conn = null;
 				try {
 					conn = connectionPool.getConnection();
+					
+					// put both soldtickets list and number of soldtickets into session
+					int nSoldTickets = 0;
+					int totalSold = 0;
 					List<SoldTicketBean> tickets = SoldTicketBean.getSoldTickets(conn);
-					List<ShowingBean> showings = ShowingBean.loadAllFromDatabase(conn);
+					if( tickets != null ) {
+						nSoldTickets = tickets.size();
+						for( SoldTicketBean stb : tickets ) {
+							totalSold += stb.getPrice();
+						}
+					}
+					SoldTicketBean totTk = new SoldTicketBean();
+					totTk.setPrice(totalSold);
+					totTk.setCustomer("Total Sold:");
+					totTk.setTicketId(nSoldTickets);
+					totTk.setTime("");
+					Date dt = new Date(2021-1900, 0, 15);
+					totTk.setDate(dt);
+					tickets.add(totTk);
+					
+					request.setAttribute("nSoldTickts", nSoldTickets);
 					request.setAttribute("soldTickets", tickets);
+					
+					// put both showings list and number of showings into session
+					int nShowings = 0;
+					List<ShowingBean> showings = ShowingBean.loadAllFromDatabase(conn);
+					if( showings != null ) {
+						nShowings = showings.size();
+					}
+					request.setAttribute("nShowings", nShowings);
 					request.setAttribute("showings", showings);
-					request.setAttribute("notLoggedIn", false);
+					
+					// user.loginOK does this already
+					//request.setAttribute("notLoggedIn", false);
+					
 					servletContext.getRequestDispatcher("/AdminMain.jsp").forward(request, response);
 					return;
+					
 				} catch (SQLException e) {
 					e.printStackTrace();
 					throw new ServletException(e);
@@ -99,10 +131,13 @@ public class AdminServlet extends HttpServlet {
 				error = "Not logged in as an admin";
 			}
 		}
+		
 		// we didn't hit the path that returns the page result.
-		request.setAttribute("message", error);
-		request.setAttribute("notLoggedIn", true);
-		servletContext.getRequestDispatcher("/AdminMain.jsp").forward(request, response);
+		//request.setAttribute("message", error);
+		//request.setAttribute("notLoggedIn", true);
+		//servletContext.getRequestDispatcher("/AdminMain.jsp").forward(request, response);
+		servletContext.getRequestDispatcher("/LoginCustomerJSP").forward(request, response);
+		
 	}
 
 }

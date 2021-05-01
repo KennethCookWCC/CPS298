@@ -210,7 +210,10 @@ public class ShowCartServlet extends HttpServlet {
 				}
 				
 				// fill in cart ticket
-				tb.setCustomerId(userBean.getId());
+				if( userBean.isLoginOK() ) {
+					tb.setCustomerId(userBean.getId());
+				}
+				
 				tb.setDate(showBean.getDate());
 				tb.setTime(movieTime);
 				tb.setTitle(showBean.getMovie().getTitle());
@@ -221,7 +224,9 @@ public class ShowCartServlet extends HttpServlet {
 			}
 			
 			// cart is validated
-			userCart.setValidated(true);
+			if(userBean.isLoginOK() && userCart.count() > 0 ) {
+				userCart.setValidated(true);
+			}
 			
 			// update the session user cart 
 			session.setAttribute("cart", userCart);

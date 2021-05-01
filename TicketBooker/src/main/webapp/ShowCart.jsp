@@ -31,7 +31,6 @@
 			</p>
 		</div>
 
-<<<<<<< HEAD
 		<!-- CART DIV -->
 		<main>
 			<div class="row row-cols-1 row-cols-md-2 mb-2 text-center">
@@ -136,27 +135,6 @@
 			</ul>
 		</footer>
 	</div>
-
-=======
-		<c:when test="${cart.count != 0}">
-			<c:forEach items="${cart.cart}" var="ticket">
-				<p>showingId:${ticket.showing_id} &nbsp; seatId:${ticket.getSeatId()}</p>
-				<p>title: ${ticket.getTitle()} &nbsp;
-				Date:${ticket.getDate() } &nbsp;
-				Time:${ticket.getTime() } &nbsp;
-				Seat:${ticket.getRow() } &nbsp;
-				Number:${ticket.getNumber() } &nbsp;
-				Price:${ticket.getPrice() }
-				</p>
-			</c:forEach>
-			
-			
-		</c:when>
-		<c:otherwise>
-			<h2>Your cart is empty</h2>
-		</c:otherwise>
-	</c:choose>
->>>>>>> refs/remotes/origin/main
 
 </body>
 </html>

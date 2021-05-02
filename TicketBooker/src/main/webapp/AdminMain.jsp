@@ -59,8 +59,6 @@ String hw = "hello world";
 	<!--NAVBAR-->
 	<%@include file="TB_AdminNavBar.jsp" %>
 
-<!--  onsubmit="return validatecustlogin()"	 -->
-
 	<div class="container text-center">
 		<h1 class="myHeader display-4">TicketBooker Admin Main Menu</h1>
 		
@@ -115,7 +113,7 @@ String hw = "hello world";
 				</c:forEach>
 			</table>
 			</div>
-			<div id="showingslist" class="row"><h1>Scheduled Showings</h1></div>
+			<div class="row"><h1>Scheduled Showings</h1></div>
 			<div class="row">
 			<div class="col-8 mx-auto">
 			<table class="table">

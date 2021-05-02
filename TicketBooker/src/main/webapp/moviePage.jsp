@@ -40,11 +40,11 @@
 	
 	<div class="row myHeader justify-content-center text-center">
 		<div id="nowPlaying">
-				<h1>
+				<h1 class="display-4">
 					<strong>Now Playing</strong>
 				</h1>
 				<!-- <p>Date:${viewDate} Nice:${viewDateStr}<fmt:formatDate type="date" value="${dateParam}" /></p> -->
-				<p><strong>${viewDateStr}</strong></p>
+				<h4><strong>${viewDateStr}</strong></h4>
 				<p id="dateSelectLabel">Select Date: </p>
 				<div id="dateSelectDiv">
 					<form id="dateForm" action="/TicketBooker/MovieServlet" method="POST">
@@ -62,7 +62,7 @@
 						</select> <input type="submit" name="submit" value="Go" />
 					</form>
 				</div>
-				<p>
+				<p id="clickP">
 					<strong>Click on a show time to buy tickets:</strong>
 				</p>
 			</div>

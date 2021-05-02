@@ -31,10 +31,10 @@ TB_CustNavBar.jsp - include for the ticketbooker customer navigation bar
 					<!--  ${user.isLoginOK()} returns true or false -->
 					<c:choose>
 						<c:when test="${user.loginOK}">
-							<a href="Logout" class="me-3 tbNav"><strong>Logout</strong></a>
+							<a href="Logout" class="pe-3 tbNav"><strong>Logout</strong></a>
 						</c:when>
 				    	<c:otherwise>
-				    	 	<a href="LoginCustomerJSP" class="me-3 tbNav"><strong>Login</strong></a>
+				    	 	<a href="LoginCustomerJSP" class="pe-3 tbNav"><strong>Login</strong></a>
 				    	 	
 				    	 	<!--  http://localhost:8080/TicketBooker/LoginCustomerJSP -->
 				    	</c:otherwise>

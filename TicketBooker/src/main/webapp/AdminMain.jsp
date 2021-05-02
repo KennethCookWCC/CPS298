@@ -58,9 +58,9 @@ String hw = "hello world";
 
 	<!--NAVBAR-->
 	<%@include file="TB_AdminNavBar.jsp" %>
-	
+
 	<div class="container text-center">
-		<h1>TicketBooker Admin Main Menu</h1>
+		<h1 class="myHeader display-4">TicketBooker Admin Main Menu</h1>
 		
 		<c:if test="${!user.loginOK}">
 		<form name="adminLogin" action="AdminLoginServlet"

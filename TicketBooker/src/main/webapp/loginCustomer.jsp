@@ -135,6 +135,8 @@ String hw = "hello world";
 		crossorigin="anonymous" type="text/javascript"></script>
 	
 </body>
+<!--Footer-->
+<%@include file="TB_Footer.jsp" %>
 
 <script type="text/javascript">
 /* this does not work. Bootstrap to blame? */

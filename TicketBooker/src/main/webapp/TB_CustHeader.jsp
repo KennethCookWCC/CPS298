@@ -22,7 +22,7 @@ TB_CustNavBar.jsp - include for the ticketbooker customer navigation bar
 	<nav
 		class="navbar navbar-custom navbar-expand-lg navbar-light bg-light">
 		<div class="container-fluid">
-			&nbsp; <a class="navbar-brand" href="#">Ticket Booker</a>
+			&nbsp; <a class="navbar-brand" href="#">TicketBooker</a>
 			<button class="navbar-toggler" type="button"
 				data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
 				aria-controls="navbarNavAltMarkup" aria-expanded="false"

@@ -57,7 +57,8 @@ String hw = "hello world";
 
 
 	<!--NAVBAR-->
-	<nav
+	<%@include file="TB_AdminNavBar.jsp" %>
+	<%-- <nav
 		class="navbar navbar-custom navbar-expand-lg navbar-light bg-light">
 		<div class="container-fluid">
 			<a class="navbar-brand" href="#">Ticket Booker</a>
@@ -85,7 +86,7 @@ String hw = "hello world";
 				</div>
 			</div>
 		</div>
-	</nav>
+	</nav> --%>
 <!--  onsubmit="return validatecustlogin()"	 -->
 
 	<div class="container text-center">

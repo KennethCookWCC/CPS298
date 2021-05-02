@@ -30,255 +30,255 @@ import beans.UserBean;
 import jdbc.ConnectionPool;
 
 /**
- * Servlet implementation class MovieServlet
+ * Servlet implementation class ShowCart
  * 
- * update cartBean after seat selection or changes
+ * update cartBean after seat selection or changes also handles removal from
+ * checkoutlist
  */
 @WebServlet("/ShowCartServlet")
 public class ShowCartServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-	
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public ShowCartServlet() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#HttpServlet()
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public ShowCartServlet() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		final String Prog = "ShowCartServlet:";
-		
+
 		ServletContext servletContext = getServletContext();
 		ConnectionPool connectionPool = (ConnectionPool) servletContext.getAttribute("connectionPool");
-		
+
 		// these do not need to be inside try / catch
 		HttpSession session = request.getSession(false);
-		
-		if( session == null ) {
+
+		if (session == null) {
 			// then we shouldn't be here.
-			System.out.println(Prog+"no session!");
-			
+			System.out.println(Prog + "no session!");
+
 			RequestDispatcher dispatcher = servletContext.getRequestDispatcher("/MovieServlet");
-			dispatcher.forward(request, response);		
-			
+			dispatcher.forward(request, response);
+
 			return;
 		}
-		
-		UserBean userBean = (UserBean) session.getAttribute("user");	
-		if( userBean == null ) {
+
+		UserBean userBean = (UserBean) session.getAttribute("user");
+		if (userBean == null) {
 			// then we shouldn't be here.
-			System.out.println(Prog+"have session, but no user!");
-						
+			System.out.println(Prog + "have session, but no user!");
+
 			RequestDispatcher dispatcher = servletContext.getRequestDispatcher("/MovieServlet");
-			dispatcher.forward(request, response);		
-					
+			dispatcher.forward(request, response);
+
 			return;
 		}
-		
+
 		CartBean userCart = (CartBean) session.getAttribute("cart");
-		if( userCart == null ) {
+		if (userCart == null) {
 			// then we shouldn't be here.
-			System.out.println(Prog+"have session, but no cart!");
-			
+			System.out.println(Prog + "have session, but no cart!");
+
 			RequestDispatcher dispatcher = servletContext.getRequestDispatcher("/MovieServlet");
-			dispatcher.forward(request, response);		
-			
+			dispatcher.forward(request, response);
+
 			return;
 		}
-		
+
 		// process request parameters
+		// these are from the seat selection page
 		String[] seatIds = request.getParameterValues("id");
 		String showingId = request.getParameter("showingId");
-		
-		// build temp cart of posted seats
-		CartBean postCart = new CartBean();
-		
-		int postshowid = 0;
-		
-		if( showingId != null ) {
-			postshowid = Integer.parseInt(showingId);
-			System.out.println(Prog+"ShowingId: "+showingId);
-			
-		} else {
-			System.out.println(Prog+"No ShowingId");
-		}
-		
-		// if we have posted tickets 
-		// build temp list of them
-		if(showingId != null && seatIds != null) { 
-			
-			// all these seats are for one showing
-			
-			// run the list of seats
-			for(int i=0; i< seatIds.length; i++) {
-				int seatid = Integer.parseInt(seatIds[i]);
-				System.out.println("SeatID: "+seatIds[i]);
-				
-				TicketBean ticket = new TicketBean();
-				ticket.setSeatId(seatid);
-				ticket.setShowing_id(postshowid);
-				if (!postCart.containsTicket(postshowid,seatid)) {
-					postCart.addTicket(ticket);
-				}
-			}
-		}
-		
-		// is this an update or just a showing of the cart?
-		if( showingId != null ) {
-			// need to update the cart
-			
-			// eliminate any tickets for this showing
-			userCart.deleteShowing(postshowid);
-			
-			System.out.println("userCart after deleting matches: "+userCart.toString());
-			
-			// add the ones from this post
-			ArrayList<TicketBean> pclist = postCart.getCartAL() ;
-			if( pclist != null ) {
-				for( TicketBean tk : pclist ) {
-					userCart.addTicket(tk);
-				}
-			}
-			
-			// update the session user cart 
-			session.setAttribute("cart", userCart);
-		}
-		
-		// build list of unique showing IDs from the userCart
-		HashSet<Integer> showingIds = new HashSet<Integer>(); 
 
-		ArrayList<TicketBean> uclist = userCart.getCartAL() ;
-		if( uclist != null ) {
-			for( TicketBean tk : userCart.getCartAL() ) {
-				showingIds.add(tk.getShowing_id());
+		// these are from the checkout page
+
+		// http://localhost:8080/TicketBooker/ShowCartServlet?remove=1&showing=2&seat=1105
+		String rm_do = request.getParameter("remove");
+		String rm_showid = request.getParameter("showing");
+		String rm_seat = request.getParameter("seat");
+
+		if (rm_do != null) {
+			// do remove from checkout page
+			int showid = Integer.parseInt(rm_showid);
+			int seatid = Integer.parseInt(rm_seat);
+			
+			System.out.println(Prog+"checkout remove:show:" + showid + " seat:"+seatid);
+			userCart.removeTicket(showid, seatid);
+			
+			// update UI
+			session.setAttribute("cart", userCart);
+			
+			RequestDispatcher dispatcher = servletContext.getRequestDispatcher("/ShowCart.jsp");
+			dispatcher.forward(request, response);
+			
+			return;
+		}
+
+		if (showingId != null) {
+			// update cart from seat selection page
+
+			// build temp cart of posted seats
+			CartBean postCart = new CartBean();
+
+			int postshowid = 0;
+
+			if (showingId != null) {
+				postshowid = Integer.parseInt(showingId);
+				System.out.println(Prog + "ShowingId: " + showingId);
+
+			} else {
+				System.out.println(Prog + "No ShowingId");
+			}
+
+			// if we have posted tickets
+			// build temp list of them
+			if (showingId != null && seatIds != null) {
+
+				// all these seats are for one showing
+
+				// run the list of seats
+				for (int i = 0; i < seatIds.length; i++) {
+					int seatid = Integer.parseInt(seatIds[i]);
+					System.out.println("SeatID: " + seatIds[i]);
+
+					TicketBean ticket = new TicketBean();
+					ticket.setSeatId(seatid);
+					ticket.setShowing_id(postshowid);
+					if (!postCart.containsTicket(postshowid, seatid)) {
+						postCart.addTicket(ticket);
+					}
+				}
+			}
+
+			// is this an update or just a showing of the cart?
+			if (showingId != null) {
+				// need to update the cart
+
+				// eliminate any tickets for this showing
+				userCart.deleteShowing(postshowid);
+
+				System.out.println("userCart after deleting matches: " + userCart.toString());
+
+				// add the ones from this post
+				ArrayList<TicketBean> pclist = postCart.getCartAL();
+				if (pclist != null) {
+					for (TicketBean tk : pclist) {
+						userCart.addTicket(tk);
+					}
+				}
+
+				// update the session user cart
+				session.setAttribute("cart", userCart);
 			}
 		}
-		
-		System.out.print(Prog+"Showing Ids in cart:[");
-		for( Integer id : showingIds ) {
-			System.out.print( id + " " );
-		}
-		System.out.println("]");
-		
+
 		// Check session stuff
 		Connection conn = null;
 		try {
 			conn = connectionPool.getConnection();
-			
-			
+
 			// look up stuff for showing the cart
 			// need showingID -> MovieTitle Date Time
 			// need seatID -> seatstring (RowCol)
 			ShowingBean showBean = new ShowingBean();
 			SeatBean seatBean = new SeatBean();
-			
-			for( int idx=0; idx < userCart.count(); idx++ ) {
+
+			for (int idx = 0; idx < userCart.count(); idx++) {
 				TicketBean tb = userCart.getCartAL().get(idx);
 				// popuate UI fields for each Ticket
 				int showid = tb.getShowing_id();
 				// ShowingBean showBean = new ShowingBean();
 				// try to get the showing
-				if( ! showBean.loadOneFromDatabase(conn, showid ) ) {
+				if (!showBean.loadOneFromDatabase(conn, showid)) {
 					// no showing
-					System.out.println(Prog+"ERROR no showing for cart ticket:showid:" + showid );
+					System.out.println(Prog + "ERROR no showing for cart ticket:showid:" + showid);
 				}
-				
+
 				int seatid = tb.getSeatId();
 				// get the seat
-				if( ! seatBean.loadOneFromDatabase(conn, seatid ) ) {
+				if (!seatBean.loadOneFromDatabase(conn, seatid)) {
 					// no seat
-					System.out.println(Prog+"ERROR no seat for cart ticket:seatid:" + seatid );
+					System.out.println(Prog + "ERROR no seat for cart ticket:seatid:" + seatid);
 				}
-				
+
 				// determine price based on time
 				Time movieTime = showBean.getTime();
 				int hour = movieTime.getHours();
-				int price = 0;	// free if we screw up calculation
+				int price = 0; // free if we screw up calculation
 				// after 3 PM?
-				if( hour > 15 ) {
+				if (hour > 15) {
 					// regular price
 					price = 1000;
 				} else {
 					// matinee
 					price = 500;
 				}
-				
+
 				// fill in cart ticket
-				if( userBean.isLoginOK() ) {
+				if (userBean.isLoginOK()) {
 					tb.setCustomerId(userBean.getId());
 				}
-				
+
 				tb.setDate(showBean.getDate());
 				tb.setTime(movieTime);
 				tb.setTitle(showBean.getMovie().getTitle());
-				
+
 				tb.setRow(seatBean.getRow());
 				tb.setNumber(seatBean.getNumber());
 				tb.setPrice(price);
 			}
-			
+
 			// cart is validated
-			if(userBean.isLoginOK() && userCart.count() > 0 ) {
+			if (userBean.isLoginOK() && userCart.count() > 0) {
 				userCart.setValidated(true);
 			}
-			
-			// update the session user cart 
-			session.setAttribute("cart", userCart);
-			
-			/*
-			if (session == null) {
-			    // Not created yet. Now do so yourself.
-				
-			    session = request.getSession();
-			    CartBean cartBean = new CartBean();
-			    
-			    for(int i=0; i< seatIds.length; i++) {
-					TicketBean ticket = new TicketBean();
-					ticket.setId(Integer.parseInt(seatIds[i]));
-					cartBean.addTicket(ticket);
-				}
-			    
-			    session.setAttribute("cart", cartBean);
-			} else {
-			    // Already created.
-				CartBean cb = (CartBean) session.getAttribute("cart");
-				
-				if(showingId != null && seatIds != null) { // if we have tickets to add, add them
-					for(int i=0; i< seatIds.length; i++) {
-						System.out.println("SeatID: "+seatIds[i]);
-						System.out.println("ShowingId: "+showingId);
-						TicketBean ticket = new TicketBean();
-						ticket.setSeatId(Integer.parseInt(seatIds[i]));
-						ticket.setShowing_id(Integer.parseInt(showingId));
-						if (!cb.containsTicket(Integer.parseInt(showingId), Integer.parseInt(seatIds[i]))) {
-							cb.addTicket(ticket);
-						}
-					}
-				}
 
-				session.setAttribute("cart", cb);
-			}
-			*/
-			
+			// update the session user cart
+			session.setAttribute("cart", userCart);
+
+			/*
+			 * if (session == null) { // Not created yet. Now do so yourself.
+			 * 
+			 * session = request.getSession(); CartBean cartBean = new CartBean();
+			 * 
+			 * for(int i=0; i< seatIds.length; i++) { TicketBean ticket = new TicketBean();
+			 * ticket.setId(Integer.parseInt(seatIds[i])); cartBean.addTicket(ticket); }
+			 * 
+			 * session.setAttribute("cart", cartBean); } else { // Already created. CartBean
+			 * cb = (CartBean) session.getAttribute("cart");
+			 * 
+			 * if(showingId != null && seatIds != null) { // if we have tickets to add, add
+			 * them for(int i=0; i< seatIds.length; i++) {
+			 * System.out.println("SeatID: "+seatIds[i]);
+			 * System.out.println("ShowingId: "+showingId); TicketBean ticket = new
+			 * TicketBean(); ticket.setSeatId(Integer.parseInt(seatIds[i]));
+			 * ticket.setShowing_id(Integer.parseInt(showingId)); if
+			 * (!cb.containsTicket(Integer.parseInt(showingId),
+			 * Integer.parseInt(seatIds[i]))) { cb.addTicket(ticket); } } }
+			 * 
+			 * session.setAttribute("cart", cb); }
+			 */
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 			throw new ServletException(e);
 		} finally {
-			if(conn != null) {
+			if (conn != null) {
 				connectionPool.free(conn);
 			}
 		}
-		
-		
-		
+
 // THIS IS NEW CODE TO GET/SET THE UI ELEMENTS FOR TICKETS IN THE CART
-		
+
 //		try {
 //			Connection conn = connectionPool.getConnection();
 //			ArrayList<TicketBean> cartListUI = postCart.getCartUI(conn);
@@ -289,15 +289,16 @@ public class ShowCartServlet extends HttpServlet {
 //			e.printStackTrace();
 //		}
 
-
 		RequestDispatcher dispatcher = servletContext.getRequestDispatcher("/ShowCart.jsp");
-		dispatcher.forward(request, response);		
+		dispatcher.forward(request, response);
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doGet(request, response);
 	}

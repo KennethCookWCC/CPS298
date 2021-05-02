@@ -26,9 +26,18 @@
 	<div class="container py-3">
 		<div class="pricing-header p-3 pb-md-4 mx-auto text-center">
 			<h1 class="display-4 fw-normal">Your Cart</h1>
-			<p class="fs-5 text-muted">
-				You're almost done! </br> Click checkout to buy your tickets.
-			</p>
+			<c:choose>
+				<c:when test="${cart.count != 0}">
+					<p class="fs-5 text-muted">
+					You're almost done! <br> Click checkout to buy your tickets.
+					</p>
+				</c:when>
+				<c:otherwise>
+					<p class="fs-5 text-muted">
+					Is empty! <br> Click continue shopping to buy your tickets.
+					</p>
+				</c:otherwise>
+			</c:choose>
 		</div>
 
 		<!-- CART DIV -->
@@ -62,19 +71,21 @@
 													<c:forEach items="${cart.cart}" var="ticket">
 														<tr>
 														<th scope="row" class="text-start"><div>
+																<a href="/TicketBooker/ShowingServlet?showingId=${ticket.showing_id } ">
 																<h6 class="my-0">${ticket.getTitle() }</h6>
+																</a>
 																<small class="text-muted">Row
 																	${ticket.getRow()}, Seat ${ticket.getNumber() }</small>
 															</div></th>
 														<!--DATE-->
-														<td><fmt:formatDate value="${ticket.getDate()}"
-																pattern="MM/dd" /></td>
+														<td><fmt:formatDate value="${ticket.getDate()}"	pattern="MM/dd" /></td>
 														<!--TIME-->
-														<td>${ticket.getTime()}</td>
+														<td><fmt:formatDate value="${ticket.time}" pattern="hh:mm a" /></td>
 														<!--PRICE-->
-														<td>${ticket.getPrice()}</td>
+														<td>${ticket.getStringPrice()}</td>
 														<!--REMOVE-->
-														<td><button type="button"
+														<td><a href="/TicketBooker/ShowCartServlet?remove=1&showing=${ticket.showing_id}&seat=${ticket.seatId} ">
+																<button type="button"
 																class="w-100 btn btn-sm btn-light">
 																<svg xmlns="http://www.w3.org/2000/svg" width="16"
 																	height="16" fill="currentColor"
@@ -82,7 +93,7 @@
                                             						<path
 																		d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM5.354 4.646a.5.5 0 1 0-.708.708L7.293 8l-2.647 2.646a.5.5 0 0 0 .708.708L8 8.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0-.708-.708L8 7.293 5.354 4.646z" />
                                             					</svg>
-																</button>
+																</button></a>
 														</td>
 														</tr>
 													</c:forEach>
@@ -117,7 +128,14 @@
 									DISCOUNTS WILL BE CALCULATED AT CHECKOUT</div>
 								<br>
 
-								<a href="/TicketBooker/CheckoutServlet"><button type="button" class="w-100 btn btn-lg btn-primary">Checkout</button></a>
+								<c:choose>
+									<c:when test="${cart.validated}" >
+									<a href="/TicketBooker/CheckoutServlet"><button type="button" class="w-100 btn btn-lg btn-primary">Checkout</button></a>
+									</c:when>
+									<c:otherwise>
+									<a href="/TicketBooker/LoginCustomerJSP"><button type="button" class="w-100 btn btn-lg btn-primary">Login to Checkout</button></a>
+									</c:otherwise>
+								</c:choose>
 								<a href="/TicketBooker/MovieServlet"><button type="button" class="w-100 btn btn-lg btn-secondary">Continue Shopping</button></a>
 							</div>
 						</div>

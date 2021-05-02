@@ -185,8 +185,8 @@ public class MyTicketsServlet extends HttpServlet {
 			conn = connectionPool.getConnection();
 			
 			// get all tickets for a user
-			CustTicketBean custTickets = new CustTicketBean();
-			List<CustTicketBean> custTicketList = custTickets.loadForCustomer(conn, userBean.getId() );
+			// CustTicketBean custTickets = new CustTicketBean();
+			List<CustTicketBean> custTicketList = CustTicketBean.loadForCustomer(conn, userBean.getId() );
 			
 			int nTickets = 0;
 			int totalBought = 0;
@@ -196,7 +196,7 @@ public class MyTicketsServlet extends HttpServlet {
 					totalBought += stb.getPrice();
 					
 					// setup qrURL
-					stb.setQrURL("/TicketBooker/qrURL?TktId=" + stb.getTicketId() );
+					stb.setQrURL("/TicketBooker/qrURL?TktId=" + stb.getTicketId() + " " );
 				}
 			}
 			

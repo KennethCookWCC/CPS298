@@ -1,5 +1,5 @@
 <%-- 
-    Document   : MyTickets - with EL & JSTL & SQL
+    Document   : MyTicketQR - with EL & JSTL & SQL
     Created on : 4/23/2021
     Author     : kcook
 --%>
@@ -27,7 +27,7 @@ String hw = "hello world";
 
 
 
-<title>My Tickets</title>
+<title>My Ticket</title>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <!--         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
@@ -52,18 +52,20 @@ String hw = "hello world";
 	<!--NAVBAR-->
 	<%@include file="TB_CustNavBar.jsp"%>
 
-
+	<script src="/TicketBooker/js/qrious.min.js"></script>
+	
 	<!-- Bootstrap form -->
 	<div id="form_container row">
 
 		<div class="formCol col-8 mx-auto">
-			<h1 class="text-center">My Tickets</h1>
-			<% 
+			<h1 class="text-center">My Ticket</h1>
+			<%
 			/*
 			 * Show iterate through list of customers tickets with a link or submit action for a specific ticket to show the QR code
 			 */
 			%>
-			
+
+			<c:if test="false">
 			<table>
 				<tr>
 					<th>Date</th>
@@ -73,47 +75,74 @@ String hw = "hello world";
 					<th>Price</th>
 					<th>Your Ticket</th>
 				</tr>
-				<c:forEach items = "${Tickets}" var = "ticket">
-					<tr>
-						<td><fmt:formatDate value="${ticket.date}" pattern="E MM/dd" /></td>
-						<td><fmt:formatDate value="${ticket.time}" pattern="hh:mm a" /></td>
-						<td>${ticket.title}</td>
-						<td>${ticket.seat}</td>
-						<td>$${ticket.stringPrice}</td>
-						<td><a href="${ticket.qrURL }" />Click to show</a></td>
-					</tr>
-				</c:forEach>
-			</table>
-			<c:if test="false">
-			<form name="custLogin" action="CustLoginServlet" method="post">
-				<div class="mb-3">
-					Tickets should go here
-				</div>
-				<div class="mb-3">
-					<label for="login" class="form-label">Login:</label> <input
-						type="text" class="form-control" name="login">
-				</div>
-				<div class="mb-3">
-					<label for="password" class="form-label">Password:</label> <input
-						type="password" class="form-control" name="password">
-					<div id="passwordMsg" class="form-text text-center">${message}</div>
-				</div>
-				<div class="text-center pt-1">
-					<button type="submit" class="btn btn-primary">Login</button>
-				</div>
-			</form>
-			</c:if>
-		</div>
-	</div>
-	<!-- bootstrap form  -->
 
-	<script
-		src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"
-		type="text/javascript"></script>
-	<script
-		src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"
-		integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0"
-		crossorigin="anonymous" type="text/javascript"></script>
+				<tr>
+					<td>${ticket.date }</td>
+					<td><fmt:formatDate value="${ticket.time}" pattern="h:mm a" /></td>
+					<td>${ticket.title}</td>
+					<td>${ticket.seat}</td>
+					<td>$${ticket.stringPrice}</td>
+				</tr>
+
+
+
+			</table>
+			</c:if>
+			
+
+
+			<div>
+				This QR Code is your ticket to the
+				<fmt:formatDate value="${ticket.time}" pattern="hh:mm a" />
+				showing of <I>${ticket.title }</I> 
+				on <fmt:formatDate value="${ticket.getDate()}" pattern="E MM/dd/yyyy" />
+				<br>
+				Seat ${ticket.seat }
+				
+				<div>
+
+					<canvas id="qr1"></canvas>
+
+					
+					<script>
+						(function() {
+							var qr1 = new QRious({
+								element : document.getElementById('qr1'),
+								value : '${QRvalue}'
+							});
+						})();
+					</script>
+				</div>
+
+				<c:if test="false" >
+				<form name="custLogin" action="CustLoginServlet" method="post">
+					<div class="mb-3">Tickets should go here</div>
+					<div class="mb-3">
+						<label for="login" class="form-label">Login:</label> <input
+							type="text" class="form-control" name="login">
+					</div>
+					<div class="mb-3">
+						<label for="password" class="form-label">Password:</label> <input
+							type="password" class="form-control" name="password">
+						<div id="passwordMsg" class="form-text text-center">${message}</div>
+					</div>
+					<div class="text-center pt-1">
+						<button type="submit" class="btn btn-primary">Login</button>
+					</div>
+				</form>
+				</c:if>
+				
+			</div>
+		</div>
+		<!-- bootstrap form  -->
+
+		<script
+			src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"
+			type="text/javascript"></script>
+		<script
+			src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"
+			integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0"
+			crossorigin="anonymous" type="text/javascript"></script>
 </body>
 
 

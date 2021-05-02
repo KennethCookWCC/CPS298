@@ -6,6 +6,7 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.sql.Time;
 
 public class PurchaseBean implements Serializable {
@@ -35,16 +36,48 @@ public class PurchaseBean implements Serializable {
 		return false;
 	}
 	
+	// KC - need recid of created record
 	public boolean insertIntoDatabase(Connection conn) throws SQLException {
 		String sql = "INSERT INTO purchase(customer_id, date, time, total, approval) " +
 				"VALUES(?, ?, ?, ?, ?)";
+		PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+		stmt.setInt(1, customerId);
+		stmt.setDate(2, date);
+		stmt.setTime(3, time);
+		stmt.setInt(4, total);
+		stmt.setString(5, approval);
+		int retv =  stmt.executeUpdate();
+		int recid = -1;
+		ResultSet rs = stmt.getGeneratedKeys();
+		if( rs.next() ) {
+			recid = rs.getInt(1);
+		
+			id = recid; 
+		}
+		
+		System.out.println("PurchaseBean:INSERT:retv:" + retv + " recid:"+recid );
+		
+		// if 1 row is updated it inserted successfully so return true
+		return( retv == 1 );
+	}
+	
+	public boolean updateDatabase(Connection conn) throws SQLException {
+		String sql = "UPDATE purchase " ;
+			sql += "SET customer_id=?, date=?, time=?, total=?, approval=? " +
+				"WHERE id = ?";
 		PreparedStatement stmt = conn.prepareStatement(sql);
 		stmt.setInt(1, customerId);
 		stmt.setDate(2, date);
 		stmt.setTime(3, time);
 		stmt.setInt(4, total);
 		stmt.setString(5, approval);
-		return stmt.executeUpdate() == 1; // if 1 row is updated it inserted successfully so return true
+		stmt.setInt(6, id);
+		int retv = stmt.executeUpdate();
+	
+		System.out.println("PurchaseBean:UPDATE:retv:" + retv + " recid:"+id );
+		
+		// if 1 row is updated it inserted successfully so return true
+		return( retv == 1 ); 
 	}
 	
 	public int getId() {

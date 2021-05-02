@@ -49,6 +49,58 @@ public class CustTicketBean implements Serializable {
 		return beans;
 	}
 	
+	public static List<CustTicketBean> loadForCustShowing(Connection conn, int customerId, int showingId) throws SQLException {
+		PreparedStatement stmt = conn.prepareStatement(
+				"SELECT showing_id, date, time, movie_id, title, "
+				+ "seat, purchase_id, price, ticket_id "
+				+ "FROM CustTickets WHERE customer_id = ? and showing_id = ?");
+		stmt.setInt(1, customerId);
+		stmt.setInt(2, showingId);
+		ResultSet results = stmt.executeQuery();
+		List<CustTicketBean> beans = new ArrayList<>();
+		while(results.next()) {
+			CustTicketBean bean = new CustTicketBean();
+			bean.customerId = customerId;
+			bean.showingId = showingId;
+			bean.date = results.getDate("date");
+			bean.time = results.getTime("time");
+			bean.movieId = results.getInt("movie_id");
+			bean.title = results.getString("title");
+			bean.seat = results.getString("seat");
+			bean.purchaseId = results.getInt("purchase_id");
+			bean.ticketId = results.getInt("ticket_id");
+			bean.price = results.getInt("price");
+			beans.add(bean);
+		}
+		return beans;
+	}
+	
+	public boolean loadOne(Connection conn, int tkid) throws SQLException {
+		PreparedStatement stmt = conn.prepareStatement(
+				"SELECT customer_id, showing_id, date, time, movie_id, title, "
+				+ "seat, purchase_id, price "
+				+ "FROM CustTickets WHERE ticket_id = ?");
+		stmt.setInt(1, tkid);
+		ResultSet results = stmt.executeQuery();
+		if(results.next()) {
+			ticketId = tkid;
+			customerId = results.getInt("customer_id");
+			showingId = results.getInt("showing_id");
+			date = results.getDate("date");
+			time = results.getTime("time");
+			movieId = results.getInt("movie_id");
+			title = results.getString("title");
+			seat = results.getString("seat");
+			purchaseId = results.getInt("purchase_id");
+			price = results.getInt("price");
+			
+			
+			return true;
+		}
+		System.out.println("CustTicketBean:ERROR loadOne tkid:" + tkid );
+		return false;
+	}
+	
 	public int getCustomerId() {
 		return customerId;
 	}

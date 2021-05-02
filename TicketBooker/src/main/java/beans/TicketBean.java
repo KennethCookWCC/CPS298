@@ -15,6 +15,7 @@ public class TicketBean implements Serializable {
 	private int ticketId;	// SQL - auto incr
 	private int customer_id; //SQL
 	private int showing_id;	// SQL
+	private int purchase_id;// SQL
 	private int price;		// SQL
 	private int seatId;		// SQL
 	
@@ -23,18 +24,40 @@ public class TicketBean implements Serializable {
 	private int number;		// is this column number? yes
 	private java.sql.Date date;	// Showing Date?
 	private Time time;		// ShowingTime?
+	private boolean purchased = false ;	// UI did it insert?
 	
 
 	// EDIT KC - needed to write seatId too
 	public boolean insertIntoDatabase(Connection conn) throws SQLException {
-		String sql = "INSERT INTO ticket (customer_id, showing_id, seat_id, price) " + 
-				"VALUES(?, ?, ?,?);";
+		String sql = "INSERT INTO ticket (customer_id, showing_id, seat_id, price, purchase_id) " + 
+				"VALUES(?, ?, ?, ?, ?);";
 		PreparedStatement stmt = conn.prepareStatement(sql);
 		stmt.setInt(1, customer_id);
 		stmt.setInt(2, showing_id);
 		stmt.setInt(3, seatId);
 		stmt.setInt(4, price);
-		return stmt.executeUpdate() == 1; // if one row affected, it worked -- return true
+		stmt.setInt(5, purchase_id );
+		
+		System.out.println("TicketBean.insertIntoDatabase:"
+				+ "cust:" + customer_id
+				+ " showid:" + showing_id
+				+ " seatid:" + seatId
+				+ " price:" + price
+				+ " purchase:" + purchase_id
+				);
+		
+		int retv = stmt.executeUpdate(); 
+		
+		// if one row affected, it worked -- return true
+		if( retv == 1 ) {
+			purchased = true;
+		} else {
+			purchased = false;
+		}
+		
+		System.out.println("TicketBean.insertIntoDatabase:retv:" + retv + " purch:" + purchased );
+		
+		return( purchased );
 	}
 	
 	public int getId() {
@@ -107,6 +130,47 @@ public class TicketBean implements Serializable {
 
 	public void setTime(Time time) {
 		this.time = time;
+	}
+	
+	public int getTicketId() {
+		return ticketId;
+	}
+
+	public int getCustomer_id() {
+		return customer_id;
+	}
+
+	public void setCustomer_id(int customer_id) {
+		this.customer_id = customer_id;
+	}
+
+	public int getPurchase_id() {
+		return purchase_id;
+	}
+
+	public void setPurchase_id(int purchase_id) {
+		this.purchase_id = purchase_id;
+	}
+
+	public boolean isPurchased() {
+		return purchased;
+	}
+
+	public void setPurchased(boolean purchased) {
+		this.purchased = purchased;
+	}
+
+	public String getStringPrice() {
+		String retv = "";
+		int cents = price % 100;
+		int dollars = price / 100;
+		retv += dollars + ".";
+		if( cents < 10 ) {
+			retv += "0";
+		}
+		retv += cents;
+		return retv ;
+				
 	}
 
 	@Override

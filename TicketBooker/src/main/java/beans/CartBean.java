@@ -59,6 +59,22 @@ public class CartBean implements Serializable {
 		return contained;
 	}
 	
+	public void removeTicket( int showingId, int seatId ) {
+		if( cart == null ) {
+			return;
+		}
+		
+		for( int i=0; i<cart.size(); i++ ) {
+			if( cart.get(i).getShowing_id() == showingId
+				&& cart.get(i).getSeatId() == seatId
+					) {
+				// found it, remove it
+				cart.remove(i);
+				return;
+			}
+		}
+	}
+	
 	public void deleteShowing(int showingId ) {
 		CartBean result = new CartBean();
 		

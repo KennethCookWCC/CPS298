@@ -19,10 +19,15 @@ TB_AdminNavBar.jsp - include for the ticketbooker administrative navigation bar
 		<div class="collapse navbar-collapse" id="navbarNavAltMarkup">
 			<div class="navbar-nav">
 				<!-- <a class="nav-link" href="/TicketBooker/MovieServlet">Movies</a>  -->
-				<a class="nav-link" href="/TicketBooker/AdminLoginServlet#showingslist">Showings</a>
+				<c:if test="${user.loginOK}">
+					<a class="nav-link"	href="/TicketBooker/AdminLoginServlet#showingslist">Showings</a>
+				</c:if>
 			</div>
 			<div class="ms-auto">
-				Welcome ${user.getName()} &nbsp; <a href="Logout" class="tbNav"><strong>Logout</strong></a>
+				<c:if test="${user.loginOK}">
+					Welcome ${user.getName()} &nbsp; 
+					<a href="Logout" class="tbNav"><strong>Logout</strong></a>
+				</c:if>
 			</div>
 		</div>
 	</div>

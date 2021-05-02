@@ -3,6 +3,7 @@ package servlet;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -55,6 +56,17 @@ public class ShowingServlet extends HttpServlet {
 					seatList.get(i).setTaken(true);
 				}
 			}
+			
+			// need matinee flag for guest cart price calculation
+			Time movieTime = bean.getTime();
+			int hour = movieTime.getHours();
+			String matinee = "n"; 
+			// before 4 PM?
+			if (hour < 16) {
+				// matinee
+				matinee = "y";
+			}
+			request.setAttribute("matinee", matinee);
 			
 			request.setAttribute("showing", bean);
 			request.setAttribute("seatList", seatList);

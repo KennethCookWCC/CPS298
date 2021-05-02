@@ -185,12 +185,31 @@ public class CheckoutServlet extends HttpServlet {
 				// failed
 				System.out.println(Prog + "ERROR update purchase FAILED");
 			}
-
+			
+			// move purchased seats to temp cart
+			CartBean purchCart = new CartBean();
+			
+			for( TicketBean tk: userCart.getCartAL() ) {
+				if( tk.isPurchased() ) {
+					purchCart.addTicket(tk);
+				}
+			}
+			
+			ArrayList<TicketBean> tklist = userCart.getCartAL();
+			for( int i=0; i<tklist.size(); i++  ) {
+				if( tklist.get(i).isPurchased() ) {
+					tklist.remove(i);
+				}
+			}
+			userCart.setCart(tklist);
+			
+			
 			// setup what we need for the checkout page
 			session.setAttribute("purchase", purch);
 			session.setAttribute("nbought", nbought);
 			session.setAttribute("nmissed", nmissed);
 			session.setAttribute("cart", userCart);
+			session.setAttribute("purchCart", purchCart);
 			
 		} catch (SQLException e) {
 			e.printStackTrace();

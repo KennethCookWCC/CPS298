@@ -116,4 +116,16 @@ public class PurchaseBean implements Serializable {
 	public void setCustomerId(int customerId) {
 		this.customerId = customerId;
 	}
+	public String getStringTotal() {
+		String retv = "";
+		int cents = total % 100;
+		int dollars = total / 100;
+		retv += dollars + ".";
+		if( cents < 10 ) {
+			retv += "0";
+		}
+		retv += cents;
+		return retv ;
+				
+	}
 }

@@ -54,45 +54,61 @@ String hw = "hello world";
 
 
 	<!-- Bootstrap form -->
-	<div id="form_container row">
-
-		<div class="formCol col-8 mx-auto">
-			<h1 class="text-center">Purchase Checkout Confirmation</h1>
-			<% 
-			/*
-			 * Show iterate through list of customers tickets with a link or submit action for a specific ticket to show the QR code
-			 */
-			%>
-			<h2>Purchase Detail</h2>
-			Date:<fmt:formatDate value="${purchase.date}" pattern="E MM/dd" /></td>
-			Time:<fmt:formatDate value="${purchase.time}" pattern="hh:mm a" /></td>
-			Subtotal:${purchase.getStringSubtotal() }
-			Tax:${purchase.getStringSalesTax() }
-			Total:${purchase.getStringTotal() }
-			Approval:${purchase.approval }
-			<br>			
-
-			<h3>Ticket Details for this purchase</h3>
-			<table>
-				<tr>
-					<th>Date</th>
-					<th>Time</th>
-					<th>Movie</th>
-					<th>Seat</th>
-					<th>Price</th>
-					<th>Purchased</th>
-				</tr>
-				<c:forEach items = "${purchCart.cart}" var = "ticket">
+	<div id="container">
+		<header class="text-center header">
+			<h1>Your tickets were successfully purchased!</h1>
+		</header>
+		<div class="row mx-auto justify-content-center">
+			<div class="col-6">
+				<div class="card">
+					<div class="card-header">
+						<h4>Purchase Information</h4>
+						<p>Purchase Date:&nbsp;<fmt:formatDate value="${purchase.date}" pattern="E MM/dd" /> </p>
+						<p>Purchase Time:&nbsp;<fmt:formatDate value="${purchase.time}" pattern="hh:mm a" /> </p>
+					</div>
+					<div class="card-body">
+						<table class="table">
+							<tr>
+								<td>Subtotal</td>
+								<td>$${purchase.getStringSubtotal() }</td>
+							</tr>
+							<tr>
+								<td>Tax</td>
+								<td>$${purchase.getStringSalesTax() }</td>
+							</tr>
+							<tr>
+								<td>Total</td>
+								<td>$${purchase.getStringTotal() }</td>
+							</tr>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div> <!-- Close Row -->
+		<div class="row mx-auto justify-content-center text-center">
+			<h1>Purchased Tickets</h1>
+			<div class="col-6">
+				<table class="table">
 					<tr>
-						<td><fmt:formatDate value="${ticket.date}" pattern="E MM/dd" /></td>
-						<td><fmt:formatDate value="${ticket.time}" pattern="hh:mm a" /></td>
-						<td>${ticket.title}</td>
-						<td>Row ${ticket.getRow()}, Seat ${ticket.getNumber() }</td>
-						<td>$${ticket.stringPrice}</td>
-						<td>${ticket.purchased }</td>
+						<th class="text-center">Date</th>
+						<th class="text-center">Title</th>
+						<th class="text-center">Movie</th>
+						<th class="text-center">Seat</th>
+						<th class="text-center">Price</th>
 					</tr>
-				</c:forEach>
-			</table>
+					<c:forEach items = "${purchCart.cart}" var = "ticket">
+						<tr>
+							<td><fmt:formatDate value="${ticket.date}" pattern="E MM/dd" /></td>
+							<td><fmt:formatDate value="${ticket.time}" pattern="hh:mm a" /></td>
+							<td>${ticket.title}</td>
+							<td>Row ${ticket.getRow()}, Seat ${ticket.getNumber() }</td>
+							<td>$${ticket.stringPrice}</td>
+						</tr>
+					</c:forEach>
+				</table>
+			</div>
+		</div>
+		<%-- <div class="formCol col-8 mx-auto">
 			<c:if test="false">
 			<form name="custLogin" action="CustLoginServlet" method="post">
 				<div class="mb-3">
@@ -112,7 +128,7 @@ String hw = "hello world";
 				</div>
 			</form>
 			</c:if>
-		</div>
+		</div> --%>
 	</div>
 	<!-- bootstrap form  -->
 

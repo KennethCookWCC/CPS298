@@ -58,39 +58,11 @@ String hw = "hello world";
 
 	<!--NAVBAR-->
 	<%@include file="TB_AdminNavBar.jsp" %>
-	<%-- <nav
-		class="navbar navbar-custom navbar-expand-lg navbar-light bg-light">
-		<div class="container-fluid">
-			<a class="navbar-brand" href="#">Ticket Booker</a>
-			<button class="navbar-toggler" type="button"
-				data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
-				aria-controls="navbarNavAltMarkup" aria-expanded="false"
-				aria-label="Toggle navigation">
-				<span class="navbar-toggler-icon"></span>
-			</button>
 
-
-			<div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-				<div class="navbar-nav">
-					<a class="nav-link" href="/TicketBooker/MovieServlet">Movies</a> <a
-						class="nav-link" href="#">Prices</a>
-				</div>
-				<div class="ms-auto">
-					Welcome	${user.getName()} &nbsp;
-					<a href="Logout">Logout</a>
-					<!--
-					<a href="/TicketBooker/ShowCartServlet">${cart.count()}</a> 
-					<img src="/TicketBooker/img/cartIcon1.png" 
-						height="25px" width="25px" alt="" />
-						-->
-				</div>
-			</div>
-		</div>
-	</nav> --%>
 <!--  onsubmit="return validatecustlogin()"	 -->
 
 	<div class="container text-center">
-		<h1>TicketBooker Admin Main Menu</h1>
+		<h1 class="myHeader display-4">TicketBooker Admin Main Menu</h1>
 		
 		<c:if test="${!user.loginOK}">
 		<form name="adminLogin" action="AdminLoginServlet"

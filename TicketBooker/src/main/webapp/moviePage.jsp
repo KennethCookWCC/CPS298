@@ -35,15 +35,43 @@
 
 </head>
 <body>
-
+	<!--NAVBAR-->
 	<%@include file="TB_CustNavBar.jsp" %>
 	
-	
+	<div class="row myHeader justify-content-center text-center">
+		<div id="nowPlaying">
+				<h1>
+					<strong>Now Playing</strong>
+				</h1>
+				<!-- <p>Date:${viewDate} Nice:${viewDateStr}<fmt:formatDate type="date" value="${dateParam}" /></p> -->
+				<p><strong>${viewDateStr}</strong></p>
+				<p id="dateSelectLabel">Select Date: </p>
+				<div id="dateSelectDiv">
+					<form id="dateForm" action="/TicketBooker/MovieServlet" method="POST">
+						<select name="date">
+							<c:forEach items="${showingDates}" var="date">
+								<c:choose>								
+									<c:when test="${viewDate == date.toString()}">
+										<option value="${date}" selected>${date.toString()}</option>
+									</c:when>
+									<c:otherwise>
+										<option value="${date}">${date.toString()}</option>
+									</c:otherwise>
+								</c:choose>
+							</c:forEach>
+						</select> <input type="submit" name="submit" value="Go" />
+					</form>
+				</div>
+				<p>
+					<strong>Click on a show time to buy tickets:</strong>
+				</p>
+			</div>
+	</div>
 	<!--NOW PLAYING, IMAGES, SHOWTIMES-->
 
 	<div class="container text-center">
 		<div class="row row-no-gutters" id="movieRow">
-			<div id="nowPlaying">
+			<%-- <div id="nowPlaying myHeader">
 				<br> <br>
 				<h1>
 					<strong>Now Playing</strong>
@@ -71,7 +99,7 @@
 					<strong>Click on a show time to buy tickets:</strong>
 				</p>
 				<br>
-			</div>
+			</div> --%>
 			
 			<!--MOVIE 1-->
 
@@ -111,13 +139,13 @@
 				</div>
 			</div>
 			<div class="col-sm-3"></div>
-
 		</div>
-
 	</div>
+	
+	<!--Footer-->
+	<%@include file="TB_Footer.jsp" %>
 
-	<script
-		src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"></script>
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"
 		integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0"

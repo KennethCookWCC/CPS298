@@ -24,7 +24,7 @@
 <%@include file="TB_CustNavBar.jsp" %>
 
 	<div class="container py-3">
-		<div class="pricing-header p-3 pb-md-4 mx-auto text-center">
+		<div class="pricing-header pb-md-4 mx-auto text-center myHeader">
 			<h1 class="display-4 fw-normal">Your Cart</h1>
 			<c:choose>
 				<c:when test="${cart.count != 0}">
@@ -34,7 +34,7 @@
 				</c:when>
 				<c:otherwise>
 					<p class="fs-5 text-muted">
-					Is empty! <br> Click continue shopping to buy your tickets.
+					is empty! <br> Click continue shopping to buy your tickets.
 					</p>
 				</c:otherwise>
 			</c:choose>
@@ -146,16 +146,16 @@
 				</div>
 			</div>
 		</main>
-
-		<footer class="my-5 pt-5 text-muted text-center text-small">
-			<p class="mb-1">&copy; 2021 Ticket Booker</p>
-			<ul class="list-inline">
-				<li class="list-inline-item"><a href="#">Privacy</a></li>
-				<li class="list-inline-item"><a href="#">Terms</a></li>
-				<li class="list-inline-item"><a href="#">Support</a></li>
-			</ul>
-		</footer>
+		
+	<!--Footer-->
+	<%@include file="TB_Footer.jsp" %>
+	
+	
 	</div>
-
+	<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"></script>
+	<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0"
+		crossorigin="anonymous"></script>
 </body>
 </html>

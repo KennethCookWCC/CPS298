@@ -169,3 +169,16 @@ a{
 #dateSelectDiv, #dateSelectLabel, #dateForm{
 	display: inline! important;
 }
+.card-header p{
+	margin-bottom: 0rem;
+}
+.myHeader{
+	margin-top: 2rem;
+	margin-bottom: 1rem;
+}
+.tbNav{
+	color: black
+}
+.myHeader p{
+	margin-bottom: 0;
+}

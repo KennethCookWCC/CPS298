@@ -79,62 +79,12 @@ String hw = "hello world";
 	rel="stylesheet">
  -->
 <link rel="stylesheet" href="/TicketBooker/css/style.css">
-<style type="text/css">
-
-/*             .navbar {
-                margin-bottom: 0;
-                border-radius: 0;
-                background-color: #FFC300;
-                border: none;
-            }
- */
-.navbar-inverse .navbar-brand {
-	color: #000000;
-}
-
-.navbar-inverse .navbar-nav>li>a {
-	color: #000000;
-}
-
-.col-half-offset {
-	margin-left: 4.166666667%;
-}
-
-.no-gutters {
-	margin-right: 0;
-	margin-left: 0;
-}
-</style>
 </head>
 <body>
 
-
 	<!--NAVBAR-->
-	<nav
-		class="navbar navbar-custom navbar-expand-lg navbar-light bg-light">
-		<div class="container-fluid">
-			<a class="navbar-brand" href="#">Ticket Booker</a>
-			<button class="navbar-toggler" type="button"
-				data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
-				aria-controls="navbarNavAltMarkup" aria-expanded="false"
-				aria-label="Toggle navigation">
-				<span class="navbar-toggler-icon"></span>
-			</button>
-
-
-			<div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-				<div class="navbar-nav">
-					<a class="nav-link" href="/TicketBooker/MovieServlet">Movies</a> <a
-						class="nav-link" href="#">Prices</a>
-				</div>
-				<div class="ms-auto">
-					<a href="/TicketBooker/ShowCartServlet">${cart.count()}</a> 
-					<img src="/TicketBooker/img/cartIcon1.png" 
-						height="25px" width="25px" alt="" />
-				</div>
-			</div>
-		</div>
-	</nav>
+	<%@include file="TB_AdminNavBar.jsp"%>
+	
 <!--  onsubmit="return validatecustlogin()"	 -->
 
 <%-- 	<div style="text-align: center">
@@ -172,6 +122,8 @@ String hw = "hello world";
 	</div>
 	</div>
 
+	<!--Footer-->
+	<%@include file="TB_Footer.jsp" %>
 
 	<script
 		src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"
@@ -182,6 +134,8 @@ String hw = "hello world";
 		crossorigin="anonymous" type="text/javascript"></script>
 	
 </body>
+
+
 
 <script type="text/javascript">
 /* this does not work. Bootstrap to blame? */

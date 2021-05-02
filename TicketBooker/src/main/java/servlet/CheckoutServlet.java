@@ -133,7 +133,7 @@ public class CheckoutServlet extends HttpServlet {
 			PurchaseBean purch = new PurchaseBean();
 			purch.setTotal(0);
 			purch.setCustomerId(userBean.getId());
-			Date dt = new Date(2021 - 1900, 0, 15);
+			Date dt = new Date(2021 - 1900, 0, 15); 
 			purch.setDate(dt);
 
 			Calendar calendar = Calendar.getInstance();

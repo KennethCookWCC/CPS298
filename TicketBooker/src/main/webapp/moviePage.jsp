@@ -50,7 +50,8 @@
 				</h1>
 				<!-- <p>Date:${viewDate} Nice:${viewDateStr}<fmt:formatDate type="date" value="${dateParam}" /></p> -->
 				<p><strong>${viewDateStr}</strong></p>
-				<div id="dateSelectDiv mx-auto">
+				<p id="dateSelectLabel">Select Date: </p>
+				<div id="dateSelectDiv">
 					<form id="dateForm" action="/TicketBooker/MovieServlet" method="POST">
 						<select name="date">
 							<c:forEach items="${showingDates}" var="date">

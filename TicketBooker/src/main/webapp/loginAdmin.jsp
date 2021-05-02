@@ -137,7 +137,7 @@ String hw = "hello world";
 	</nav>
 <!--  onsubmit="return validatecustlogin()"	 -->
 
-	<div style="text-align: center">
+<%-- 	<div style="text-align: center">
 		<h1>TicketBooker Login</h1>
 		<form name="adminLogin" action="AdminLoginServlet"
 			method="post">
@@ -150,6 +150,26 @@ String hw = "hello world";
 			<br> <br>
 			<button type="submit">Login</button>
 		</form>
+	</div> --%>
+	<div id="form_container row">
+		<div class="formCol col-8 mx-auto">
+			<h1 class="text-center">Admin Login</h1>
+			<form name="adminLogin" action="AdminLoginServlet"
+					method="post">
+			  <div class="mb-3">
+			    <label for="login" class="form-label">Login:</label>
+			    <input type="text" class="form-control" name="login">
+			  </div>
+			  <div class="mb-3">
+			    <label for="password" class="form-label">Password:</label>
+			    <input type="password" class="form-control" name="password">
+			    <div id="passwordMsg" class="form-text text-center">${message}</div>
+			  </div>
+			  <div class="text-center pt-1">
+			  	<button type="submit" class="btn btn-primary">Login</button>
+			  </div>
+			</form>
+	</div>
 	</div>
 
 

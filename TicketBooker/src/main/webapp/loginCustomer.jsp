@@ -74,41 +74,14 @@ String hw = "hello world";
 	rel="stylesheet"
 	integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl"
 	crossorigin="anonymous">
-<!-- 
-<link href="bootstrap4-glyphicons/css/bootstrap-glyphicons.css"
-	rel="stylesheet">
- -->
 <link rel="stylesheet" href="/TicketBooker/css/style.css">
 
 </head>
 <body>
 
-	<!--NAVBAR-->
-	<nav
-		class="navbar navbar-custom navbar-expand-lg navbar-light bg-light">
-		<div class="container-fluid">
-			<a class="navbar-brand" href="#">Ticket Booker</a>
-			<button class="navbar-toggler" type="button"
-				data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
-				aria-controls="navbarNavAltMarkup" aria-expanded="false"
-				aria-label="Toggle navigation">
-				<span class="navbar-toggler-icon"></span>
-			</button>
+<!--NAVBAR-->
+<%@include file="TB_CustNavBar.jsp" %>
 
-
-			<div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-				<div class="navbar-nav">
-					<a class="nav-link" href="/TicketBooker/MovieServlet">Movies</a> <a
-						class="nav-link" href="#">Prices</a>
-				</div>
-				<div class="ms-auto">
-					<a href="/TicketBooker/ShowCartServlet">${cart.count()}</a> 
-					<img src="/TicketBooker/img/cartIcon1.png" 
-						height="25px" width="25px" alt="" />
-				</div>
-			</div>
-		</div>
-	</nav>
 <!--  onsubmit="return validatecustlogin()"	 -->
 
 <%-- 	<div style="text-align: center">
@@ -129,7 +102,6 @@ String hw = "hello world";
 	
 <!-- Bootstrap form -->
 <div id="form_container row">
-	
 	<div class="formCol col-8 mx-auto">
 		<h1 class="text-center">Customer Login</h1>
 		<form name="custLogin" action="CustLoginServlet"
@@ -148,6 +120,9 @@ String hw = "hello world";
 		  </div>
 		</form>
 	</div>
+</div>
+<div class="row text-center" id="adminLink">
+	<p>Looking for the Admin login page instead? <a href="/TicketBooker/LoginAdminJSP">Click Here</a></p>
 </div>
 <!-- bootstrap form  -->
 

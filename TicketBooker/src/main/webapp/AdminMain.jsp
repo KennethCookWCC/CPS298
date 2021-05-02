@@ -52,32 +52,6 @@ String hw = "hello world";
 	rel="stylesheet">
  -->
 <link rel="stylesheet" href="/TicketBooker/css/style.css">
-<style type="text/css">
-
-/*             .navbar {
-                margin-bottom: 0;
-                border-radius: 0;
-                background-color: #FFC300;
-                border: none;
-            }
- */
-.navbar-inverse .navbar-brand {
-	color: #000000;
-}
-
-.navbar-inverse .navbar-nav>li>a {
-	color: #000000;
-}
-
-.col-half-offset {
-	margin-left: 4.166666667%;
-}
-
-.no-gutters {
-	margin-right: 0;
-	margin-left: 0;
-}
-</style>
 </head>
 <body>
 
@@ -114,7 +88,7 @@ String hw = "hello world";
 	</nav>
 <!--  onsubmit="return validatecustlogin()"	 -->
 
-	<div style="text-align: center">
+	<div class="container text-center">
 		<h1>TicketBooker Admin Main Menu</h1>
 		
 		<c:if test="${!user.loginOK}">
@@ -131,9 +105,9 @@ String hw = "hello world";
 		</form>
 		</c:if>
 		<c:if test="${user.loginOK}">
-		<div><h1>Sold Tickets</h1></div>
-			<div style="table-align: center"> 
-			<table>
+		<div class="row"><h1>Sold Tickets</h1></div>
+		<div id="tableRow" class="row"> 
+			<table class="table">
 				<tr>
 					<th>Date</th>
 					<th>Time</th>
@@ -168,9 +142,10 @@ String hw = "hello world";
 				</c:forEach>
 			</table>
 			</div>
-			<div><h1>Scheduled Showings</h1></div>
-			<div>
-			<table>
+			<div class="row"><h1>Scheduled Showings</h1></div>
+			<div class="row">
+			<div class="col-8 mx-auto">
+			<table class="table">
 				<tr>
 					<th>Date</th>
 					<th>Time</th>
@@ -186,6 +161,7 @@ String hw = "hello world";
 					</tr>
 				</c:forEach>
 			</table>
+			</div>
 			</div>
 		</c:if>
 	</div>

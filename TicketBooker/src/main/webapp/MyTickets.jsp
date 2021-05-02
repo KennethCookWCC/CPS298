@@ -64,7 +64,7 @@ String hw = "hello world";
 			 */
 			%>
 			
-			<table>
+			<table class="table">
 				<tr>
 					<th>Date</th>
 					<th>Time</th>

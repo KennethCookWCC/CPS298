@@ -153,3 +153,19 @@ a{
 .card-body .btn{
 	margin-bottom: 1rem;
 }
+#adminLink{
+	margin-top: .5rem;
+}
+.ticketCard p{
+	margin-bottom: 0;
+}
+#qr1{
+	margin-top: 2rem;
+	margin-bottom: 1rem;
+}
+.ticketInfo{
+	padding-bottom: 2rem;
+}
+#dateSelectDiv, #dateSelectLabel, #dateForm{
+	display: inline! important;
+}

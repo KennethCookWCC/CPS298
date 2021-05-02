@@ -55,7 +55,7 @@ String hw = "hello world";
 	<script src="/TicketBooker/js/qrious.min.js"></script>
 	
 	<!-- Bootstrap form -->
-	<div id="form_container row">
+	<div class="container">
 
 		<div class="formCol col-8 mx-auto">
 			<h1 class="text-center">My Ticket</h1>
@@ -91,50 +91,55 @@ String hw = "hello world";
 			
 
 
-			<div>
-				This QR Code is your ticket to the
-				<fmt:formatDate value="${ticket.time}" pattern="hh:mm a" />
-				showing of <I>${ticket.title }</I> 
-				on <fmt:formatDate value="${ticket.getDate()}" pattern="E MM/dd/yyyy" />
-				<br>
-				Seat ${ticket.seat }
-				
-				<div>
-
-					<canvas id="qr1"></canvas>
+			<div class="col-md-8 mx-auto">
+				<div class="card ticketCard bg-light">
+					<div class="text-center">
+						<canvas id="qr1"></canvas>
+						<script>
+							(function() {
+								var qr1 = new QRious({
+									element : document.getElementById('qr1'),
+									value : '${QRvalue}'
+								});
+							})();
+						</script>
+					</div>
+					<div class="text-center ticketInfo">
+						<p>Seat ${ticket.seat}</p>
+						<p>${ticket.title}</p>
+						<p><fmt:formatDate value="${ticket.getDate()}" pattern="E MM/dd/yyyy" /></p>
+						<p><fmt:formatDate value="${ticket.time}" pattern="hh:mm a" /></p>
+					</div>
+<%-- 					This QR Code is your ticket to the
+					<fmt:formatDate value="${ticket.time}" pattern="hh:mm a" />
+					showing of <I>${ticket.title }</I> on
+					<fmt:formatDate value="${ticket.getDate()}" pattern="E MM/dd/yyyy" />
+					<br> Seat ${ticket.seat } --%>
 
 					
-					<script>
-						(function() {
-							var qr1 = new QRious({
-								element : document.getElementById('qr1'),
-								value : '${QRvalue}'
-							});
-						})();
-					</script>
-				</div>
 
-				<c:if test="false" >
-				<form name="custLogin" action="CustLoginServlet" method="post">
-					<div class="mb-3">Tickets should go here</div>
-					<div class="mb-3">
-						<label for="login" class="form-label">Login:</label> <input
-							type="text" class="form-control" name="login">
-					</div>
-					<div class="mb-3">
-						<label for="password" class="form-label">Password:</label> <input
-							type="password" class="form-control" name="password">
-						<div id="passwordMsg" class="form-text text-center">${message}</div>
-					</div>
-					<div class="text-center pt-1">
-						<button type="submit" class="btn btn-primary">Login</button>
-					</div>
-				</form>
-				</c:if>
-				
+					<c:if test="false">
+						<form name="custLogin" action="CustLoginServlet" method="post">
+							<div class="mb-3">Tickets should go here</div>
+							<div class="mb-3">
+								<label for="login" class="form-label">Login:</label> <input
+									type="text" class="form-control" name="login">
+							</div>
+							<div class="mb-3">
+								<label for="password" class="form-label">Password:</label> <input
+									type="password" class="form-control" name="password">
+								<div id="passwordMsg" class="form-text text-center">${message}</div>
+							</div>
+							<div class="text-center pt-1">
+								<button type="submit" class="btn btn-primary">Login</button>
+							</div>
+						</form>
+					</c:if>
+				</div>
 			</div>
 		</div>
-		<!-- bootstrap form  -->
+	</div> <!-- close container  -->
+		
 
 		<script
 			src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"

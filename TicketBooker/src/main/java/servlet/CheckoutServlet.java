@@ -157,6 +157,7 @@ public class CheckoutServlet extends HttpServlet {
 
 			int nbought = 0;
 			int nmissed = 0;
+			int subtotal = 0;
 			int totalpurch = 0;
 
 			for (TicketBean tk : userCart.getCartAL()) {
@@ -164,16 +165,21 @@ public class CheckoutServlet extends HttpServlet {
 				tk.setPurchase_id(purch.getId());
 				if (tk.insertIntoDatabase(conn)) {
 					nbought++;
-					totalpurch += tk.getPrice();
+					subtotal += tk.getPrice();
 				} else {
 					nmissed++;
 				}
 			}
 
-			System.out.println(Prog + "Tickets inserted:" + nbought + " missed:" + nmissed + " totpurch:" + totalpurch);
+			int tax = (int)Math.round( 0.06 * (double)subtotal );
+			totalpurch =  tax + subtotal ;
+			
+			System.out.println(Prog + "Tickets inserted:" + nbought + " missed:" + nmissed + " subtotal:" + subtotal + " totpurch:" + totalpurch);
 
 			// udpate the purchase
 			
+			purch.setSalestax(tax);
+			purch.setSubtotal(subtotal);
 			purch.setTotal(totalpurch);
 			purch.setApproval("YES:" + nbought + " Tickets");
 
@@ -195,13 +201,16 @@ public class CheckoutServlet extends HttpServlet {
 				}
 			}
 			
+			// can't scan a list and remove more than one element
+			// it changes the indices after the removal
+			ArrayList<TicketBean> keep = new ArrayList<TicketBean>();
 			ArrayList<TicketBean> tklist = userCart.getCartAL();
 			for( int i=0; i<tklist.size(); i++  ) {
-				if( tklist.get(i).isPurchased() ) {
-					tklist.remove(i);
+				if( !tklist.get(i).isPurchased() ) {
+					keep.add(tklist.get(i) );
 				}
 			}
-			userCart.setCart(tklist);
+			userCart.setCart(keep);
 			
 			
 			// setup what we need for the checkout page

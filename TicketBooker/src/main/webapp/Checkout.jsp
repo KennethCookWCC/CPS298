@@ -66,6 +66,8 @@ String hw = "hello world";
 			<h2>Purchase Detail</h2>
 			Date:<fmt:formatDate value="${purchase.date}" pattern="E MM/dd" /></td>
 			Time:<fmt:formatDate value="${purchase.time}" pattern="hh:mm a" /></td>
+			Subtotal:${purchase.getStringSubtotal() }
+			Tax:${purchase.getStringSalesTax() }
 			Total:${purchase.getStringTotal() }
 			Approval:${purchase.approval }
 			<br>			

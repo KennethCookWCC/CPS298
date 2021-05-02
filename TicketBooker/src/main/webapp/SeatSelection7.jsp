@@ -29,7 +29,7 @@
 <link rel="stylesheet" href="/TicketBooker/css/style.css">
 
 <!-- I think we need this before body for the onload reference -->
-<script type="text/javascript" src="/TicketBooker/js/seatScriptOnload.js"></script>
+<script type="text/javascript" src="/TicketBooker/js/seatScriptOnload2.js"></script>
 
 </head>
 <body id="body" onload="onLoadBuildSeats()">
@@ -73,6 +73,8 @@
 				<ul id="cartList">
 					<li>&nbsp;</li>
 				</ul>
+				<input id="matinee" type="hidden" name="matinee" value="${matinee }"> <!-- KC add matinee flag -->
+					
 				<form action="ShowCartServlet" id="cartForm" method="post">
 					<input type="hidden" name="testAttr" value="setting testAttr">
 					<!-- 						<input type="submit" value="submitBtn"> -->

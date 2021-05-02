@@ -15,6 +15,8 @@ public class PurchaseBean implements Serializable {
 	private Date date;
 	private Time time;
 	private int total;
+	private int subtotal;	// KC added subtotal
+	private int salestax;	// KC added salestax
 	private String approval;
 	
 	/**
@@ -116,10 +118,51 @@ public class PurchaseBean implements Serializable {
 	public void setCustomerId(int customerId) {
 		this.customerId = customerId;
 	}
+	
+	public int getSubtotal() {
+		return subtotal;
+	}
+
+	public void setSubtotal(int subtotal) {
+		this.subtotal = subtotal;
+	}
+
+	public int getSalestax() {
+		return salestax;
+	}
+
+	public void setSalestax(int salestax) {
+		this.salestax = salestax;
+	}
+
 	public String getStringTotal() {
 		String retv = "";
 		int cents = total % 100;
 		int dollars = total / 100;
+		retv += dollars + ".";
+		if( cents < 10 ) {
+			retv += "0";
+		}
+		retv += cents;
+		return retv ;
+				
+	}
+	public String getStringSalesTax() {
+		String retv = "";
+		int cents = salestax % 100;
+		int dollars = salestax / 100;
+		retv += dollars + ".";
+		if( cents < 10 ) {
+			retv += "0";
+		}
+		retv += cents;
+		return retv ;
+				
+	}
+	public String getStringSubtotal() {
+		String retv = "";
+		int cents = subtotal % 100;
+		int dollars = subtotal / 100;
 		retv += dollars + ".";
 		if( cents < 10 ) {
 			retv += "0";

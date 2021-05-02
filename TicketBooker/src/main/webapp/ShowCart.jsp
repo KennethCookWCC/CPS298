@@ -118,7 +118,7 @@
 									<thead>
 										<tr>
 											<th scope="row" class="text-start">SUBTOTAL</th>
-											<td>$45.00</td>
+											<td>$${cartSubtotalStr }</td>
 										</tr>
 
 									</thead>
@@ -129,11 +129,14 @@
 								<br>
 
 								<c:choose>
-									<c:when test="${cart.validated}" >
+									<c:when test="${!user.loginOK }">
+									<a href="/TicketBooker/LoginCustomerJSP"><button type="button" class="w-100 btn btn-lg btn-primary">Login to Checkout</button></a>
+									</c:when>
+									<c:when test="${user.loginOK && (cart.count > 0) }" >
 									<a href="/TicketBooker/CheckoutServlet"><button type="button" class="w-100 btn btn-lg btn-primary">Checkout</button></a>
 									</c:when>
 									<c:otherwise>
-									<a href="/TicketBooker/LoginCustomerJSP"><button type="button" class="w-100 btn btn-lg btn-primary">Login to Checkout</button></a>
+									<!-- a href="/TicketBooker/LoginCustomerJSP"><button type="button" class="w-100 btn btn-lg btn-primary">Login to Checkout</button></a -->
 									</c:otherwise>
 								</c:choose>
 								<a href="/TicketBooker/MovieServlet"><button type="button" class="w-100 btn btn-lg btn-secondary">Continue Shopping</button></a>

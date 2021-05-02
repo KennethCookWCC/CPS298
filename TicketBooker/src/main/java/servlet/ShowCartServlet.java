@@ -46,6 +46,20 @@ public class ShowCartServlet extends HttpServlet {
 		super();
 		// TODO Auto-generated constructor stub
 	}
+	
+	// this should be in an application class
+	private String getStringPrice(int price ) {
+		String retv = "";
+		int cents = price % 100;
+		int dollars = price / 100;
+		retv += dollars + ".";
+		if( cents < 10 ) {
+			retv += "0";
+		}
+		retv += cents;
+		return retv ;
+				
+	}
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
@@ -98,6 +112,18 @@ public class ShowCartServlet extends HttpServlet {
 		// these are from the seat selection page
 		String[] seatIds = request.getParameterValues("id");
 		String showingId = request.getParameter("showingId");
+		String matineeFlg = request.getParameter("matinee"); // need this early
+		// grab matinee flag
+		int showprice = 1000;
+		if( matineeFlg != null ) {
+			// assume regular price
+			if( matineeFlg.equals("y") ) {
+				showprice = 500;
+				System.out.println(Prog+"matinee price");
+			}
+		}
+		int subtotal = 0;
+
 
 		// these are from the checkout page
 
@@ -114,6 +140,13 @@ public class ShowCartServlet extends HttpServlet {
 			System.out.println(Prog+"checkout remove:show:" + showid + " seat:"+seatid);
 			userCart.removeTicket(showid, seatid);
 			
+			// recalc subtotal
+			for( TicketBean tk: userCart.getCartAL()) {
+				subtotal += tk.getPrice();
+			}
+			String subtotstr = getStringPrice( subtotal );
+			session.setAttribute("cartSubtotalStr", subtotstr);
+			
 			// update UI
 			session.setAttribute("cart", userCart);
 			
@@ -125,7 +158,7 @@ public class ShowCartServlet extends HttpServlet {
 
 		if (showingId != null) {
 			// update cart from seat selection page
-
+			
 			// build temp cart of posted seats
 			CartBean postCart = new CartBean();
 
@@ -153,6 +186,7 @@ public class ShowCartServlet extends HttpServlet {
 					TicketBean ticket = new TicketBean();
 					ticket.setSeatId(seatid);
 					ticket.setShowing_id(postshowid);
+					ticket.setPrice(showprice);
 					if (!postCart.containsTicket(postshowid, seatid)) {
 						postCart.addTicket(ticket);
 					}
@@ -191,6 +225,8 @@ public class ShowCartServlet extends HttpServlet {
 			// need seatID -> seatstring (RowCol)
 			ShowingBean showBean = new ShowingBean();
 			SeatBean seatBean = new SeatBean();
+			
+			
 
 			for (int idx = 0; idx < userCart.count(); idx++) {
 				TicketBean tb = userCart.getCartAL().get(idx);
@@ -222,7 +258,10 @@ public class ShowCartServlet extends HttpServlet {
 					// matinee
 					price = 500;
 				}
+				subtotal += price;
 
+				
+				
 				// fill in cart ticket
 				if (userBean.isLoginOK()) {
 					tb.setCustomerId(userBean.getId());
@@ -237,6 +276,9 @@ public class ShowCartServlet extends HttpServlet {
 				tb.setPrice(price);
 			}
 
+			String subtotstr = getStringPrice( subtotal );
+			session.setAttribute("cartSubtotalStr", subtotstr);
+			
 			// cart is validated
 			if (userBean.isLoginOK() && userCart.count() > 0) {
 				userCart.setValidated(true);

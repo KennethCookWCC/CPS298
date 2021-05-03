@@ -57,7 +57,7 @@ String hw = "hello world";
 	<div id="form_container row">
 
 		<div class="formCol col-8 mx-auto">
-			<h1 class="text-center myHeader">My Tickets</h1>
+			<h1 class="text-center myHeader display-4">My Tickets</h1>
 			<% 
 			/*
 			 * Show iterate through list of customers tickets with a link or submit action for a specific ticket to show the QR code

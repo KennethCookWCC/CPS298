@@ -103,7 +103,7 @@ String hw = "hello world";
 <!-- Bootstrap form -->
 <div id="form_container row">
 	<div class="formCol col-8 mx-auto">
-		<h1 class="text-center">Customer Login</h1>
+		<h1 class="display-4 text-center">Customer Login</h1>
 		<form name="custLogin" action="CustLoginServlet"
 				method="post">
 		  <div class="mb-3">

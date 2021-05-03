@@ -76,7 +76,7 @@ String hw = "hello world";
 		</form>
 		</c:if>
 		<c:if test="${user.loginOK}">
-		<div class="row"><h1>Sold Tickets</h1></div>
+		<div class="row mt-5"><h1>Sold Tickets</h1></div>
 		<div id="tableRow" class="row"> 
 			<table class="table">
 				<tr>
@@ -113,7 +113,7 @@ String hw = "hello world";
 				</c:forEach>
 			</table>
 			</div>
-			<div id="showingslist" class="row"><h1>Scheduled Showings</h1></div>
+			<div class="row mt-5"><h1 id="showingslist">Scheduled Showings</h1></div>
 			<div class="row">
 			<div class="col-8 mx-auto">
 			<table class="table">

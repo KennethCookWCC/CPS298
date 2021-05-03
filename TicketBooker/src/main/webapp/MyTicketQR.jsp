@@ -58,7 +58,7 @@ String hw = "hello world";
 	<div class="container">
 
 		<div class="formCol col-8 mx-auto">
-			<h1 class="text-center myHeader">My Ticket</h1>
+			<h1 class="text-center myHeader display-4">My Ticket</h1>
 			<%
 			/*
 			 * Show iterate through list of customers tickets with a link or submit action for a specific ticket to show the QR code
@@ -139,7 +139,9 @@ String hw = "hello world";
 			</div>
 		</div>
 	</div> <!-- close container  -->
-		
+	
+	<!--Footer-->
+	<%@include file="TB_Footer.jsp" %>	
 
 		<script
 			src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"

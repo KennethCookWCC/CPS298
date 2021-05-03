@@ -39,7 +39,7 @@
 	
 
 	<div class="container-fluid text-center movieInfo d-block ">
-		<h2 id="showing" data-showingId="${showing.showingId }">${showing.getMovie().getTitle()}</h2>
+		<h2 class="display-4" id="showing" data-showingId="${showing.showingId }">${showing.getMovie().getTitle()}</h2>
 		<h3><%@ taglib prefix="fmt"
 				uri="http://java.sun.com/jsp/jstl/fmt"%>
 			<fmt:formatDate type="date" value="${showing.date}" />

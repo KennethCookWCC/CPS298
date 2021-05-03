@@ -169,6 +169,9 @@ a{
 #dateSelectDiv, #dateSelectLabel, #dateForm{
 	display: inline! important;
 }
+#clickP{
+	margin-top: 1rem;
+}
 .card-header p{
 	margin-bottom: 0rem;
 }
@@ -181,4 +184,8 @@ a{
 }
 .myHeader p{
 	margin-bottom: 0;
+}
+html, body {
+    max-width: 100%;
+    overflow-x: hidden;
 }

@@ -75,7 +75,7 @@ String hw = "hello world";
 	</div> --%>
 	<div id="form_container row">
 		<div class="formCol col-8 mx-auto">
-			<h1 class="text-center">Admin Login</h1>
+			<h1 class="display-4 text-center">Admin Login</h1>
 			<form name="adminLogin" action="AdminLoginServlet"
 					method="post">
 			  <div class="mb-3">

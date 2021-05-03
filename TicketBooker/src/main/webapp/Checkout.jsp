@@ -55,7 +55,7 @@ String hw = "hello world";
 
 	<!-- Bootstrap form -->
 	<div id="container">
-		<header class="text-center header">
+		<header class="text-center myHeader">
 			<h1>Your tickets were successfully purchased!</h1>
 		</header>
 		<div class="row mx-auto justify-content-center">
@@ -130,7 +130,11 @@ String hw = "hello world";
 			</c:if>
 		</div> --%>
 	</div>
-	<!-- bootstrap form  -->
+	
+	<!--Footer-->
+	<%@include file="TB_Footer.jsp" %>
+
+	
 
 	<script
 		src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"

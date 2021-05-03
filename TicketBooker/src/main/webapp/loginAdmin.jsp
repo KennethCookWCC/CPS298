@@ -33,34 +33,6 @@ String hw = "hello world";
     src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.0/dist/jquery.validate.min.js"></script>
  -->
 
-
-<script type="text/javascript">
-/* the validation functions don't work. */
-/* is bootstrap messing this up? */
-/*	function validatecustlogin() {
-	
-		var cklog = document.forms["custLogin"]["login"].value;
-		var ckpwd = document.forms["custLogin"]["password"].value;
-		var m = "";
-		if (cklog == "") {
-			m += "Please enter a login name. ";
-		}
-		if (ck[ckpwd == "") {
-			m += "Please enter a password.";
-		}
-		
-		if( m == "" ) {
-			return true;
-		} else {
-			alert(m);
-			return false;
-		} 
-		
-	} */
-	</script>
-
-
-
 <title>Administrator Login</title>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -134,35 +106,5 @@ String hw = "hello world";
 		crossorigin="anonymous" type="text/javascript"></script>
 	
 </body>
-
-
-
-<script type="text/javascript">
-/* this does not work. Bootstrap to blame? */
-/*
-    $(document).ready(function() {
-        $("#custLogin").validate({
-            rules: {
-                login: {
-                    required: true,
-                    login: true
-                },
-         
-                password: "required",
-            },
-             
-            messages: {
-                login: {
-                    required: "Please enter login name",
-                    login: "Please enter a valid login name address"
-                },
-                 
-                password: "Please enter password"
-            }
-        });
- 
-    });
-  */  
-</script>
 
 </html>

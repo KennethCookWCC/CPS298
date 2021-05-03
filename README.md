@@ -14,4 +14,8 @@ We have a shared google drive folder for meeting documents and discussion points
 
 We have an A-Team discord server for quick communications.
 
+The Software Requirements are in: CPS298_TicketBooker_ATeam_SRS.pdf
 
+The SQL layout for the application is in SQLdump/cps298dump-20210502.2000.sql
+
+All the application code is in the TicketBooker folder.
